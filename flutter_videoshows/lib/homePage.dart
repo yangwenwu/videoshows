@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_videoshows/pages/FirstTab.dart';
-import 'package:flutter_videoshows/pages/SecondTab.dart';
-import 'package:flutter_videoshows/pages/ThirdTab.dart';
+import 'package:flutter_videoshows/pages/first.dart';
+import 'package:flutter_videoshows/pages/tob.dart';
+import 'package:flutter_videoshows/pages/category.dart';
+import 'package:flutter_videoshows/pages/me.dart';
 import 'package:flutter/cupertino.dart';
 
 class HomePage extends StatefulWidget {
@@ -25,7 +26,7 @@ class _HomePage extends State<HomePage> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     // 页面body部分组件
     var _body = new IndexedStack(
-      children: <Widget>[new FirstTab(), new SecondTab(), new ThirdTab()],
+      children: <Widget>[new TobTab(), new SecondTab(), new ThirdTab()],
       index: _selectedIndex,
     );
 
