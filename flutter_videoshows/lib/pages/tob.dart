@@ -49,37 +49,36 @@ class _TobTabState extends State<TobTab> {
                       "https://www.chinadailyhk.com/${resList[index].bigTitleImage}",
                       fit: BoxFit.cover,
                     )),
-                new  Padding(padding: const EdgeInsets.only(left: 20),
-                    child: Material(
+                new  Row(
+                  children: <Widget>[
+                    Padding(padding: const EdgeInsets.only(left: 20),
+                      child: Material(
                         color: Colors.black,
                         borderRadius: BorderRadius.circular(5.0),
 //                shadowColor: Colors.blue.shade200,
                         elevation: 5.0,
                         child: new Container(
-                          padding: const EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.all(8.0),
 //                          margin: const EdgeInsets.only(left: 20),
-                          child: new Text(
-                            "chinadaily",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 10,
+                            child: new Row(
+                              children: <Widget>[
+                                new Text(
+                                  "chinadaily",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 10,
 //                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
+                                  ),
+                                ),
+
+                              ],
+                            )
                         ),
+                      ),)
+                  ],
+                ),
+                new Image.asset("image/video_item_play.png",width: 50,height: 50,),
 
-
-//                new MaterialButton( onPressed: (){},
-//                minWidth: 160.0,
-//                color: Colors.blue,
-//                child:Text('Buy Now',style: TextStyle(
-//                      color: Colors.white,
-//                      fontSize: 20,
-//                      fontWeight: FontWeight.bold,
-//                    ),),
-//                ),
-
-                ),)
 //                Container(
 //                  color: Colors.black,
 //                  margin: EdgeInsets.only(left: 10,),

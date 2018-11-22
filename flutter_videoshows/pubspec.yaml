@@ -49,6 +49,7 @@ flutter:
      - image/category_selected.png
      - image/me.png
      - image/me_selected.png
+     - image/video_item_play.png
 
 
   # To add assets to your application, add an assets section, like this:
