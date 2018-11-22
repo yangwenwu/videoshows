@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_videoshows/pages/FirstTab.dart';
+import 'package:flutter_videoshows/pages/SecondTab.dart';
+import 'package:flutter_videoshows/pages/ThirdTab.dart';
+import 'package:flutter/cupertino.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -8,7 +12,7 @@ class HomePage extends StatefulWidget {
   }
 }
 
-class _HomePage extends State<HomePage> {
+class _HomePage extends State<HomePage> with SingleTickerProviderStateMixin {
   int _selectedIndex = 0;
 
   @override
@@ -19,47 +23,70 @@ class _HomePage extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    return new MaterialApp(
-      theme: new ThemeData(
-        brightness: Brightness.dark,
-        primaryColor: Colors.black,
-        accentColor: Colors.black,
-      ),
-      home: new Scaffold(
-      backgroundColor: Colors.black,
-      body: new Text("dddd"),
-      bottomNavigationBar: new BottomNavigationBar(
-        items: [
-          BottomNavigationBarItem(
-              icon: Image.asset("image/top.png",height: 30,width: 30,),
-              activeIcon: new Image.asset("image/top_selected.png",height: 30,width: 30,),
-              title: Text('Top'),
-            backgroundColor: Colors.grey
-          ),
-          BottomNavigationBarItem(
-              icon: Image.asset("image/category.png",height: 30,width: 30,),
-              activeIcon: new Image.asset("image/category_selected.png",height: 30,width: 30,),
-              title: Text('Category'),
-              backgroundColor: Colors.red),
-          BottomNavigationBarItem(
-              icon: Image.asset("image/me.png",height: 30,width: 30,),
-              activeIcon: new Image.asset("image/me_selected.png",height: 30,width: 30,),
-              title: Text('Me'),
-              backgroundColor: Colors.green),
-        ],
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-        type: BottomNavigationBarType.fixed,
-        fixedColor: Colors.blue,
-      ),
-      ),
+    // 页面body部分组件
+    var _body = new IndexedStack(
+      children: <Widget>[new FirstTab(), new SecondTab(), new ThirdTab()],
+      index: _selectedIndex,
     );
+
+    return new Scaffold(
+//        backgroundColor: Colors.black,
+        body: _body,
+        bottomNavigationBar: new CupertinoTabBar(
+          backgroundColor: Colors.black,
+          items: [
+            BottomNavigationBarItem(
+              icon: Image.asset(
+                "image/top.png",
+                height: 25,
+                width: 25,
+              ),
+              activeIcon: new Image.asset(
+                "image/top_selected.png",
+                height: 25,
+                width: 25,
+              ),
+            ),
+            BottomNavigationBarItem(
+              icon: Image.asset(
+                "image/category.png",
+                height: 25,
+                width: 25,
+              ),
+              activeIcon: new Image.asset(
+                "image/category_selected.png",
+                height: 25,
+                width: 25,
+              ),
+            ),
+            BottomNavigationBarItem(
+              icon: Image.asset(
+                "image/me.png",
+                height: 25,
+                width: 25,
+              ),
+              activeIcon: new Image.asset(
+                "image/me_selected.png",
+                height: 25,
+                width: 25,
+              ),
+            ),
+          ],
+          currentIndex: _selectedIndex,
+          onTap: _onItemTapped,
+
+        ));
   }
 
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
+  }
+
+  @override
+  void dispose() {
+    //释放内存，节省开销
+    super.dispose();
   }
 }
