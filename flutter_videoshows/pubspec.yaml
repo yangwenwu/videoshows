@@ -21,7 +21,8 @@ dependencies:
   cupertino_icons: ^0.1.2
   english_words: ^3.1.0
   shared_preferences: ^0.4.3
-  dio: ^1.0.6
+  http: '>=0.11.3+12'
+  dio: ^2.1.0
 
 
 dev_dependencies:
@@ -50,6 +51,14 @@ flutter:
      - image/me.png
      - image/me_selected.png
      - image/video_item_play.png
+     - image/bookmarks.png
+     - image/feedback.png
+     - image/profile.png
+     - image/share.png
+     - image/me_background.png
+     - image/avatar.png
+     - image/settings.png
+     - image/search.png
 
 
   # To add assets to your application, add an assets section, like this:

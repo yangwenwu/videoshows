@@ -1,81 +1,24 @@
 import 'dart:convert';
+import 'dart:core';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_videoshows/import.dart';
-
-class Category extends StatefulWidget {
+class GrideViewPullUpDown extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _CategoryState();
+    return _GridViewList();
   }
 }
 
-class _CategoryState extends State<Category> {
+class _GridViewList extends State<GrideViewPullUpDown> {
   String dataStr = "";
   var _items = [];
   ScrollController _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-//        title: new Text("Category"),
-//        centerTitle: true,
-
-//        title: new Row(
-//          mainAxisAlignment: MainAxisAlignment.center,
-//          children: <Widget>[
-//            new Expanded(child: new Text(
-//              "SHOWS",
-//            )),
-//            new Image.asset(
-//              "image/search.png",
-//              width: 20,
-//              height: 20,
-//            ),
-//          ],
-//        ),
-
-//        title: new Row(
-//          mainAxisAlignment: MainAxisAlignment.center,
-//          children: <Widget>[
-//            new Text(
-//              "SHOWS",
-//            ),
-//            new Align(
-//              alignment: Alignment(-1.0, 0),
-//              child: Image.asset(
-//                "image/search.png",
-//                width: 20,
-//                height: 20,
-//              ),
-//            )
-//          ],
-//        ),
-
-      title: new Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          new Expanded(child: Padding(padding: EdgeInsets.only(right: 5), child: centerView)),
-          rightView
-        ],
-      ),
-
-        backgroundColor: Colors.black,
-      ),
-      body:
-          new RefreshIndicator(child: contentWidget(), onRefresh: _pullRefresh),
-    );
+    return new RefreshIndicator(child: contentWidget(), onRefresh: _pullRefrsh);
   }
-
-  var centerView = new Column(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: <Widget>[
-      new Text("SHOWS")
-    ],
-  );
-
-  var rightView = new Image.asset("image/search.png",width: 20,height: 20,);
 
 //创建 内容页的GridView
   Widget contentWidget() {
@@ -88,14 +31,14 @@ class _CategoryState extends State<Category> {
     );
   }
 
-  Future _pullRefresh() async {
+  Future _pullRefrsh() async {
     requestData(true);
-  }
+}
 
   Future requestData(bool isRefresh) async {
     HttpController.get(
         Constant.http_category,
-        (data) {
+            (data) {
           if (data != null) {
             final body = jsonDecode(data.toString());
             final feeds = body["resObject"];
@@ -114,7 +57,7 @@ class _CategoryState extends State<Category> {
             if (isRefresh) {
               _items.clear();
               _items = items;
-            } else {
+            }else{
               _items.addAll(items);
             }
 
@@ -162,28 +105,30 @@ class _CategoryState extends State<Category> {
   }
 
   void getData() {
-    HttpController.get(Constant.http_category, (data) {
-      if (data != null) {
+    HttpController.get(
+        "http://210.5.58.206/hknews-api/selectSubjectList?parentCode=video",
+            (data) {
+          if (data != null) {
 //        final body = JSON.decode(data.toString());
-        final body = jsonDecode(data.toString());
-        final feeds = body["resObject"];
-        var items = [];
-        feeds.forEach((item) {
-          items.add(Model(
-              item["id"],
-              item["name"],
-              item["imageUrl"],
-              item["des"],
-              item["parentCode"],
-              item["focusUrl"],
-              item["jsonUrl"]));
-        });
-        setState(() {
-          dataStr = data.toString();
-          _items = items;
-        });
-      }
-    }, params: null);
+            final body = jsonDecode(data.toString());
+            final feeds = body["resObject"];
+            var items = [];
+            feeds.forEach((item) {
+              items.add(Model(
+                  item["id"],
+                  item["name"],
+                  item["imageUrl"],
+                  item["des"],
+                  item["parentCode"],
+                  item["focusUrl"],
+                  item["jsonUrl"]));
+            });
+            setState(() {
+              dataStr = data.toString();
+              _items = items;
+            });
+          }
+        }, params: null);
   }
 
   void showCustomDialog(BuildContext context) {
@@ -234,12 +179,14 @@ class _CategoryState extends State<Category> {
   }
 
   void _handleScroll() {
+
     if (_scrollController.position.pixels ==
-        _scrollController.position.maxScrollExtent) {
+        _scrollController.position.maxScrollExtent ) {
       // 滑动到最底部了
-//      requestData(false);
+      requestData(false);
     }
   }
+
 }
 
 class Model {

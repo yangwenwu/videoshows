@@ -44,14 +44,24 @@ class _TobTabState extends State<TobTab> {
               alignment: AlignmentDirectional.bottomStart,
               children: <Widget>[
                 new Padding(
-                    padding: const EdgeInsets.only(bottom: 13.0),
-                    child: new Image.network(
+                    padding: const EdgeInsets.only(bottom: 20.0),
+                    child:
+                    new Image.network(
                       "https://www.chinadailyhk.com/${resList[index].bigTitleImage}",
                       fit: BoxFit.cover,
-                    )),
-                new  Row(
+                    )
+
+//          new CachedNetworkImage(
+//          placeholder: CircularProgressIndicator(),
+//      imageUrl: 'https://github.com/flutter/website/blob/master/_includes/code/layout/lakes/images/lake.jpg?raw=true',
+//      ),
+
+                )
+                ,
+                new Row(
                   children: <Widget>[
-                    Padding(padding: const EdgeInsets.only(left: 20),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20),
                       child: Material(
                         color: Colors.black,
                         borderRadius: BorderRadius.circular(5.0),
@@ -70,14 +80,20 @@ class _TobTabState extends State<TobTab> {
 //                              fontWeight: FontWeight.bold,
                                   ),
                                 ),
-
                               ],
-                            )
-                        ),
-                      ),)
+                            )),
+                      ),
+                    )
                   ],
                 ),
-                new Image.asset("image/video_item_play.png",width: 50,height: 50,),
+                new Positioned(
+                  right: 30,
+                  child: Padding(padding: const EdgeInsets.only(top: 30),child: new Image.asset(
+                    "image/video_item_play.png",
+                    width: 50,
+                    height: 50,
+                  ),)
+                ),
 
 //                Container(
 //                  color: Colors.black,
@@ -92,7 +108,6 @@ class _TobTabState extends State<TobTab> {
 //                    ),
 //                  ),
 //                ),
-
               ],
             ),
             const ListTile(
@@ -147,23 +162,21 @@ class _TobTabState extends State<TobTab> {
   }
 
   Future getData() async {
-    Dio dio = new Dio();
-    Response response = await dio
-        .get("https://api.cdeclips.com/hknews-api/selectVideoHome",
-            cancelToken: CancelToken())
-        .catchError((DioError onError) {
-      if (!CancelToken.isCancel(onError)) {
-        print(onError.message);
+    try {
+      Response response = await Dio().get("https://api.cdeclips.com/hknews-api/selectVideoHome");
+      print(response);
+      print(response.data);
+      if (response.data != null) {
+        Map map = response.data;
+        HomeNewsBean bean = new HomeNewsBean.fromJson(map);
+        resList.clear();
+        resList = bean.resObject;
+        setState(() {});
       }
-    });
-    print(response.data);
-    if (response.data != null) {
-      Map map = response.data;
-      HomeNewsBean bean = new HomeNewsBean.fromJson(map);
-      resList.clear();
-      resList = bean.resObject;
-      setState(() {});
+    } catch (e) {
+      print(e);
     }
+
   }
 
   @override
