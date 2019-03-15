@@ -38,5 +38,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".OneActivity"></activity>
+        <activity android:name=".FlutterActivity"></activity>
     </application>
 </manifest>
