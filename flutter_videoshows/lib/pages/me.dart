@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class ThirdTab extends StatefulWidget {
   @override
@@ -6,6 +7,15 @@ class ThirdTab extends StatefulWidget {
 }
 
 class _ThirdTabState extends State<ThirdTab> {
+  //获取到插件与原生的交互通道
+  static const jumpPlugin = const MethodChannel('com.lemon.jump/plugin');
+
+  Future<Null> _jumpToNative() async {
+    String result = await jumpPlugin.invokeMethod('oneAct');
+
+    print(result);
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -107,7 +117,7 @@ class _ThirdTabState extends State<ThirdTab> {
         new SizedBox(height: 10,),
         new GestureDetector(
           onTap: (){
-            goSettings();
+            _jumpToNative();
           },
           child: itemWidget("image/settings.png", "Setting"),
         )
