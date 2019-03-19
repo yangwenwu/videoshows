@@ -1,22 +1,16 @@
-
-//https://api.cdeclips.com/hknews-api/selectVideoHome
-
-class HomeNewsBean {
+class PubliclistviewBean {
   String resCode;
   String resMsg;
-  List<ResObject> resObject;
+  ResObject resObject;
 
-  HomeNewsBean({this.resCode, this.resMsg, this.resObject});
+  PubliclistviewBean({this.resCode, this.resMsg, this.resObject});
 
-  HomeNewsBean.fromJson(Map<String, dynamic> json) {
+  PubliclistviewBean.fromJson(Map<String, dynamic> json) {
     resCode = json['resCode'];
     resMsg = json['resMsg'];
-    if (json['resObject'] != null) {
-      resObject = new List<ResObject>();
-      json['resObject'].forEach((v) {
-        resObject.add(new ResObject.fromJson(v));
-      });
-    }
+    resObject = json['resObject'] != null
+        ? new ResObject.fromJson(json['resObject'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -24,13 +18,66 @@ class HomeNewsBean {
     data['resCode'] = this.resCode;
     data['resMsg'] = this.resMsg;
     if (this.resObject != null) {
-      data['resObject'] = this.resObject.map((v) => v.toJson()).toList();
+      data['resObject'] = this.resObject.toJson();
     }
     return data;
   }
 }
 
 class ResObject {
+  List<DateList> dateList;
+  int pageSize;
+  int totalPage;
+  int pagecode;
+  int currentPage;
+  int totalCount;
+  int offset;
+  int firstIndex;
+
+  ResObject(
+      {this.dateList,
+        this.pageSize,
+        this.totalPage,
+        this.pagecode,
+        this.currentPage,
+        this.totalCount,
+        this.offset,
+        this.firstIndex});
+
+  ResObject.fromJson(Map<String, dynamic> json) {
+    if (json['dateList'] != null) {
+      dateList = new List<DateList>();
+      json['dateList'].forEach((v) {
+        dateList.add(new DateList.fromJson(v));
+      });
+    }
+    pageSize = json['pageSize'];
+    totalPage = json['totalPage'];
+    pagecode = json['pagecode'];
+    currentPage = json['currentPage'];
+    totalCount = json['totalCount'];
+    offset = json['offset'];
+    firstIndex = json['firstIndex'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.dateList != null) {
+      data['dateList'] = this.dateList.map((v) => v.toJson()).toList();
+    }
+    data['pageSize'] = this.pageSize;
+    data['totalPage'] = this.totalPage;
+    data['pagecode'] = this.pagecode;
+    data['currentPage'] = this.currentPage;
+    data['totalCount'] = this.totalCount;
+    data['offset'] = this.offset;
+    data['firstIndex'] = this.firstIndex;
+    return data;
+  }
+}
+
+class DateList {
+  Null dateList;
   int pageSize;
   int totalPage;
   int pagecode;
@@ -53,12 +100,12 @@ class ResObject {
   String subjectCode;
   int state;
   String fullPublishTime;
-  String image;
-  String filterStr;
+  Null image;
+  Null filterStr;
   int firstIndex;
 
-  ResObject(
-      {
+  DateList(
+      {this.dateList,
         this.pageSize,
         this.totalPage,
         this.pagecode,
@@ -85,7 +132,8 @@ class ResObject {
         this.filterStr,
         this.firstIndex});
 
-  ResObject.fromJson(Map<String, dynamic> json) {
+  DateList.fromJson(Map<String, dynamic> json) {
+    dateList = json['dateList'];
     pageSize = json['pageSize'];
     totalPage = json['totalPage'];
     pagecode = json['pagecode'];
@@ -115,6 +163,7 @@ class ResObject {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['dateList'] = this.dateList;
     data['pageSize'] = this.pageSize;
     data['totalPage'] = this.totalPage;
     data['pagecode'] = this.pagecode;

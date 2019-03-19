@@ -59,6 +59,7 @@ flutter:
      - image/avatar.png
      - image/settings.png
      - image/search.png
+     - image/back_arrow3.png
 
 
   # To add assets to your application, add an assets section, like this:

@@ -2,7 +2,7 @@
 class CategoryBean {
   String resCode;
   String resMsg;
-  List<ResObject> resObject;
+  List<CateResObject> resObject;
 
   CategoryBean({this.resCode, this.resMsg, this.resObject});
 
@@ -10,9 +10,9 @@ class CategoryBean {
     resCode = json['resCode'];
     resMsg = json['resMsg'];
     if (json['resObject'] != null) {
-      resObject = new List<ResObject>();
+      resObject = new List<CateResObject>();
       json['resObject'].forEach((v) {
-        resObject.add(new ResObject.fromJson(v));
+        resObject.add(new CateResObject.fromJson(v));
       });
     }
   }
@@ -28,7 +28,7 @@ class CategoryBean {
   }
 }
 
-class ResObject {
+class CateResObject {
   String id;
   String code;
   String name;
@@ -37,7 +37,7 @@ class ResObject {
   String parentCode;
   String imageUrl;
 
-  ResObject(
+  CateResObject(
       {this.id,
         this.code,
         this.name,
@@ -46,7 +46,7 @@ class ResObject {
         this.parentCode,
         this.imageUrl});
 
-  ResObject.fromJson(Map<String, dynamic> json) {
+  CateResObject.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     code = json['code'];
     name = json['name'];

@@ -103,6 +103,7 @@ class _CategoryState extends State<Category> {
             feeds.forEach((item) {
               items.add(Model(
                   item["id"],
+                  item["code"],
                   item["name"],
                   item["imageUrl"],
                   item["des"],
@@ -142,7 +143,17 @@ class _CategoryState extends State<Category> {
     //BoxFit 可设置展示图片时 的填充方式
     return new GestureDetector(
       onTap: () {
-        showCustomDialog(context);
+//        showCustomDialog(context);
+
+        Navigator.of(context).push(new MaterialPageRoute(builder: (_) {
+          return new PublicList(modelbean: model,);
+        })).then((value){
+
+        });
+
+
+
+
       },
       child: Stack(
         alignment: Alignment.center,
@@ -171,6 +182,7 @@ class _CategoryState extends State<Category> {
         feeds.forEach((item) {
           items.add(Model(
               item["id"],
+              item["code"],
               item["name"],
               item["imageUrl"],
               item["des"],
@@ -242,15 +254,25 @@ class _CategoryState extends State<Category> {
   }
 }
 
+
+//id	"0838b4ec-d16c-4449-9e72-45f1cb0992da"
+//code	"seeing_sight"
+//name	"Seeing Sights"
+//focusUrl	""
+//jsonUrl	"/subjects/seeing_sight/list_Vindex/2890/index.json"
+//parentCode	"video"
+//imageUrl	"https://api.cdeclips.com/ui/videoshow/seeing_sight.jpg"
+
 class Model {
   String id;
+  String code;
   String name;
-  String imageUrl;
-  String parentCode;
   String focusUrl;
   String jsonUrl;
+  String imageUrl;
+  String parentCode;
   String des;
 
-  Model(this.id, this.name, this.imageUrl, this.parentCode, this.focusUrl,
+  Model(this.id,this.code, this.name, this.imageUrl, this.parentCode, this.focusUrl,
       this.jsonUrl, this.des);
 }
