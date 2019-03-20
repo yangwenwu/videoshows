@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_videoshows/model/homenewsbean.dart';
 
 class TobTab extends StatefulWidget {
@@ -8,6 +11,23 @@ class TobTab extends StatefulWidget {
 }
 
 class _TobTabState extends State<TobTab> {
+  static const jumpVideoPlugin = const MethodChannel('com.lemon.jump.video/plugin');
+
+  Future<Null> _jumpToNativeVideo(ResObject dateList) async {
+    Map<String, String> map = {  };
+    map.putIfAbsent("title", ()=>dateList.title);
+    map.putIfAbsent("bigTitleImage", ()=>dateList.bigTitleImage);
+    map.putIfAbsent("subjectCode", ()=>dateList.subjectCode);
+    map.putIfAbsent("titleImage", ()=>dateList.titleImage);
+    map.putIfAbsent("dataId", ()=>dateList.dataId);
+    map.putIfAbsent("jsonUrl", ()=>dateList.jsonUrl);
+    map.putIfAbsent("description", ()=>dateList.description);
+    String result = await jumpVideoPlugin.invokeMethod('VideoDetail',map);
+//    String result = await jumpVideoPlugin.invokeMethod('VideoDetail',dateList);
+
+    print(result);
+  }
+
   List<ResObject> resList = [];
   ScrollController _scrollController = new ScrollController();
 
@@ -31,7 +51,11 @@ class _TobTabState extends State<TobTab> {
   @override
   Widget build(BuildContext context) {
     _itemBuilder(BuildContext context, int index) {
-      return Card(
+      return new GestureDetector(
+        onTap: (){
+          _jumpToNativeVideo(resList[index]);
+        },
+        child: Card(
         margin: const EdgeInsets.only(
             left: 15.0, top: 10.0, right: 15.0, bottom: 10.0),
         shape: const RoundedRectangleBorder(
@@ -136,6 +160,7 @@ class _TobTabState extends State<TobTab> {
             ),
           ],
         ),
+      )
       );
     }
 

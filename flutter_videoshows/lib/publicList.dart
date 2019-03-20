@@ -21,7 +21,7 @@ class _publicListState extends State<PublicList> {
   static const jumpVideoPlugin = const MethodChannel('com.lemon.jump.video/plugin');
 
   Future<Null> _jumpToNativeVideo(DateList dateList) async {
-    Map<String, String> map = { "flutter": "这是一条来自flutter的参数" };
+    Map<String, String> map = {  };
     map.putIfAbsent("title", ()=>dateList.title);
     map.putIfAbsent("bigTitleImage", ()=>dateList.bigTitleImage);
     map.putIfAbsent("subjectCode", ()=>dateList.subjectCode);
