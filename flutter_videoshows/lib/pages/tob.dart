@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_videoshows/model/homenewsbean.dart';
+import 'package:flutter_videoshows/import.dart';
 
 class TobTab extends StatefulWidget {
   @override
@@ -167,7 +168,13 @@ class _TobTabState extends State<TobTab> {
     return new Scaffold(
       appBar: new AppBar(
         centerTitle: true,
-        title: new Text('SHOW'),
+        title: new Text("LATEST"),
+        actions: <Widget>[new IconButton(icon: ImageIcon(AssetImage("image/search.png")) , onPressed: () {
+          Navigator.push(
+            context,
+            new MaterialPageRoute(builder: (context) => new Search()),
+          );
+        })],
         elevation: 0.0,
         backgroundColor: Colors.black,
       ),

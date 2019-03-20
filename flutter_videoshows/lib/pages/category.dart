@@ -19,63 +19,34 @@ class _CategoryState extends State<Category> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-//        title: new Text("Category"),
-//        centerTitle: true,
-
-//        title: new Row(
-//          mainAxisAlignment: MainAxisAlignment.center,
-//          children: <Widget>[
-//            new Expanded(child: new Text(
-//              "SHOWS",
-//            )),
-//            new Image.asset(
-//              "image/search.png",
-//              width: 20,
-//              height: 20,
-//            ),
-//          ],
-//        ),
-
-//        title: new Row(
-//          mainAxisAlignment: MainAxisAlignment.center,
-//          children: <Widget>[
-//            new Text(
-//              "SHOWS",
-//            ),
-//            new Align(
-//              alignment: Alignment(-1.0, 0),
-//              child: Image.asset(
-//                "image/search.png",
-//                width: 20,
-//                height: 20,
-//              ),
-//            )
-//          ],
-//        ),
-
-      title: new Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          new Expanded(child: Padding(padding: EdgeInsets.only(right: 5), child: centerView)),
-          rightView
+        centerTitle: true,
+        title: new Text("SHOWS"),
+        actions: <Widget>[
+          new IconButton(
+              icon: ImageIcon(AssetImage("image/search.png")),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  new MaterialPageRoute(builder: (context) => new Search()),
+                );
+              })
         ],
-      ),
-
         backgroundColor: Colors.black,
       ),
-      body:
-          new RefreshIndicator(child: contentWidget(), onRefresh: _pullRefresh),
+      body: new RefreshIndicator(child: contentWidget(), onRefresh: _pullRefresh),
     );
   }
 
   var centerView = new Column(
     mainAxisAlignment: MainAxisAlignment.center,
-    children: <Widget>[
-      new Text("SHOWS")
-    ],
+    children: <Widget>[new Text("SHOWS")],
   );
 
-  var rightView = new Image.asset("image/search.png",width: 20,height: 20,);
+  var rightView = new Image.asset(
+    "image/search.png",
+    width: 20,
+    height: 20,
+  );
 
 //创建 内容页的GridView
   Widget contentWidget() {
@@ -146,10 +117,10 @@ class _CategoryState extends State<Category> {
 //        showCustomDialog(context);
 
         Navigator.of(context).push(new MaterialPageRoute(builder: (_) {
-          return new PublicList(modelbean: model,);
-        })).then((value){
-
-        });
+          return new PublicList(
+            modelbean: model,
+          );
+        })).then((value) {});
       },
       child: Stack(
         alignment: Alignment.center,
@@ -250,7 +221,6 @@ class _CategoryState extends State<Category> {
   }
 }
 
-
 //id	"0838b4ec-d16c-4449-9e72-45f1cb0992da"
 //code	"seeing_sight"
 //name	"Seeing Sights"
@@ -269,6 +239,6 @@ class Model {
   String parentCode;
   String des;
 
-  Model(this.id,this.code, this.name, this.imageUrl, this.parentCode, this.focusUrl,
-      this.jsonUrl, this.des);
+  Model(this.id, this.code, this.name, this.imageUrl, this.parentCode,
+      this.focusUrl, this.jsonUrl, this.des);
 }
