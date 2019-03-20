@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/video_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textSize="29.8sp"
+            android:textColor="#161616"
+            tools:text="Beautiful California Mountains" />
+
+        <TextView
+            android:id="@+id/des"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:lineSpacingMultiplier="1.2"
+            android:layout_marginTop="8dp"
+            android:textSize="17.3sp"
+            android:textColor="#777777"
+            android:lineSpacingExtra="1sp"
+            tools:text="From a career in the sciences to banking that benefits the developing world, Vivek Pathak the Director for East Asia &amp; Pacific of International Financial Corporation shares ." />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="26.4dp"
+            android:orientation="horizontal">
+            
+            <TextView
+                android:id="@+id/subject"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="12dp"
+                android:letterSpacing="0.05"
+                android:textSize="9.6sp"
+                android:textColor="#161616"
+                tools:text="Protected Species"/>
+
+            <TextView
+                android:id="@+id/publish_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="9.6sp"
+                android:textColor="#777777"
+                tools:text="27 JUNE, 2017 "
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

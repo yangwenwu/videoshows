@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/email_account"
+        style="@style/baseEditTextView"
+        android:contentDescription="@string/email"
+        android:hint="E-mail" />
+
+    <TextView style="@style/baseLoginTextView" />
+
+    <EditText
+        android:id="@+id/email_psw"
+        style="@style/baseEditTextView"
+        android:contentDescription="@string/psw"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:maxLength="16" />
+
+    <TextView style="@style/baseLoginTextView" />
+
+    <TextView
+        android:id="@+id/forget_psw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginRight="50dp"
+        android:gravity="center_horizontal"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:text="Foget password?"
+        android:textColor="#646464"
+        android:textSize="11.5sp" />
+
+    <TextView
+        android:id="@+id/login_bt"
+        android:layout_width="192dp"
+        android:layout_height="43dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/text_bt_bg"
+        android:gravity="center"
+        android:text="sign in"
+        android:textColor="#161616"
+        android:textSize="15.4sp" />
+
+
+    <LinearLayout
+        android:id="@+id/login_other_way_tv1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="50dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:background="#e7e7e7"
+            android:textSize="13.4sp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/login_other_way"
+            android:textColor="#999999"
+            android:textSize="13.4sp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:background="#e7e7e7"
+            android:textSize="13.4sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/third_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="50dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center|right">
+
+            <ImageButton
+                android:id="@+id/fb_login_btn"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginRight="10dp"
+                android:background="@mipmap/share_facebook"
+                android:contentDescription="@string/facebook"
+                android:scaleType="fitXY"
+                android:src="@drawable/image_click_bg" />
+
+            <!--android:src="@mipmap/signin_wechat"
+            android:src="@drawable/user_center_login_weixin_selector" -->
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <ImageButton
+                android:id="@+id/tt_login_btn"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@mipmap/share_twitter"
+                android:contentDescription="@string/twitter"
+                android:scaleType="fitXY"
+                android:src="@drawable/image_click_bg" />
+            <!--  android:src="@mipmap/signin_weibo"
+ android:src="@drawable/user_center_login_weixin_selector" -->
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center|left"
+            android:visibility="gone">
+
+            <ImageButton
+                android:id="@+id/gg_login_btn"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:background="@mipmap/share_google"
+                android:contentDescription="@string/google_plus"
+                android:scaleType="fitXY"
+                android:src="@drawable/image_click_bg" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center|left">
+
+            <ImageButton
+                android:id="@+id/wechat"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:background="@mipmap/share_wechat"
+                android:contentDescription="@string/wechat"
+                android:scaleType="fitXY"
+                android:src="@drawable/image_click_bg" />
+            <!--android:src="@mipmap/share_wechat" -->
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

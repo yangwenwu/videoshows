@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 12dp-->
+    <dimen name="padding_medium2">5dp</dimen>
+    <dimen name="padding_medium">20dp</dimen>
+    <dimen name="me_image_width_height">20dp</dimen>
+    <dimen name="progress_width_height">21.2dp</dimen>
+
+</resources>

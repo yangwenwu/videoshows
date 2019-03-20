@@ -4,6 +4,7 @@ import android.os.Build;
 import android.os.Bundle;
 
 import com.lemon.fluttervideoshows.plugin.FlutterPluginJumpToAct;
+import com.lemon.fluttervideoshows.plugin.FlutterPluginJumpToVideoDetail;
 
 import io.flutter.app.FlutterActivity;
 import io.flutter.plugin.common.PluginRegistry;
@@ -23,5 +24,6 @@ public class MainActivity extends FlutterActivity {
 
   private static void registerCustomPlugin(PluginRegistry registrar) {
     FlutterPluginJumpToAct.registerWith(registrar.registrarFor(FlutterPluginJumpToAct.CHANNEL));
+    FlutterPluginJumpToVideoDetail.registerWith(registrar.registrarFor(FlutterPluginJumpToVideoDetail.CHANNEL));
   }
 }

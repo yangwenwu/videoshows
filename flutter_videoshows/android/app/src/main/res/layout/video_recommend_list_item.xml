@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:layout_marginTop="20dp"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="5dp"
+    app:cardCornerRadius="10dp"
+    >
+    <!-- android:elevation="5dp" -->
+
+    <LinearLayout
+        android:id="@+id/parent_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/video_image"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:scaleType="fitXY"
+                android:src="@mipmap/news_big_default" />
+            <TextView
+                android:id="@+id/video_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:paddingLeft="14dp"
+                android:paddingRight="14dp"
+                android:paddingTop="20dp"
+                android:paddingBottom="10dp"
+                android:lineSpacingMultiplier="1"
+                android:textSize="17.3sp"
+                android:textColor="#ffffff"
+                android:lineSpacingExtra="5.8sp"
+                android:background="@drawable/text_shape_bg"
+                tools:text="OAS nations make last-ditch effort to condemn Venezuela" />
+        </FrameLayout>
+
+    </LinearLayout>
+</android.support.v7.widget.CardView>

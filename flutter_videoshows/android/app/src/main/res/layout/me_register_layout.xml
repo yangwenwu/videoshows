@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/register_email_account"
+                style="@style/baseEditTextView"
+                android:contentDescription="@string/email"
+                android:hint="E-mail" />
+
+            <TextView style="@style/baseLoginTextView" />
+
+            <EditText
+                android:id="@+id/register_email_psw"
+                style="@style/baseEditTextView"
+                android:contentDescription="@string/psw"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:maxLength="16" />
+
+            <TextView style="@style/baseLoginTextView" />
+
+            <EditText
+                android:id="@+id/email_confirm_psw"
+                style="@style/baseEditTextView"
+                android:contentDescription="@string/confirm_password"
+                android:hint="Confirm Password"
+                android:inputType="textPassword"
+                android:maxLength="16" />
+
+            <TextView style="@style/baseLoginTextView" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/code"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1.0"
+                    android:background="@null"
+                    android:gravity="center"
+                    android:hint="Verification Code"
+                    android:maxLength="10"
+                    android:singleLine="true"
+                    android:textColorHint="#171616"
+                    android:textCursorDrawable="@drawable/edit_cursor"
+                    android:textSize="15.4sp" />
+
+                <TextView
+                    android:id="@+id/send_code"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/code_bt_bg"
+                    android:gravity="center"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="@string/send_verification"
+                    android:textColor="@color/change_color"
+                    android:textSize="11.5sp" />
+                <!-- f5f5f5 808080  d9d9d9  android:background="#f5f5f5"  -->
+            </LinearLayout>
+
+            <TextView style="@style/baseLoginTextView" />
+
+            <TextView
+                android:id="@+id/create_account"
+                android:layout_width="192dp"
+                android:layout_height="43dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/text_bt_bg"
+                android:gravity="center"
+                android:text="Create Account"
+                android:textColor="#161616"
+                android:textSize="15.4sp" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

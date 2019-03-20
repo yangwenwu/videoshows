@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    android:oneshot="false"
+    android:variablePadding="true">
+    <item
+        android:drawable="@mipmap/iphone2_loading1"
+        android:duration="100"
+        android:gravity="center"></item>
+    <item
+        android:drawable="@mipmap/iphone2_loading2"
+        android:duration="100"
+        android:gravity="center"></item>
+    <item
+        android:drawable="@mipmap/iphone2_loading3"
+        android:duration="100"
+        android:gravity="center"></item>
+    <item
+        android:drawable="@mipmap/iphone2_loading4"
+        android:duration="100"
+        android:gravity="center"></item>
+    <item
+        android:drawable="@mipmap/iphone2_loading5"
+        android:duration="100"
+        android:gravity="center"></item>
+    <item
+        android:drawable="@mipmap/iphone2_loading6"
+        android:duration="100"
+        android:gravity="center"></item>
+    <item
+        android:drawable="@mipmap/iphone2_loading7"
+        android:duration="100"
+        android:gravity="center"></item>
+    <item
+        android:drawable="@mipmap/iphone2_loading8"
+        android:duration="100"
+        android:gravity="center"></item>
+    <item
+        android:drawable="@mipmap/iphone2_loading9"
+        android:duration="100"
+        android:gravity="center"></item>
+    <item
+        android:drawable="@mipmap/iphone2_loading10"
+        android:duration="100"
+        android:gravity="center"></item>
+    <item
+        android:drawable="@mipmap/iphone2_loading11"
+        android:duration="100"
+        android:gravity="center"></item>
+    <item
+        android:drawable="@mipmap/iphone2_loading12"
+        android:duration="100"
+        android:gravity="center"></item>
+
+</animation-list>

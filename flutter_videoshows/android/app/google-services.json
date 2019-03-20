@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "35806463601",
+    "firebase_url": "https://video-shows-692ba.firebaseio.com",
+    "project_id": "video-shows-692ba",
+    "storage_bucket": "video-shows-692ba.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:35806463601:android:12a4cc0150078fd6",
+        "android_client_info": {
+          "package_name": "com.lemon.video"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "35806463601-gil111ge9if2b6v5k7k0hrl7gk57js5t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lemon.video",
+            "certificate_hash": "39ddcca7e70cd341ab9bc5458bbc83a5b9d8019d"
+          }
+        },
+        {
+          "client_id": "35806463601-638lstj6bn5ic5i6o4ihvds07gk0n3uj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCsUGWVOUDXytHn8q7Fz_Dz3cdPe1AvE0M"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "35806463601-f1r37bvhacf1irlmi0ok7d0bla22nqo3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.chinadailyhk.videoshows",
+                "app_store_id": "1307157073"
+              }
+            },
+            {
+              "client_id": "35806463601-638lstj6bn5ic5i6o4ihvds07gk0n3uj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

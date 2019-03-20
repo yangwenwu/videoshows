@@ -5,4 +5,52 @@
              Flutter draws its first frame -->
         <item name="android:windowBackground">@drawable/launch_background</item>
     </style>
+
+    <style name="VideoTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#000000</item>
+        <item name="colorPrimaryDark">#000000</item>
+        <item name="colorAccent">@color/colorPrimary</item>
+    </style>
+
+    <style name="baseTextView" parent="baseView">
+        <item name="android:textSize">14sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="baseView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="baseEditTextView" parent="baseView">
+        <item name="android:textSize">15.4sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:textColorHint">@color/common_black</item>
+        <item name="android:textColor">@color/common_black</item>
+        <item name="android:background">@null</item>
+        <item name="android:layout_marginLeft">50dp</item>
+        <item name="android:layout_marginRight">50dp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:cursorVisible">true</item>
+        <item name="android:textCursorDrawable">@drawable/edit_cursor</item>
+    </style>
+
+    <style name="baseLoginTextView" parent="baseView">
+        <item name="android:textSize">14sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1px</item>
+        <item name="android:layout_marginLeft">50dp</item>
+        <item name="android:layout_marginRight">50dp</item>
+        <item name="android:background">#d9d9d9</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+
 </resources>

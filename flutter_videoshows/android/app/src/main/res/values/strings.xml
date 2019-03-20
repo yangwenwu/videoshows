@@ -1,0 +1,163 @@
+<resources>
+    <string name="app_name" translatable="false">Video Shows</string>
+
+    <string name="page1" translatable="false">Latest</string>
+    <string name="page2" translatable="false">SHOWS</string>
+    <string name="page3"  translatable="false">Me</string>
+    <string name="shows"  translatable="false">shows</string>
+
+    <string name="my_profile"  translatable="false">Profile</string>
+    <string name="my_bookmarks"  translatable="false">BookMark</string>
+    <string name="my_share"  translatable="false">Share App</string>
+    <string name="my_feed"  translatable="false">Feedback</string>
+    <string name="my_setting"  translatable="false">Settings</string>
+
+    <!--   Load fail    -->
+    <string name="load_fail" translatable="false">Load fail</string>
+    <string name="net_error" translatable="false">Connection error</string>
+    <string name="net_retry" translatable="false">Retry</string>
+
+
+    <string name="VideoView_error_text_invalid_progressive_playback" translatable="false">Invalid progressive playback</string>
+    <string name="VideoView_error_text_unknown" translatable="false">Unknown</string>
+    <string name="VideoView_error_button" translatable="false">OK</string>
+
+    <string name="VideoView_ar_aspect_fit_parent"  translatable="false">Aspect / Fit parent</string>
+    <string name="VideoView_ar_aspect_fill_parent" translatable="false">Aspect / Fill parent</string>
+    <string name="VideoView_ar_aspect_wrap_content" translatable="false">Aspect / Wrap content</string>
+    <string name="VideoView_ar_match_parent"  translatable="false">Free / Fill parent</string>
+    <string name="VideoView_ar_16_9_fit_parent"  translatable="false">16:9 / Fit parent</string>
+    <string name="VideoView_ar_4_3_fit_parent"  translatable="false">4:3 / Fit parent</string>
+
+    <string name="VideoView_render_none"  translatable="false">Render: None</string>
+    <string name="VideoView_render_surface_view"  translatable="false">Render: SurfaceView</string>
+    <string name="VideoView_render_texture_view"  translatable="false">Render: TextureView</string>
+
+    <string name="VideoView_player_none"  translatable="false">Player: None</string>
+    <string name="VideoView_player_AndroidMediaPlayer" translatable="false">Player: AndroidMediaPlayer</string>
+    <string name="VideoView_player_IjkMediaPlayer"  translatable="false">Player: IjkMediaPlayer</string>
+    <string name="VideoView_player_IjkExoMediaPlayer"  translatable="false">Player: IjkExoMediaPlayer</string>
+
+    <string name="giraffe_player_url_empty"  translatable="false">请指定播放视频的地址</string>
+    <string name="small_problem"  translatable="false">出了点小问题,稍后重试</string>
+    <string name="can_not_play"  translatable="false">不能播放此视频</string>
+    <string name="not_support"  translatable="false">播放器不支持此设备</string>
+    <string name="player_not_wifi"  translatable="false">您正在使用移动网络播放视频\n可能产生较高流量费用</string>
+
+    <string name="N_A"  translatable="false">N/A</string>
+    <string name="close" translatable="false">Close</string>
+    <string name="exit" translatable="false">Exit</string>
+    <string name="sample"  translatable="false">Sample</string>
+    <string name="recent" translatable="false">Recent</string>
+    <string name="settings" translatable="false">Settings</string>
+    <string name="tracks" translatable="false">Tracks</string>
+    <string name="toggle_player" translatable="false">Player</string>
+    <string name="toggle_render" translatable="false">Render</string>
+    <string name="toggle_ratio"  translatable="false">Scale</string>
+    <string name="show_info" translatable="false">Info</string>
+    <string name="vdec"  translatable="false">vdec</string>
+    <string name="fps"  translatable="false">fps</string>
+    <string name="v_cache"  translatable="false">v-cache</string>
+    <string name="a_cache"  translatable="false">a-cache</string>
+
+    <string name="media_information" translatable="false">Media Information</string>
+    <string name="mi_player" translatable="false">Player</string>
+    <string name="mi_media"  translatable="false">Media</string>
+    <string name="mi_profile_level"  translatable="false">Profile level</string>
+    <string name="mi_pixel_format"  translatable="false">Pixel format</string>
+    <string name="mi_resolution" translatable="false">Resolution</string>
+    <string name="mi_length"  translatable="false">Length</string>
+    <string name="mi_stream_fmt1" translatable="false">Stream #%d</string>
+    <string name="mi_type" translatable="false">Type</string>
+    <string name="mi_language" translatable="false">Language</string>
+    <string name="mi_codec" translatable="false">Codec</string>
+    <string name="mi_frame_rate"  translatable="false">Frame rate</string>
+    <string name="mi_bit_rate"  translatable="false">Bit rate</string>
+    <string name="mi_sample_rate"  translatable="false">Sample rate</string>
+    <string name="mi_channels"  translatable="false">Channels</string>
+    <string name="mi__selected_video_track"  translatable="false">*</string>
+    <string name="mi__selected_audio_track" translatable="false">*</string>
+
+    <string name="TrackType_video" translatable="false">Video</string>
+    <string name="TrackType_audio" translatable="false">Audio</string>
+    <string name="TrackType_subtitle" translatable="false">Subtitle</string>
+    <string name="TrackType_timedtext" translatable="false">Timed text</string>
+    <string name="TrackType_metadata" translatable="false">Meta data</string>
+    <string name="TrackType_unknown" translatable="false">Unknown</string>
+
+
+    <string name="net_msg1" translatable="false">The network is unconnected.</string>
+    <string name="net_msg2" translatable="false">The current network environment is WIFI.</string>
+    <string name="net_msg8" translatable="false">The current network environment is mobile network.</string>
+    <string name="net_msg3" translatable="false">The network is disconnected.</string>
+    <string name="net_msg4" translatable="false">No network connection.</string>
+    <string name="net_msg5" translatable="false">You are using data to display video, and this may cause high extra costs.</string>
+    <string name="net_msg6" translatable="false">An error occurred, please try again later</string>
+    <string name="net_try" translatable="false">Try again</string>
+    <string name="video_continue" translatable="false">continue</string>
+    <string name="no_net" translatable="false">Load fail</string>
+
+    <string name="loading_empty_text"  translatable="false">点击屏幕 重新加载</string>
+
+    <string name="update_title" translatable="false">Video Shows Update</string>  <!--  Information -->
+    <string name="update_message" translatable="false">1. Updated interface design to make it more user friendly.\n2. Adjusted menu categories.\n3. Added multi-language selection function for convenience of use.\n4. Fixed bugs to optimise user experience.\n5. Optimised video player for smooth playback.</string>
+    <string name="update_r_bt" translatable="false">Update now</string>
+    <string name="update_l_bt" translatable="false">Not now</string>
+    <string name="login_other_way" translatable="false">or sign in with</string>
+
+    <string name="code_send_success" translatable="false">Code sent successfully</string>
+    <string name="code_send_failed" translatable="false">Failed to send code</string>
+
+    <string name="enter_correct_email" translatable="false">Please enter the correct email</string>
+
+    <string name="control_about" translatable="false">About us</string>
+    <string name="accessibility_statement"  translatable="false" >Accessibility statement</string>
+    <string name="control_feedback" translatable="false">Feedback</string>
+    <string name="control_cache" translatable="false">Clear cache</string>
+    <string name="control_terms_of_use" translatable="false">Privacy policy</string>
+    <string name="control_notify_push" translatable="false">Notification push</string>
+    <string name="control_update" translatable="false">Version and Update</string>
+
+    <string name="about_l" translatable="false">Launched in 1997, the China Daily Hong Kong Edition offers a unique local perspective that has become essential reading for decision-makers, including HKSAR government officials, CEOs and senior executives, scholars and academics in Hong Kong.</string>
+    <string name="about_a" translatable="false">As Hong Kong maintains its critical role as the gateway to the Chinese mainland, China Daily Hong Kong Edition offers a ringside view of the dynamic economic and social development underway on the Chinese mainland, both in print and in digital form. The newspaper connects local readers to the Chinese mainland, with first-hand, critical insight that cannot be duplicated by other local news media. A roster of Hong Kong opinion leaders and freelance writers add their contributions, helping to ensure that the newspaper remains closely connected to the local community.</string>
+    <string name="about_f" translatable="false">Focus Hong Kong, published every Friday, is a brand new weekly edition specially designed for readers in the city, in addition to the daily fare of news and views.</string>
+    <string name="about_t" translatable="false">The new offering covers a wide range of subjects, from business and the economy to social and environmental issues, among many others. It carries incisive and insightful commentaries on current affairs and issues that are important to Hong Kong.</string>
+    <string name="about_lr" translatable="false">Launched on December 10, 2010, China Daily Asia Weekly is a 32-page color tabloid published every Friday, featuring news, views and analysis of China and the region. It is printed and distributed across Asia, including Australia, India, United Arab Emirates, Japan, Republic of Korea, Nepal, Singapore, Malaysia, Thailand, Indonesia, Myanmar and the Philippines; as well as Beijing, Hong Kong and Macau. Apart from China Daily’s vast resources, a worldwide network of correspondents, commentators and photographers, Asia Weekly has a dedicated pool of professional writers with proven credentials across the region.</string>
+    <string name="about_te" translatable="false">The editorial team strives for the highest editorial standards while ensuring that its reports are timely, objective and balanced.</string>
+    <string name="about_as" translatable="false">As a member of Asia News Network (ANN), China Daily Asia Weekly also is able to glean some of the best articles and reports published in 23 newspapers, including The Nation of Thailand, The Star of Malaysia, The Jakarta Post of Indonesia, The Straits Times of Singapore, The Statesman of India, The Korean Herald of Republic of Korea, and Daily Yomiuri of Japan, etc.</string>
+    <string name="about_at" translatable="false">At the end of 2013, a leading US-based media-auditing organization BPA Worldwide has confirmed China Daily Asia Weekly’s status as one of the largest-circulated weekly publications in Asia. It is a significant achievement and represents a major milestone for Asia Weekly.  </string>
+    <string name="about_tc" translatable="false">The China Daily Asia Leadership Roundtable was created as a result of the success of the China Daily CEO Roundtable (established in 2004, \n http://ceoroundtable.chinadaily.com.cn) and with the support of the Asia News Network, an alliance of 21 leading newspapers from 19 Asian countries and regions \n (http://www.asianewsnet.net).</string>
+    <string name="about_tcd" translatable="false">The China Daily Asia Leadership Roundtable is a by-invitation network of movers and shakers in Asia providing platforms for focused dialogue, issue investigation, and possible collective action on strategic issues relating to economic, business and social development in Asia. Our aim is to enhance communication and increase mutual understanding between China, other Asian countries and Western countries.</string>
+
+    <!-- 登录和登出-->
+    <string name="app_login" translatable="false">Log In</string>
+    <string name="app_logout" translatable="false">Log Out</string>
+
+    <string name="time_notice1" translatable="false">Hour ago</string>
+    <string name="time_notice2" translatable="false">Just</string>
+    <string name="time_notice3" translatable="false">Mins ago</string>
+
+    <string name="search_bt" translatable="false">search</string>
+    <string name="back_bt" translatable="false">back</string>
+    <string name="close_bt" translatable="false">close</string>
+    <string name="sign_in" translatable="false">sign in</string>
+    <string name="sign_up" translatable="false">sign up</string>
+    <string name="email" translatable="false">E-mail</string>
+    <string name="psw" translatable="false">password</string>
+    <string name="facebook" translatable="false">facebook</string>
+    <string name="twitter" translatable="false">twitter</string>
+    <string name="google_plus" translatable="false">google plus</string>
+    <string name="wechat" translatable="false">wechat</string>
+    <string name="confirm_password" translatable="false">Confirm Password</string>
+    <string name="no_comment" translatable="false">No comment</string>
+
+
+    <string name="send_verification" translatable="false">Send Verification \n Code to my Email</string>
+
+    <string name="facebook_app_id" translatable="false">285583215282832</string>
+
+    <string name="load" translatable="false">Download</string>
+    <string name="pausing" translatable="false">pausing…</string>
+    <string name="pause" translatable="false">Pause</string>
+    <string name="loading" translatable="false">loading…</string>
+</resources>

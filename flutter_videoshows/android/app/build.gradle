@@ -22,7 +22,61 @@ if (flutterVersionName == null) {
 }
 
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+//apply plugin: 'kotlin-kapt'
+//apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.mob.sdk'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
+
+
+MobSDK {
+    appKey "21bf0d644d754"
+    appSecret "f550580d9194c8f990c8122b10d4da7e"
+    permissions {
+        exclude "android.permission.SEND_SMS",
+                "android.permission.RECEIVE_SMS",
+                "android.permission.READ_CONTACTS",
+                "android.permission.READ_PHONE_STATE",
+                "android.permission.ACCESS_FINE_LOCATION",
+                "android.permission.ACCESS_COARSE_LOCATION"
+    }
+
+    ShareSDK {
+//        version '3.2.1'   这个旧版本附带很多权限  ， 3.4.0的可以
+//        gui false    //这个是自定义界面
+        devInfo {
+            GooglePlus {
+                id 1
+                sortId 1
+                appId "821738096601-jsqpub6e55d7versqb5am4k7jrdk10cl.apps.googleusercontent.com"
+                callbackUri "http://www.chinadailyhk.com/"
+                shareByAppClient true
+                enable true
+            }
+            Facebook {
+                id 2
+                sortId 2
+                appKey "285583215282832"
+                appSecret "90aae2b83bbea0281ce414f452d54d12"
+                callbackUri "http://www.chinadailyasia.com"
+                shareByAppClient true
+                enable true
+            }
+
+            Twitter {
+                id 3
+                sortId 3
+                appKey "4gJpDfTN0nQTjIlbFX3iVXC2z"
+                appSecret "jedy0Ju8iqd3cv4qfDmBealiI15EgKJpc4VhYfnEIopXaLEhdk"
+                callbackUri "http://www.chinadailyhk.com/"
+                enable true
+            }
+        }
+    }
+}
+
 
 android {
     compileSdkVersion 27
@@ -59,5 +113,44 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation ('com.android.support:recyclerview-v7:27.1.1'){
+        transitive = true
+    }
+    implementation ('com.android.support:design:27.1.1'){
+        transitive = true
+    }
+    implementation ('com.android.support:cardview-v7:27.1.1'){
+        transitive = true
+    }
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.34'
 
+    implementation 'cn.jzvd:jiaozivideoplayer:6.2.12'
+    implementation 'com.google.android.exoplayer:exoplayer-core:2.8.2'
+    implementation 'com.google.android.exoplayer:extension-okhttp:2.8.2'
+    implementation 'com.lzy.net:okgo:3.0.4'
+    implementation 'com.lzy.net:okserver:2.0.5'
+
+    implementation('com.alibaba:fastjson:1.1.58.android') {
+        transitive = true
+    }
+
+    implementation 'com.squareup.okhttp3:okhttp:3.11.0'
+    implementation 'com.squareup.okio:okio:1.15.0'
+
+    implementation("com.github.bumptech.glide:glide:$glide_version") {
+        force = true
+    }
+    kapt "com.github.bumptech.glide:compiler:$glide_version"
+
+
+    implementation ('com.alibaba:fastjson:1.2.16'){
+        transitive = true
+    }
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-5'
+    implementation 'com.gyf.immersionbar:immersionbar:2.3.2-beta01'
+
+}
+repositories {
+    mavenCentral()
 }

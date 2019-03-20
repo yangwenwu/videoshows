@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DevInfor>
+<SinaWeibo Enable="false" />
+<TencentWeibo Enable="false" />
+<Douban Enable="false" />
+<QZone Enable="false" />
+<Renren Enable="false" />
+<KaiXin Enable="false" />
+<Facebook Id="2" SortId="2" ShareByAppClient="true" Enable="true" ConsumerKey="285583215282832" ConsumerSecret="90aae2b83bbea0281ce414f452d54d12" RedirectUrl="http://www.chinadailyasia.com" />
+<Twitter Id="3" SortId="3" Enable="true" ConsumerKey="4gJpDfTN0nQTjIlbFX3iVXC2z" ConsumerSecret="jedy0Ju8iqd3cv4qfDmBealiI15EgKJpc4VhYfnEIopXaLEhdk" CallbackUrl="http://www.chinadailyhk.com/" />
+<Evernote Enable="false" />
+<FourSquare Enable="false" />
+<GooglePlus Id="1" SortId="1" ShareByAppClient="true" Enable="true" ClientID="821738096601-jsqpub6e55d7versqb5am4k7jrdk10cl.apps.googleusercontent.com" RedirectUrl="http://www.chinadailyhk.com/" />
+<Instagram Enable="false" />
+<LinkedIn Enable="false" />
+<Tumblr Enable="false" />
+<Email Enable="false" />
+<ShortMessage Enable="false" />
+<Wechat Enable="false" />
+<WechatMoments Enable="false" />
+<QQ Enable="false" />
+<Instapaper Enable="false" />
+<Pocket Enable="false" />
+<YouDao Enable="false" />
+<Pinterest Enable="false" />
+<Flickr Enable="false" />
+<Dropbox Enable="false" />
+<VKontakte Enable="false" />
+<WechatFavorite Enable="false" />
+<Yixin Enable="false" />
+<YixinMoments Enable="false" />
+<Mingdao Enable="false" />
+<Line Enable="false" />
+<WhatsApp Enable="false" />
+<KakaoTalk Enable="false" />
+<KakaoStory Enable="false" />
+<FacebookMessenger Enable="false" />
+<Alipay Enable="false" />
+<AlipayMoments Enable="false" />
+<Dingding Enable="false" />
+<Youtube Enable="false" />
+<Meipai Enable="false" />
+<Telegram Enable="false" />
+<Cmcc Enable="false" />
+<Reddit Enable="false" />
+<Telecom Enable="false" />
+<Accountkit Enable="false" />
+<Douyin Enable="false" />
+</DevInfor>

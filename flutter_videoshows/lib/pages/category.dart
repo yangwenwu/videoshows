@@ -150,10 +150,6 @@ class _CategoryState extends State<Category> {
         })).then((value){
 
         });
-
-
-
-
       },
       child: Stack(
         alignment: Alignment.center,
