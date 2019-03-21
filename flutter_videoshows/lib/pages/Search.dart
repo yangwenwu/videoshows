@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_videoshows/import.dart';
 import 'package:flutter_videoshows/model/homenewsbean.dart';
+import 'package:flutter_videoshows/model/publiclistviewBean.dart';
 
 class Search extends StatefulWidget {
   @override
@@ -12,7 +13,7 @@ class Search extends StatefulWidget {
 class _SearchState extends State<Search> {
   static const jumpVideoPlugin = const MethodChannel('com.lemon.jump.video/plugin');
 
-  Future<Null> _jumpToNativeVideo(ResObject dateList) async {
+  Future<Null> _jumpToNativeVideo(DateList dateList) async {
     Map<String, String> map = {  };
     map.putIfAbsent("title", ()=>dateList.title);
     map.putIfAbsent("bigTitleImage", ()=>dateList.bigTitleImage);
@@ -29,28 +30,32 @@ class _SearchState extends State<Search> {
 
   var key = "";
   var page = 1;
-
-  List<ResObject> resList = [];
+  var totalPage;
+  List<DateList> resList = [];
   ScrollController _scrollController = new ScrollController();
   TextEditingController searchKey = new TextEditingController();
   FocusNode _contentFocusNode = FocusNode();
 
   @override
   void initState() {
-//    _scrollController.addListener(_scrollListener);
+    _scrollController.addListener(_scrollListener);
 //    getData();
     super.initState();
   }
 
 
   _scrollListener() async {
-//    if (_scrollController.position.pixels ==
-//        _scrollController.position.maxScrollExtent) {
+    if (_scrollController.position.pixels ==
+        _scrollController.position.maxScrollExtent) {
 //      if (resList.length > 0) {
 //        resList.clear();
 //      }
-//      setState(() {});
-//    }
+//      page++;
+      if (totalPage >= page) {
+        getData();
+      }
+      setState(() {});
+    }
   }
 
   @override
@@ -181,6 +186,8 @@ class _SearchState extends State<Search> {
         onSubmitted: (_){
           printStr("*****onSubmit***${searchKey.text}");
           _contentFocusNode.unfocus();
+          key = searchKey.text;
+          getData();
         },
         onChanged: (_)=>{
         printStr( "******onChanged****${searchKey.text}")
@@ -277,20 +284,30 @@ class _SearchState extends State<Search> {
   }
 
   Future refresh() async {
+    page = 1;
     getData();
   }
 
   Future getData() async {
 //    model.urlEnd = "selectNewsList?dataType=3"+"&currentPage="+page + "&title="+ title
+   /// https://api.cdeclips.com/hknews-api/selectNewsList?title=HK&currentPage=1&dataType=3
     try {
       Response response = await Dio().get("${Constant.STATICURL}selectNewsList?title=$key&currentPage=$page&dataType=3");
       print(response);
       print(response.data);
       if (response.data != null) {
         Map map = response.data;
-        HomeNewsBean bean = new HomeNewsBean.fromJson(map);
-        resList.clear();
-        resList = bean.resObject;
+        PubliclistviewBean bean = new PubliclistviewBean.fromJson(map);
+        if (page == 1) {
+          resList.clear();
+          resList = bean.resObject.dateList;
+          totalPage = bean.resObject.totalPage;
+        } else {
+          if (bean.resObject.dateList.length > 0) {
+            resList.addAll(bean.resObject.dateList);
+          }
+        }
+        page++;
         setState(() {});
       }
     } catch (e) {
