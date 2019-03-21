@@ -29,6 +29,10 @@ class _CategoryState extends State<Category> {
                   context,
                   new MaterialPageRoute(builder: (context) => new Search()),
                 );
+//                Navigator.pushReplacementNamed(context,"/search");
+//                Navigator.pushNamedAndRemoveUntil(context,"/search",(_)=>false);
+//              Navigator.pushAndRemoveUntil(context, new MaterialPageRoute(builder: (context) => new Search()), (_)=>false);
+
               })
         ],
         backgroundColor: Colors.black,

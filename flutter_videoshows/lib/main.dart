@@ -49,6 +49,7 @@ class MyApp extends StatelessWidget {
       home: Welcome(),
       routes: {
         '/home': (_) => new HomePage(),
+//        '/search': (_)=> new Search(),
       },
     );
   }

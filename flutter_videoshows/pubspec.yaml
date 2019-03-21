@@ -60,6 +60,7 @@ flutter:
      - image/settings.png
      - image/search.png
      - image/back_arrow3.png
+     - image/search_meeting_icon.png
 
 
   # To add assets to your application, add an assets section, like this:
