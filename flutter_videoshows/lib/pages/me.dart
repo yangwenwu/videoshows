@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_videoshows/import.dart';
+import 'package:flutter_videoshows/pages/test.dart';
 
 class ThirdTab extends StatefulWidget {
   @override
@@ -111,6 +113,10 @@ class _ThirdTabState extends State<ThirdTab> {
         new GestureDetector(
           onTap: (){
             goFeedback();
+            Navigator.push(context, new MaterialPageRoute(builder: (_)=>
+              new FeedBack(),
+//              new Counter(),
+            ));
           },
           child: itemWidget("image/feedback.png", "Feedback"),
         ),

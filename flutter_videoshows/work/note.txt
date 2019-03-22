@@ -11,7 +11,7 @@ https://javiercbk.github.io/json_to_dart/
 
 20190321
 1.添加搜索框，控制
-2. 后面要研究一个界面当中多个widget相互操作交互的问题
+2. 后面要研究一个界面当中多个widget相互操作交互的问题   InheritedWidget
 3.目前国外比较流行的页面传值是用fluro等第三方插件
 
 videoshows 搜索框home键和应用切换，软键盘的弹出问题
