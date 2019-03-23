@@ -16,12 +16,26 @@ class _FeedBackState extends State<FeedBack> {
       appBar: new AppBar(
         centerTitle: true,
         backgroundColor: Colors.black,
-        title: Text("Feedback"),
+        title: Text("Feedback",
+            style: const TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.w700,
+                fontFamily: "Lato",
+                fontStyle: FontStyle.normal,
+                fontSize: 17.3)),
         actions: <Widget>[
           new Center(
             child: new Padding(
               padding: const EdgeInsets.all(10.0),
-              child: new Text("submit"),
+              child: new Text(
+                "Submit",
+                style: new TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w400,
+                    fontFamily: "Lato",
+                    fontStyle: FontStyle.normal,
+                    fontSize: 16.3),
+              ),
             ),
           )
         ],
@@ -31,66 +45,50 @@ class _FeedBackState extends State<FeedBack> {
 //        mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-//          new ConstrainedBox(
-//            constraints: BoxConstraints(
-//                maxHeight: 200,
-//                maxWidth: 200
-//            ),
-//            child: new TextField(
-//              decoration: InputDecoration(
-//                contentPadding: const EdgeInsets.symmetric(vertical: 4.0),
-//                hintText: '请输入搜索内容',
-//                prefixIcon: Icon(Icons.search),
-//                // contentPadding: EdgeInsets.all(10),
-//                border: OutlineInputBorder(
-//                    borderRadius: BorderRadius.circular(15),
-//                    borderSide: BorderSide.none),
-//                filled: true,
-//                fillColor: Color(0xffaaaaaa),
-//              ),
-//            ),
-//          ),
-
           new Container(
             decoration: new BoxDecoration(
-              border: Border.all(color: Color(0xffffffff), width: 1.0), //灰色的一层边框
+              border: Border.all(color: Color(0xffffffff), width: 1.0),
+              //灰色的一层边框
               color: Color(0xffffffff),
               borderRadius: new BorderRadius.all(new Radius.circular(0.0)),
             ),
 //            alignment: Alignment.center,
 //            height: 174,
-            padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 20.0),
+//          color: Colors.white,
+//            color: Colors.blue,
+//          color: Color(0xffffffff),
+            padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 20.0),
             child: new TextField(
-              cursorColor: Colors.black, //设置光标
+              cursorColor: Colors.black,
+              //设置光标
+//              cursorRadius: Radius.circular(25.0),
               maxLines: 10,
               maxLength: 500,
-
+//              scrollPadding: const EdgeInsets.all(50.0),
               decoration: InputDecoration(
                   //输入框decoration属性
-//            contentPadding: const EdgeInsets.symmetric(vertical: 4.0,horizontal: 4.0),
-//                  contentPadding: new EdgeInsets.only(left: 10.0,top: 10.0,right: 10.0),
+//            contentPadding: const EdgeInsets.symmetric(vertical: 4.0,), //调整文字跟外面边框的留白，垂直上下方向
+//            contentPadding: const EdgeInsets.symmetric(horizontal: 4.0,), //调整文字跟外面边框的留白，水平左右方向
+                  contentPadding: new EdgeInsets.only(
+                      left: 10.0, top: 10.0, right: 5.0, bottom: 10.0),
+                  //特定方向留白
                   fillColor: Color(0xffffffff),
+//                  fillColor: Colors.blue,
                   filled: true,
-                  border: InputBorder.none,  //下边框
+                  border: InputBorder.none,
+                  //下边框
                   hintText: "we are glad to hear from you",
                   hintStyle:
                       new TextStyle(fontSize: 14, color: Color(0xff777777))),
-              style: new TextStyle(fontSize: 15.4, color: Color(0xff777777)),
+              style: new TextStyle(
+                  fontSize: 15.4,
+                  color: Color(0xff777777),
+                  letterSpacing: 2.0,
+                  wordSpacing: 2.0,
+                  height: 1.2),
             ),
           ),
-          new SizedBox(
-            height: 20.0,
-            child: new Container(
-//              color: Colors.greenAccent,
-            ),
-          ),
-//          new Padding(padding: const EdgeInsets.all(10.0),child: Text("",),),
-//          new Divider(height: 30.0,color: Colors.grey,indent: 10.0,),
-//          new Text(
-//            "Please leave your email (optional)222",
-//            textAlign: TextAlign.left,
-//          ),
-
+          new Padding(padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 10.0)),
           new Container(
             decoration: new BoxDecoration(
 //              border: Border.all(color: Colors.grey, width: 1.0), //灰色的一层边框
@@ -99,18 +97,18 @@ class _FeedBackState extends State<FeedBack> {
             ),
             alignment: Alignment.center,
             height: 36,
-            padding: EdgeInsets.fromLTRB(10.0, 0.0, 0.0, 0.0),
+//            padding: EdgeInsets.fromLTRB(10.0, 0.0, 0.0, 0.0),
             child: new TextField(
-              cursorColor: Colors.white, //设置光标
+              cursorColor: Colors.black, //设置光标
               decoration: InputDecoration(
                   //输入框decoration属性
 //            contentPadding: const EdgeInsets.symmetric(vertical: 1.0,horizontal: 1.0),
-                  contentPadding: new EdgeInsets.only(left: 0.0),
+                  contentPadding: new EdgeInsets.only(left: 10.0, right: 10.0),
 //            fillColor: Colors.white,
                   border: InputBorder.none,
                   hintText: "Please leave your email (optional)",
                   hintStyle:
-                  new TextStyle(fontSize: 14, color: Color(0xff777777))),
+                      new TextStyle(fontSize: 14, color: Color(0xff777777))),
               style: new TextStyle(fontSize: 15.4, color: Color(0xff777777)),
             ),
           ),
