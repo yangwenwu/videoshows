@@ -16,6 +16,16 @@ class _FeedBackState extends State<FeedBack> {
       appBar: new AppBar(
         centerTitle: true,
         backgroundColor: Colors.black,
+        leading: new IconButton(
+            icon: Image.asset(
+              "image/back_arrow3.png",
+              width: 25,
+              height: 25,
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            }),
+
         title: Text("Feedback",
             style: const TextStyle(
                 color: Colors.white,

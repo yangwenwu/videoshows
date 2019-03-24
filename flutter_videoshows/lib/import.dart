@@ -7,3 +7,6 @@ export 'package:flutter_videoshows/pages/Search.dart';
 //export 'package:dio/dio.dart';
 export 'package:flutter/services.dart';
 export 'package:flutter_videoshows/pages/FeedBack.dart';
+export 'package:flutter_videoshows/pages/settings.dart';
+export 'package:flutter_videoshows/textStyleUtil.dart';
+export 'package:flutter_videoshows/pages/profile.dart';
