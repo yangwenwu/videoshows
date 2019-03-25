@@ -39,9 +39,23 @@ class ProfileState extends State<Profile> {
       backgroundColor: Color(0xffffffff),
       body: Column(
         children: <Widget>[
-          SizedBox(height: 20.0,),
-          _buildItem("NAME", "杨文武", true),
-          _buildItem("CHANGE PASSWORD", "", false),
+          SizedBox(
+            height: 20.0,
+          ),
+          new InkWell(
+            onTap: (){
+              print("*************name");
+              Navigator.push(context, new MaterialPageRoute(builder: (_)=> new ChangeName()));
+            },
+            child:_buildItem("NAME", "杨文武", true),
+          ),
+          new InkWell(
+            onTap: (){
+              Navigator.push(context, new MaterialPageRoute(builder: (_)=> new ChangePassword()));
+            },
+            child: _buildItem("CHANGE PASSWORD", "", false),
+          ),
+
         ],
       ),
     );
@@ -50,43 +64,47 @@ class ProfileState extends State<Profile> {
   Widget _buildItem(var titleString, var value, bool isVisible) {
     return new Column(
       children: <Widget>[
-        new Container(
-          color: Color(0xffffffff),
-          height: 45,
-          child: new Row(
-            children: <Widget>[
-              new Expanded(
-                  flex: 1,
-                  child: new Padding(
-                    padding: const EdgeInsets.only(left: 10.0),
-                    child: Text(
-                      titleString,
-                      style: textStyle3,
-                    ),
-                  )),
-              _buildViewText(isVisible,value),
-              new Padding(
-                padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-                child: Text(
-                  ">",
-                  style: textStyle2,
-                ),
-              )
-            ],
+          new Container(
+//            color: Color(0xffffffff),
+            height: 45,
+            child: new Row(
+              children: <Widget>[
+                new Expanded(
+                    flex: 1,
+                    child: new Padding(
+                      padding: const EdgeInsets.only(left: 10.0),
+                      child: Text(
+                        titleString,
+                        style: textStyle3,
+                      ),
+                    )),
+                _buildViewText(isVisible, value),
+                new Padding(
+                  padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+                  child: Text(
+                    ">",
+                    style: textStyle2,
+                  ),
+                )
+              ],
+            ),
           ),
-        ),
-        new Padding(padding: const EdgeInsets.only(left: 10.0,right: 10.0),child: Divider(),)
-
+        new Padding(
+          padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+          child: Divider(height: 2.0,),
+        )
       ],
     );
   }
 
-  Widget _buildViewText(bool isVisible,var value) {
+  Widget _buildViewText(bool isVisible, var value) {
     if (isVisible) {
-      return Text(value,style:textStyle4,);
+      return Text(
+        value,
+        style: textStyle4,
+      );
     } else {
       return Text("");
     }
   }
-
 }

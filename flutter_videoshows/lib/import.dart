@@ -10,3 +10,5 @@ export 'package:flutter_videoshows/pages/FeedBack.dart';
 export 'package:flutter_videoshows/pages/settings.dart';
 export 'package:flutter_videoshows/textStyleUtil.dart';
 export 'package:flutter_videoshows/pages/profile.dart';
+export 'package:flutter_videoshows/pages/changeName.dart';
+export 'package:flutter_videoshows/pages/changePassword.dart';

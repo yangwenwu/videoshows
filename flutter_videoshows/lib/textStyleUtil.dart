@@ -28,4 +28,13 @@ const textStyle4 = const TextStyle(
     fontSize: 15.4
 );
 
+///change name
+const textStyle5 = const TextStyle(
+    color:  const Color(0xff2e332f),
+    fontWeight: FontWeight.w400,
+    fontFamily: "Lato",
+    fontStyle:  FontStyle.normal,
+    fontSize: 15.4
+);
+
 
