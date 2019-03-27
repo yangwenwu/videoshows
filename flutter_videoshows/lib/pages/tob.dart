@@ -5,6 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_videoshows/model/homenewsbean.dart';
 import 'package:flutter_videoshows/import.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class TobTab extends StatefulWidget {
   @override
@@ -12,18 +13,19 @@ class TobTab extends StatefulWidget {
 }
 
 class _TobTabState extends State<TobTab> {
-  static const jumpVideoPlugin = const MethodChannel('com.lemon.jump.video/plugin');
+  static const jumpVideoPlugin =
+  const MethodChannel('com.lemon.jump.video/plugin');
 
   Future<Null> _jumpToNativeVideo(ResObject dateList) async {
-    Map<String, String> map = {  };
-    map.putIfAbsent("title", ()=>dateList.title);
-    map.putIfAbsent("bigTitleImage", ()=>dateList.bigTitleImage);
-    map.putIfAbsent("subjectCode", ()=>dateList.subjectCode);
-    map.putIfAbsent("titleImage", ()=>dateList.titleImage);
-    map.putIfAbsent("dataId", ()=>dateList.dataId);
-    map.putIfAbsent("jsonUrl", ()=>dateList.jsonUrl);
-    map.putIfAbsent("description", ()=>dateList.description);
-    String result = await jumpVideoPlugin.invokeMethod('VideoDetail',map);
+    Map<String, String> map = {};
+    map.putIfAbsent("title", () => dateList.title);
+    map.putIfAbsent("bigTitleImage", () => dateList.bigTitleImage);
+    map.putIfAbsent("subjectCode", () => dateList.subjectCode);
+    map.putIfAbsent("titleImage", () => dateList.titleImage);
+    map.putIfAbsent("dataId", () => dateList.dataId);
+    map.putIfAbsent("jsonUrl", () => dateList.jsonUrl);
+    map.putIfAbsent("description", () => dateList.description);
+    String result = await jumpVideoPlugin.invokeMethod('VideoDetail', map);
 //    String result = await jumpVideoPlugin.invokeMethod('VideoDetail',dateList);
 
     print(result);
@@ -53,38 +55,72 @@ class _TobTabState extends State<TobTab> {
   Widget build(BuildContext context) {
     _itemBuilder(BuildContext context, int index) {
       return new GestureDetector(
-        onTap: (){
-          _jumpToNativeVideo(resList[index]);
-        },
-        child: Card(
-        margin: const EdgeInsets.only(
-            left: 15.0, top: 10.0, right: 15.0, bottom: 10.0),
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(7.0))),
-        elevation: 4.0,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            new Stack(
-              alignment: AlignmentDirectional.bottomStart,
+          onTap: () {
+            _jumpToNativeVideo(resList[index]);
+          },
+          child: Card(
+            margin: const EdgeInsets.only(
+                left: 15.0, top: 10.0, right: 15.0, bottom: 10.0),
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(7.0))),
+            elevation: 4.0,
+            child: new Stack(
               children: <Widget>[
-                new Padding(
-                    padding: const EdgeInsets.only(bottom: 20.0),
-                    child:
-                    new Image.network(
-                      "https://www.chinadailyhk.com/${resList[index].bigTitleImage}",
-                      fit: BoxFit.cover,
-                    )
-
-//          new CachedNetworkImage(
-//          placeholder: CircularProgressIndicator(),
-//      imageUrl: 'https://github.com/flutter/website/blob/master/_includes/code/layout/lakes/images/lake.jpg?raw=true',
-//      ),
-
-                )
-                ,
-                new Row(
+                Column(
                   children: <Widget>[
+                    new Container(
+//                padding: const EdgeInsets.all(10.0),
+                      child: new ClipRRect(
+//                        child: new Image.network(
+//                          "https://www.chinadailyhk.com/${resList[index].bigTitleImage}",
+//                          fit: BoxFit.cover,
+//                          width: MediaQuery.of(context).size.width - 30,
+//                          height:
+//                              (MediaQuery.of(context).size.width - 30) * 9 / 16,
+//                        ),
+
+//                        child: new FadeInImage.memoryNetwork(
+//                            placeholder: new Image.asset(""), image: null),
+                        child:
+                        new CachedNetworkImage(
+                          imageUrl: "https://www.chinadailyhk.com/${resList[index].bigTitleImage}",
+                          placeholder: (context, url) =>new Image.asset(
+                            "image/news_big_default.png", width: MediaQuery
+                              .of(context)
+                              .size
+                              .width - 30, height:(MediaQuery.of(context).size.width - 30) * 9 / 16),
+
+//                placeholder: (context, url) => new CircularProgressIndicator(),
+                          errorWidget: (context, url, error) =>new Image.asset("image/news_big_default.png"),
+                        ),
+
+
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(7.0),
+                            topRight: Radius.circular(7.0)),
+                      ),
+                    ),
+                    new Align(
+                      alignment: Alignment.centerLeft,
+                      child: new Padding(
+                        padding:
+                        const EdgeInsets.fromLTRB(15.0, 30.0, 10.0, 20.0),
+                        child: new Text(
+                          "${resList[index].title}",
+                          style: textStyle6,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                new Padding(
+                  padding: EdgeInsets.only(
+                      top: ((MediaQuery
+                          .of(context)
+                          .size
+                          .width - 30) * 9 / 16 -
+                          25)),
+                  child: new Row(children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.only(left: 20),
                       child: Material(
@@ -94,87 +130,49 @@ class _TobTabState extends State<TobTab> {
                         elevation: 5.0,
                         child: new Container(
                             padding: const EdgeInsets.all(8.0),
-//                          margin: const EdgeInsets.only(left: 20),
                             child: new Row(
                               children: <Widget>[
                                 new Text(
-                                  "chinadaily",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 10,
-//                              fontWeight: FontWeight.bold,
-                                  ),
-                                ),
+                                    "${resList[index].subjectName
+                                        .toUpperCase()}",
+                                    style: textStyle7),
                               ],
                             )),
                       ),
+                    ),
+                    Expanded(
+                      child: new Text(""),
+                      flex: 1,
+                    ),
+                    new Padding(
+                      padding: const EdgeInsets.only(right: 20),
+                      child: new Image.asset(
+                        "image/video_item_play.png",
+                        width: 50,
+                        height: 50,
+                      ),
                     )
-                  ],
+                  ]),
                 ),
-                new Positioned(
-                  right: 30,
-                  child: Padding(padding: const EdgeInsets.only(top: 30),child: new Image.asset(
-                    "image/video_item_play.png",
-                    width: 50,
-                    height: 50,
-                  ),)
-                ),
-
-//                Container(
-//                  color: Colors.black,
-//                  margin: EdgeInsets.only(left: 10,),
-//                  padding: const EdgeInsets.only(left: 10,top: 5,right: 10,bottom: 5),
-//                  child: new Text(
-//                    "chinadaily",
-//                    style: TextStyle(
-//                      color: Colors.white,
-//                      fontSize: 20,
-//                      fontWeight: FontWeight.bold,
-//                    ),
-//                  ),
-//                ),
               ],
             ),
-            const ListTile(
-              leading: Icon(Icons.album),
-              title: Text('The Enchanted Nightingale'),
-              subtitle: Text('Music by Julie Gable. Lyrics by Sidney Stein.'),
-            ),
-            ButtonTheme.bar(
-              // make buttons use the appropriate styles for cards
-              child: ButtonBar(
-                children: <Widget>[
-                  FlatButton(
-                    child: const Text('BUY TICKETS'),
-                    onPressed: () {
-                      /* ... */
-                    },
-                  ),
-                  FlatButton(
-                    child: const Text('LISTEN'),
-                    onPressed: () {
-                      /* ... */
-                    },
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      )
-      );
+          ));
     }
 
     return new Scaffold(
       appBar: new AppBar(
         centerTitle: true,
         title: new Text("LATEST"),
-        actions: <Widget>[new IconButton(icon: ImageIcon(AssetImage("image/search.png")) , onPressed: () {
-          Navigator.push(
-            context,
-            new MaterialPageRoute(builder: (context) => new Search()),
-          );
-        })],
+        actions: <Widget>[
+          new IconButton(
+              icon: ImageIcon(AssetImage("image/search.png")),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  new MaterialPageRoute(builder: (context) => new Search()),
+                );
+              })
+        ],
         elevation: 0.0,
         backgroundColor: Colors.black,
       ),
@@ -189,13 +187,52 @@ class _TobTabState extends State<TobTab> {
     );
   }
 
+  Widget _buildStackView() {
+    return new Row(children: <Widget>[
+      Padding(
+        padding: const EdgeInsets.only(left: 20),
+        child: Material(
+          color: Colors.black,
+          borderRadius: BorderRadius.circular(5.0),
+//                shadowColor: Colors.blue.shade200,
+          elevation: 5.0,
+          child: new Container(
+              padding: const EdgeInsets.all(8.0),
+              child: new Row(
+                children: <Widget>[
+                  new Text(
+                    "chinadaily",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 10,
+                    ),
+                  ),
+                ],
+              )),
+        ),
+      ),
+      Expanded(child: new Text("")),
+      new Positioned(
+          right: 30,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 30),
+            child: new Image.asset(
+              "image/video_item_play.png",
+              width: 50,
+              height: 50,
+            ),
+          )),
+    ]);
+  }
+
   Future refresh() async {
     getData();
   }
 
   Future getData() async {
     try {
-      Response response = await Dio().get("https://api.cdeclips.com/hknews-api/selectVideoHome");
+      Response response = await Dio()
+          .get("https://api.cdeclips.com/hknews-api/selectVideoHome");
       print(response);
       print(response.data);
       if (response.data != null) {
@@ -208,7 +245,6 @@ class _TobTabState extends State<TobTab> {
     } catch (e) {
       print(e);
     }
-
   }
 
   @override

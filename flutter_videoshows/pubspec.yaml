@@ -23,6 +23,7 @@ dependencies:
   shared_preferences: ^0.4.3
   http: '>=0.11.3+12'
   dio: ^2.1.0
+  cached_network_image: ^0.7.0
 
 
 dev_dependencies:
@@ -62,6 +63,7 @@ flutter:
      - image/back_arrow3.png
      - image/search_meeting_icon.png
      - image/arrow_right.png
+     - image/news_big_default.png
 
 
   # To add assets to your application, add an assets section, like this:
