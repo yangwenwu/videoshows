@@ -16,3 +16,7 @@ https://javiercbk.github.io/json_to_dart/
 
 videoshows 搜索框home键和应用切换，软键盘的弹出问题
 
+20190328
+1.首页列表的图片高度问题，需要修复
+
+

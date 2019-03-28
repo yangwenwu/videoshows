@@ -135,8 +135,7 @@ class _CategoryState extends State<Category> {
           ),
           Text(
             model.name,
-            style: new TextStyle(
-                fontFamily: "Bold", color: Colors.white, fontSize: 18.0),
+            style: textStyle8,
           ),
         ],
       ),

@@ -50,3 +50,11 @@ const textStyle7 = const TextStyle(
     fontFamily: "Lato",
     fontStyle: FontStyle.normal,
     fontSize: 8.6);
+
+///category的字体样式
+const textStyle8 = const TextStyle(
+    color: Colors.white,
+    fontWeight: FontWeight.w900,
+    fontFamily: "Lato",
+    fontStyle: FontStyle.normal,
+    fontSize: 15.4);

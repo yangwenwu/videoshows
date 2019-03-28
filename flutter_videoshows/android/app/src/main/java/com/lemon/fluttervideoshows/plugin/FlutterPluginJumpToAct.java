@@ -30,16 +30,12 @@ public class FlutterPluginJumpToAct implements MethodChannel.MethodCallHandler {
 
     @Override
     public void onMethodCall(MethodCall call, MethodChannel.Result result) {
-
         //通过MethodCall可以获取参数和方法名，然后再寻找对应的平台业务，本案例做了2个跳转的业务
-
         //接收来自flutter的指令oneAct
         if (call.method.equals("oneAct")) {
-
             //跳转到指定Activity
             Intent intent = new Intent(activity, OneActivity.class);
             activity.startActivity(intent);
-
             //返回给flutter的参数
             result.success("success");
         }

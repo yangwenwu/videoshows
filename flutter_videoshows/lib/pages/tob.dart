@@ -14,7 +14,7 @@ class TobTab extends StatefulWidget {
 
 class _TobTabState extends State<TobTab> {
   static const jumpVideoPlugin =
-  const MethodChannel('com.lemon.jump.video/plugin');
+      const MethodChannel('com.lemon.jump.video/plugin');
 
   Future<Null> _jumpToNativeVideo(ResObject dateList) async {
     Map<String, String> map = {};
@@ -69,32 +69,17 @@ class _TobTabState extends State<TobTab> {
                 Column(
                   children: <Widget>[
                     new Container(
-//                padding: const EdgeInsets.all(10.0),
                       child: new ClipRRect(
-//                        child: new Image.network(
-//                          "https://www.chinadailyhk.com/${resList[index].bigTitleImage}",
-//                          fit: BoxFit.cover,
-//                          width: MediaQuery.of(context).size.width - 30,
-//                          height:
-//                              (MediaQuery.of(context).size.width - 30) * 9 / 16,
-//                        ),
-
-//                        child: new FadeInImage.memoryNetwork(
-//                            placeholder: new Image.asset(""), image: null),
-                        child:
-                        new CachedNetworkImage(
-                          imageUrl: "https://www.chinadailyhk.com/${resList[index].bigTitleImage}",
-                          placeholder: (context, url) =>new Image.asset(
-                            "image/news_big_default.png", width: MediaQuery
-                              .of(context)
-                              .size
-                              .width - 30, height:(MediaQuery.of(context).size.width - 30) * 9 / 16),
-
-//                placeholder: (context, url) => new CircularProgressIndicator(),
-                          errorWidget: (context, url, error) =>new Image.asset("image/news_big_default.png"),
+                        child: new CachedNetworkImage(
+                          imageUrl:
+                              "https://www.chinadailyhk.com/${resList[index].bigTitleImage}",
+                          placeholder: (context, url) => new Image.asset(
+                              "image/news_big_default.png",
+                              width: MediaQuery.of(context).size.width - 30,
+                              height: (MediaQuery.of(context).size.width - 30) *9 /16),
+                          errorWidget: (context, url, error) =>
+                              new Image.asset("image/news_big_default.png"),
                         ),
-
-
                         borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(7.0),
                             topRight: Radius.circular(7.0)),
@@ -104,7 +89,7 @@ class _TobTabState extends State<TobTab> {
                       alignment: Alignment.centerLeft,
                       child: new Padding(
                         padding:
-                        const EdgeInsets.fromLTRB(15.0, 30.0, 10.0, 20.0),
+                            const EdgeInsets.fromLTRB(15.0, 30.0, 10.0, 20.0),
                         child: new Text(
                           "${resList[index].title}",
                           style: textStyle6,
@@ -115,10 +100,7 @@ class _TobTabState extends State<TobTab> {
                 ),
                 new Padding(
                   padding: EdgeInsets.only(
-                      top: ((MediaQuery
-                          .of(context)
-                          .size
-                          .width - 30) * 9 / 16 -
+                      top: ((MediaQuery.of(context).size.width - 30) * 9 / 16 -
                           25)),
                   child: new Row(children: <Widget>[
                     Padding(
@@ -133,8 +115,7 @@ class _TobTabState extends State<TobTab> {
                             child: new Row(
                               children: <Widget>[
                                 new Text(
-                                    "${resList[index].subjectName
-                                        .toUpperCase()}",
+                                    "${resList[index].subjectName.toUpperCase()}",
                                     style: textStyle7),
                               ],
                             )),
