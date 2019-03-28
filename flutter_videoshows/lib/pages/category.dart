@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_videoshows/import.dart';
 
@@ -118,8 +119,6 @@ class _CategoryState extends State<Category> {
     //BoxFit 可设置展示图片时 的填充方式
     return new GestureDetector(
       onTap: () {
-//        showCustomDialog(context);
-
         Navigator.of(context).push(new MaterialPageRoute(builder: (_) {
           return new PublicList(
             modelbean: model,
@@ -129,9 +128,20 @@ class _CategoryState extends State<Category> {
       child: Stack(
         alignment: Alignment.center,
         children: <Widget>[
-          Image.network(
-            model.imageUrl,
+//          Image.network(
+//            model.imageUrl,
+//            fit: BoxFit.cover,
+//          ),
+          CachedNetworkImage(
+            imageUrl:model.imageUrl,
+            placeholder: (context, url) => new Image.asset(
+                "image/news_big_default.png",
+//                width: MediaQuery.of(context).size.width - 30,
+//                height: (MediaQuery.of(context).size.width - 30) *9 /16
             fit: BoxFit.cover,
+            ),
+            errorWidget: (context, url, error) =>
+            new Image.asset("image/news_big_default.png"),
           ),
           Text(
             model.name,

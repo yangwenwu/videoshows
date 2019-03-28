@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_videoshows/import.dart';
 import 'package:flutter_videoshows/model/homenewsbean.dart';
@@ -11,18 +12,19 @@ class Search extends StatefulWidget {
 }
 
 class _SearchState extends State<Search> {
-  static const jumpVideoPlugin = const MethodChannel('com.lemon.jump.video/plugin');
+  static const jumpVideoPlugin =
+      const MethodChannel('com.lemon.jump.video/plugin');
 
   Future<Null> _jumpToNativeVideo(DateList dateList) async {
-    Map<String, String> map = {  };
-    map.putIfAbsent("title", ()=>dateList.title);
-    map.putIfAbsent("bigTitleImage", ()=>dateList.bigTitleImage);
-    map.putIfAbsent("subjectCode", ()=>dateList.subjectCode);
-    map.putIfAbsent("titleImage", ()=>dateList.titleImage);
-    map.putIfAbsent("dataId", ()=>dateList.dataId);
-    map.putIfAbsent("jsonUrl", ()=>dateList.jsonUrl);
-    map.putIfAbsent("description", ()=>dateList.description);
-    String result = await jumpVideoPlugin.invokeMethod('VideoDetail',map);
+    Map<String, String> map = {};
+    map.putIfAbsent("title", () => dateList.title);
+    map.putIfAbsent("bigTitleImage", () => dateList.bigTitleImage);
+    map.putIfAbsent("subjectCode", () => dateList.subjectCode);
+    map.putIfAbsent("titleImage", () => dateList.titleImage);
+    map.putIfAbsent("dataId", () => dateList.dataId);
+    map.putIfAbsent("jsonUrl", () => dateList.jsonUrl);
+    map.putIfAbsent("description", () => dateList.description);
+    String result = await jumpVideoPlugin.invokeMethod('VideoDetail', map);
 //    String result = await jumpVideoPlugin.invokeMethod('VideoDetail',dateList);
 
     print(result);
@@ -43,7 +45,6 @@ class _SearchState extends State<Search> {
     super.initState();
   }
 
-
   _scrollListener() async {
     if (_scrollController.position.pixels ==
         _scrollController.position.maxScrollExtent) {
@@ -62,116 +63,76 @@ class _SearchState extends State<Search> {
   Widget build(BuildContext context) {
     _itemBuilder(BuildContext context, int index) {
       return new GestureDetector(
-          onTap: (){
+          onTap: () {
             _jumpToNativeVideo(resList[index]);
           },
-          child: Card(
-            margin: const EdgeInsets.only(
-                left: 15.0, top: 10.0, right: 15.0, bottom: 10.0),
-            shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(7.0))),
-            elevation: 4.0,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                new Stack(
-                  alignment: AlignmentDirectional.bottomStart,
-                  children: <Widget>[
-                    new Padding(
-                        padding: const EdgeInsets.only(bottom: 20.0),
-                        child:
-                        new Image.network(
-                          "https://www.chinadailyhk.com/${resList[index].bigTitleImage}",
-                          fit: BoxFit.cover,
-                        )
+          child: new Row(
+//            textDirection: TextDirection.ltr,
+//            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
 
-//          new CachedNetworkImage(
-//          placeholder: CircularProgressIndicator(),
-//      imageUrl: 'https://github.com/flutter/website/blob/master/_includes/code/layout/lakes/images/lake.jpg?raw=true',
-//      ),
-
-                    )
-                    ,
-                    new Row(
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(left: 20),
-                          child: Material(
-                            color: Colors.black,
-                            borderRadius: BorderRadius.circular(5.0),
-//                shadowColor: Colors.blue.shade200,
-                            elevation: 5.0,
-                            child: new Container(
-                                padding: const EdgeInsets.all(8.0),
-//                          margin: const EdgeInsets.only(left: 20),
-                                child: new Row(
-                                  children: <Widget>[
-                                    new Text(
-                                      "chinadaily",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 10,
-//                              fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ],
-                                )),
-                          ),
-                        )
-                      ],
-                    ),
-                    new Positioned(
-                        right: 30,
-                        child: Padding(padding: const EdgeInsets.only(top: 30),child: new Image.asset(
-                          "image/video_item_play.png",
-                          width: 50,
-                          height: 50,
-                        ),)
-                    ),
-
-//                Container(
-//                  color: Colors.black,
-//                  margin: EdgeInsets.only(left: 10,),
-//                  padding: const EdgeInsets.only(left: 10,top: 5,right: 10,bottom: 5),
-//                  child: new Text(
-//                    "chinadaily",
-//                    style: TextStyle(
-//                      color: Colors.white,
-//                      fontSize: 20,
-//                      fontWeight: FontWeight.bold,
-//                    ),
-//                  ),
-//                ),
-                  ],
+            children: <Widget>[
+              new SizedBox(
+                width: 10,
+              ),
+              new Container(
+//                padding: EdgeInsets.all(10.0),
+                width: 120.6,
+                height: 67.5,
+                child: new CachedNetworkImage(
+                  imageUrl:
+                      "https://www.chinadailyhk.com/${resList[index].bigTitleImage}",
+                  placeholder: (context, url) => new Image.asset(
+                      "image/news_big_default.png",
+                      width: 128,
+                      height: 72),
+                  errorWidget: (context, url, error) =>
+                      new Image.asset("image/news_big_default.png"),
                 ),
-                const ListTile(
-                  leading: Icon(Icons.album),
-                  title: Text('The Enchanted Nightingale'),
-                  subtitle: Text('Music by Julie Gable. Lyrics by Sidney Stein.'),
-                ),
-                ButtonTheme.bar(
-                  // make buttons use the appropriate styles for cards
-                  child: ButtonBar(
-                    children: <Widget>[
-                      FlatButton(
-                        child: const Text('BUY TICKETS'),
-                        onPressed: () {
-                          /* ... */
-                        },
-                      ),
-                      FlatButton(
-                        child: const Text('LISTEN'),
-                        onPressed: () {
-                          /* ... */
-                        },
-                      ),
-                    ],
+              ),
+              new SizedBox(
+                width: 5.0,
+              ),
+              new Expanded(
+                  flex: 1,
+                  child: new Column(
+//                    crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  new Container(
+                    child: new Text(resList[index].title,style: textStyle9,),
+                    alignment: Alignment.topLeft,
                   ),
-                ),
-              ],
-            ),
-          )
-      );
+                  new Align(
+                  alignment: Alignment.bottomLeft,
+                    child: new Text(resList[index].subjectName.toUpperCase(), style: textStyle10,),
+                  ),
+                ],
+              )
+              ),
+              new SizedBox(
+                width: 10.0,
+              )
+            ],
+          ));
+
+//          Card(
+//            margin: const EdgeInsets.only(
+//                left: 15.0, top: 10.0, right: 15.0, bottom: 10.0),
+//            shape: const RoundedRectangleBorder(
+//                borderRadius: BorderRadius.all(Radius.circular(7.0))),
+//            elevation: 4.0,
+//            child: Column(
+//              mainAxisSize: MainAxisSize.min,
+//              children: <Widget>[
+//                new Padding(
+//                    padding: const EdgeInsets.only(bottom: 20.0),
+//                    child: new Image.network(
+//                      "https://www.chinadailyhk.com/${resList[index].bigTitleImage}",
+//                      fit: BoxFit.cover,
+//                    )),
+//              ],
+//            ),
+//          ));
     }
 
     Widget buildTextField() {
@@ -182,21 +143,19 @@ class _SearchState extends State<Search> {
         focusNode: _contentFocusNode,
         autofocus: true,
         maxLines: 1,
-        cursorColor: Colors.white, //设置光标
-        onSubmitted: (_){
+        cursorColor: Colors.white,
+        //设置光标
+        onSubmitted: (_) {
           printStr("*****onSubmit***${searchKey.text}");
           _contentFocusNode.unfocus();
           key = searchKey.text;
           getData();
         },
-        onChanged: (_)=>{
-        printStr( "******onChanged****${searchKey.text}")
-        },
-        onEditingComplete: ()=>{
-        printStr("*****onEditingComplete****${searchKey.text}")
-        },
+        onChanged: (_) => {printStr("******onChanged****${searchKey.text}")},
+        onEditingComplete: () =>
+            {printStr("*****onEditingComplete****${searchKey.text}")},
         decoration: InputDecoration(
-          //输入框decoration属性
+            //输入框decoration属性
 //            contentPadding: const EdgeInsets.symmetric(vertical: 1.0,horizontal: 1.0),
             contentPadding: new EdgeInsets.only(left: 0.0),
 //            fillColor: Colors.white,
@@ -231,7 +190,7 @@ class _SearchState extends State<Search> {
 
     var cancelView = new Text("cancel");
 
-    Widget buildSearch(){
+    Widget buildSearch() {
       return Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
@@ -256,11 +215,11 @@ class _SearchState extends State<Search> {
     }
 
     return new Scaffold(
-        appBar: new AppBar(
+      appBar: new AppBar(
 //      centerTitle: true,
-      backgroundColor: Colors.black,
-      title: buildSearch(),
-      automaticallyImplyLeading: false,
+        backgroundColor: Colors.black,
+        title: buildSearch(),
+        automaticallyImplyLeading: false,
 //      actions: <Widget>[
 //        new Center(
 //          child: Padding(
@@ -271,7 +230,7 @@ class _SearchState extends State<Search> {
 //          ),
 //        )
 //      ],
-    ),
+      ),
       body: new RefreshIndicator(
           child: new ListView.builder(
             physics: AlwaysScrollableScrollPhysics(),
@@ -290,9 +249,10 @@ class _SearchState extends State<Search> {
 
   Future getData() async {
 //    model.urlEnd = "selectNewsList?dataType=3"+"&currentPage="+page + "&title="+ title
-   /// https://api.cdeclips.com/hknews-api/selectNewsList?title=HK&currentPage=1&dataType=3
+    /// https://api.cdeclips.com/hknews-api/selectNewsList?title=HK&currentPage=1&dataType=3
     try {
-      Response response = await Dio().get("${Constant.STATICURL}selectNewsList?title=$key&currentPage=$page&dataType=3");
+      Response response = await Dio().get(
+          "${Constant.STATICURL}selectNewsList?title=$key&currentPage=$page&dataType=3");
       print(response);
       print(response.data);
       if (response.data != null) {
@@ -313,7 +273,6 @@ class _SearchState extends State<Search> {
     } catch (e) {
       print(e);
     }
-
   }
 
   @override
@@ -321,16 +280,12 @@ class _SearchState extends State<Search> {
     _scrollController.dispose();
     super.dispose();
   }
-
 }
-
-
 
 void goBack() {
   print("*******点击了cancel");
-
 }
 
-void printStr(var str){
+void printStr(var str) {
   print(str);
 }

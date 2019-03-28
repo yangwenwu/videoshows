@@ -58,3 +58,18 @@ const textStyle8 = const TextStyle(
     fontFamily: "Lato",
     fontStyle: FontStyle.normal,
     fontSize: 15.4);
+
+///搜索列表的字体样式
+const textStyle9 = const TextStyle(
+    color: const Color(0xff161616),
+    fontWeight: FontWeight.w400,
+    fontFamily: "Lato",
+    fontStyle: FontStyle.normal,
+    fontSize: 15.4);
+
+const textStyle10 = const TextStyle(
+    color: const Color(0xff009fe8),
+    fontWeight: FontWeight.w700,
+    fontFamily: "Lato",
+    fontStyle: FontStyle.normal,
+    fontSize: 9.6);
