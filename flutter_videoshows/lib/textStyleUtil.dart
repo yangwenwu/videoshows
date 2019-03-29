@@ -73,3 +73,10 @@ const textStyle10 = const TextStyle(
     fontFamily: "Lato",
     fontStyle: FontStyle.normal,
     fontSize: 9.6);
+
+const textStyle11 = const TextStyle(
+    color: Colors.white,
+    fontWeight: FontWeight.w400,
+    fontFamily: "Lato",
+    fontStyle: FontStyle.normal,
+    fontSize: 15.4);

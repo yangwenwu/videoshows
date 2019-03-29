@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_videoshows/import.dart';
-import 'package:flutter_videoshows/model/homenewsbean.dart';
 import 'package:flutter_videoshows/model/publiclistviewBean.dart';
 
 class Search extends StatefulWidget {
@@ -13,7 +12,7 @@ class Search extends StatefulWidget {
 
 class _SearchState extends State<Search> {
   static const jumpVideoPlugin =
-      const MethodChannel('com.lemon.jump.video/plugin');
+  const MethodChannel('com.lemon.jump.video/plugin');
 
   Future<Null> _jumpToNativeVideo(DateList dateList) async {
     Map<String, String> map = {};
@@ -61,78 +60,119 @@ class _SearchState extends State<Search> {
 
   @override
   Widget build(BuildContext context) {
-    _itemBuilder(BuildContext context, int index) {
-      return new GestureDetector(
-          onTap: () {
-            _jumpToNativeVideo(resList[index]);
-          },
-          child: new Row(
-//            textDirection: TextDirection.ltr,
-//            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
+    var headView = new Container(
+        alignment: AlignmentDirectional.center,
+      padding: const EdgeInsets.fromLTRB(0.0, 20.0, 0.0, 10.0),
+      child:new RichText(
+          text: new TextSpan(children: [
+            new TextSpan(
+                style: const TextStyle(
+                    color: const Color(0xff777777),
+                    fontWeight: FontWeight.w400,
+                    fontFamily: "Lato",
+                    fontStyle: FontStyle.normal,
+                    fontSize: 15.4),
+                text: "Total "),
+            new TextSpan(
+                style: const TextStyle(
+                    color: const Color(0xff111111),
+                    fontWeight: FontWeight.w700,
+                    fontFamily: "Lato",
+                    fontStyle: FontStyle.normal,
+                    fontSize: 15.4),
+                text: "123 "),
+            new TextSpan(
+                style: const TextStyle(
+                    color: const Color(0xff777777),
+                    fontWeight: FontWeight.w400,
+                    fontFamily: "Lato",
+                    fontStyle: FontStyle.normal,
+                    fontSize: 15.4),
+                text: "videos found")
+          ]
+          )
+      )
+    );
 
-            children: <Widget>[
-              new SizedBox(
-                width: 10,
-              ),
-              new Container(
-//                padding: EdgeInsets.all(10.0),
-                width: 120.6,
-                height: 67.5,
-                child: new CachedNetworkImage(
-                  imageUrl:
-                      "https://www.chinadailyhk.com/${resList[index].bigTitleImage}",
-                  placeholder: (context, url) => new Image.asset(
-                      "image/news_big_default.png",
-                      width: 128,
-                      height: 72),
-                  errorWidget: (context, url, error) =>
-                      new Image.asset("image/news_big_default.png"),
-                ),
-              ),
-              new SizedBox(
-                width: 5.0,
-              ),
-              new Expanded(
-                  flex: 1,
-                  child: new Column(
-//                    crossAxisAlignment: CrossAxisAlignment.start,
+
+    _itemBuilder(BuildContext context, int index) {
+      if (index == 0) {
+        return headView;
+      }
+
+      return new InkWell(
+        onTap: () {
+          _jumpToNativeVideo(resList[index - 1]);
+        },
+        child: Column(
+          children: <Widget>[
+            new Container(
+              padding: EdgeInsets.fromLTRB(0.0, 15.0, 0.0, 15.0),
+              child: new Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  new Container(
-                    child: new Text(resList[index].title,style: textStyle9,),
-                    alignment: Alignment.topLeft,
+                  new SizedBox(
+                    width: 10,
                   ),
-                  new Align(
-                  alignment: Alignment.bottomLeft,
-                    child: new Text(resList[index].subjectName.toUpperCase(), style: textStyle10,),
+                  new Container(
+//                padding: EdgeInsets.all(10.0),
+                    width: 120.6,
+                    height: 67.5,
+                    child: new ClipRRect(
+                      child: new CachedNetworkImage(
+                        imageUrl:
+                        "https://www.chinadailyhk.com/${resList[index - 1]
+                            .bigTitleImage}",
+                        placeholder: (context, url) =>
+                        new Image.asset(
+                            "image/news_big_default.png",
+                            width: 128,
+                            height: 72),
+                        errorWidget: (context, url, error) =>
+                        new Image.asset("image/news_big_default.png"),
+                      ),
+                      borderRadius: BorderRadius.all(Radius.circular(3.8)),
+                    ),
+                  ),
+                  new SizedBox(
+                    width: 5.0,
+                  ),
+                  new Expanded(
+                    flex: 1,
+                    child: new Container(
+                      height: 68,
+                      child: new Column(
+//                    crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: <Widget>[
+                          new Container(
+                            child: new Text(
+                              resList[index - 1].title,
+                              style: textStyle9,
+                            ),
+                            alignment: Alignment.topLeft,
+                          ),
+                          new Align(
+                            alignment: Alignment.bottomLeft,
+                            child: new Text(
+                              resList[index - 1].subjectName.toUpperCase(),
+                              style: textStyle10,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ],
-              )
               ),
-              new SizedBox(
-                width: 10.0,
-              )
-            ],
-          ));
-
-//          Card(
-//            margin: const EdgeInsets.only(
-//                left: 15.0, top: 10.0, right: 15.0, bottom: 10.0),
-//            shape: const RoundedRectangleBorder(
-//                borderRadius: BorderRadius.all(Radius.circular(7.0))),
-//            elevation: 4.0,
-//            child: Column(
-//              mainAxisSize: MainAxisSize.min,
-//              children: <Widget>[
-//                new Padding(
-//                    padding: const EdgeInsets.only(bottom: 20.0),
-//                    child: new Image.network(
-//                      "https://www.chinadailyhk.com/${resList[index].bigTitleImage}",
-//                      fit: BoxFit.cover,
-//                    )),
-//              ],
-//            ),
-//          ));
+            ),
+            new Divider(
+              height: 2.0,
+            )
+          ],
+        ),
+      );
     }
 
     Widget buildTextField() {
@@ -151,11 +191,16 @@ class _SearchState extends State<Search> {
           key = searchKey.text;
           getData();
         },
-        onChanged: (_) => {printStr("******onChanged****${searchKey.text}")},
+        onChanged: (_) =>
+        {
+        printStr("******onChanged****${searchKey.text}")
+        },
         onEditingComplete: () =>
-            {printStr("*****onEditingComplete****${searchKey.text}")},
+        {
+        printStr("*****onEditingComplete****${searchKey.text}")
+        },
         decoration: InputDecoration(
-            //输入框decoration属性
+          //输入框decoration属性
 //            contentPadding: const EdgeInsets.symmetric(vertical: 1.0,horizontal: 1.0),
             contentPadding: new EdgeInsets.only(left: 0.0),
 //            fillColor: Colors.white,
@@ -188,7 +233,10 @@ class _SearchState extends State<Search> {
       );
     }
 
-    var cancelView = new Text("cancel");
+    var cancelView = new Text(
+      "cancel",
+      style: textStyle11,
+    );
 
     Widget buildSearch() {
       return Row(
@@ -235,7 +283,7 @@ class _SearchState extends State<Search> {
           child: new ListView.builder(
             physics: AlwaysScrollableScrollPhysics(),
             itemBuilder: _itemBuilder,
-            itemCount: resList.length,
+            itemCount: resList.length + 1,
             controller: _scrollController,
           ),
           onRefresh: refresh),
@@ -252,7 +300,8 @@ class _SearchState extends State<Search> {
     /// https://api.cdeclips.com/hknews-api/selectNewsList?title=HK&currentPage=1&dataType=3
     try {
       Response response = await Dio().get(
-          "${Constant.STATICURL}selectNewsList?title=$key&currentPage=$page&dataType=3");
+          "${Constant
+              .STATICURL}selectNewsList?title=$key&currentPage=$page&dataType=3");
       print(response);
       print(response.data);
       if (response.data != null) {
