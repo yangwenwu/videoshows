@@ -80,7 +80,7 @@ class _SearchState extends State<Search> {
                     fontFamily: "Lato",
                     fontStyle: FontStyle.normal,
                     fontSize: 15.4),
-                text: "123 "),
+                text: '${resList.length}'),
             new TextSpan(
                 style: const TextStyle(
                     color: const Color(0xff777777),
@@ -88,7 +88,7 @@ class _SearchState extends State<Search> {
                     fontFamily: "Lato",
                     fontStyle: FontStyle.normal,
                     fontSize: 15.4),
-                text: "videos found")
+                text: " videos found")
           ]
           )
       )
@@ -97,6 +97,11 @@ class _SearchState extends State<Search> {
 
     _itemBuilder(BuildContext context, int index) {
       if (index == 0) {
+//        if(resList.length == 0){
+//          return new Text("");
+//        }else{
+//          return headView;
+//        }
         return headView;
       }
 
@@ -142,7 +147,6 @@ class _SearchState extends State<Search> {
                     child: new Container(
                       height: 68,
                       child: new Column(
-//                    crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: <Widget>[
@@ -186,17 +190,16 @@ class _SearchState extends State<Search> {
         cursorColor: Colors.white,
         //设置光标
         onSubmitted: (_) {
+          resList.clear();
           printStr("*****onSubmit***${searchKey.text}");
           _contentFocusNode.unfocus();
           key = searchKey.text;
           getData();
         },
-        onChanged: (_) =>
-        {
+        onChanged: (_) =>{
         printStr("******onChanged****${searchKey.text}")
         },
-        onEditingComplete: () =>
-        {
+        onEditingComplete: () =>{
         printStr("*****onEditingComplete****${searchKey.text}")
         },
         decoration: InputDecoration(
