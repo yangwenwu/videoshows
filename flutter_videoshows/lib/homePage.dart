@@ -26,7 +26,7 @@ class _HomePage extends State<HomePage> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     // 页面body部分组件
     var _body = new IndexedStack(
-      children: <Widget>[new TobTab(), new Category(), new ThirdTab()],
+      children: <Widget>[new TobTab(), new Category(), new Me()],
       index: _selectedIndex,
     );
 
@@ -75,7 +75,6 @@ class _HomePage extends State<HomePage> with SingleTickerProviderStateMixin {
           ],
           currentIndex: _selectedIndex,
           onTap: _onItemTapped,
-
         ));
   }
 

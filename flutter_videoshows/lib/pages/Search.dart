@@ -32,6 +32,7 @@ class _SearchState extends State<Search> {
   var key = "";
   var page = 1;
   var totalPage;
+  var totalCount=0 ;
   List<DateList> resList = [];
   ScrollController _scrollController = new ScrollController();
   TextEditingController searchKey = new TextEditingController();
@@ -80,7 +81,7 @@ class _SearchState extends State<Search> {
                     fontFamily: "Lato",
                     fontStyle: FontStyle.normal,
                     fontSize: 15.4),
-                text: '${resList.length}'),
+                text: '$totalCount'),
             new TextSpan(
                 style: const TextStyle(
                     color: const Color(0xff777777),
@@ -190,17 +191,21 @@ class _SearchState extends State<Search> {
         cursorColor: Colors.white,
         //设置光标
         onSubmitted: (_) {
+          key = searchKey.text.trim();
+          if(key == null || key.length == 0){
+            return;
+          }
           resList.clear();
-          printStr("*****onSubmit***${searchKey.text}");
+          printStr("*****onSubmit***$key");
           _contentFocusNode.unfocus();
-          key = searchKey.text;
+          page=1;
           getData();
         },
         onChanged: (_) =>{
-        printStr("******onChanged****${searchKey.text}")
+        printStr("******onChanged****$key")
         },
         onEditingComplete: () =>{
-        printStr("*****onEditingComplete****${searchKey.text}")
+        printStr("*****onEditingComplete****$key")
         },
         decoration: InputDecoration(
           //输入框decoration属性
@@ -314,6 +319,7 @@ class _SearchState extends State<Search> {
           resList.clear();
           resList = bean.resObject.dateList;
           totalPage = bean.resObject.totalPage;
+          totalCount = bean.resObject.totalCount;
         } else {
           if (bean.resObject.dateList.length > 0) {
             resList.addAll(bean.resObject.dateList);

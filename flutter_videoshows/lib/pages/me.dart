@@ -3,20 +3,14 @@ import 'package:flutter/services.dart';
 import 'package:flutter_videoshows/import.dart';
 import 'package:flutter_videoshows/pages/test.dart';
 
-class ThirdTab extends StatefulWidget {
+class Me extends StatefulWidget {
   @override
-  _ThirdTabState createState() => _ThirdTabState();
+  _MeState createState() => _MeState();
 }
 
-class _ThirdTabState extends State<ThirdTab> {
+class _MeState extends State<Me> {
   //获取到插件与原生的交互通道
   static const jumpPlugin = const MethodChannel('com.lemon.jump/plugin');
-
-  Future<Null> _jumpToNative() async {
-    String result = await jumpPlugin.invokeMethod('oneAct');
-
-    print(result);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,23 +58,37 @@ class _ThirdTabState extends State<ThirdTab> {
                 alignment: Alignment.center,
               ),
             ),
-            new Padding(
-              padding: new EdgeInsets.fromLTRB(60.0, 10.0, 60.0, 5.0),
-              child: new Row(
-                children: <Widget>[
-                  new Expanded(
-                      child: new OutlineButton(
-                    borderSide: new BorderSide(color: Colors.white),
-                    child: new Text(
-                      'SIGN UP / SIGN IN',
-                      style: new TextStyle(color: Colors.white),
-                    ),
-                    onPressed: () {
-                      goLogin();
-                    },
-                  )),
-                ],
+            new Container(
+              padding: EdgeInsets.only(top: 10.0),
+              child: new OutlineButton(
+                borderSide: new BorderSide(color: Colors.white),
+                child: new Text(
+                  'SIGN UP / SIGN IN',
+                  style: new TextStyle(color: Colors.white),
+                ),
+                onPressed: () {
+//                  goLogin();
+                  Navigator.push(
+                      context, new MaterialPageRoute(builder: (_) => new Login()));
+                },
               ),
+
+//              child: new Row(
+//                children: <Widget>[
+//                  new Expanded(
+//                      child: new OutlineButton(
+//                    borderSide: new BorderSide(color: Colors.white),
+//                    child: new Text(
+//                      'SIGN UP / SIGN IN',
+//                      style: new TextStyle(color: Colors.white),
+//                    ),
+//                    onPressed: () {
+//                      goLogin();
+//                    },
+//                  )
+//                  ),
+//                ],
+//              ),
             ),
           ],
         ),
@@ -95,7 +103,7 @@ class _ThirdTabState extends State<ThirdTab> {
         new SizedBox(
           height: 50,
         ),
-        new GestureDetector(
+        new InkWell(
           onTap: () {
             goProfile();
             Navigator.push(
@@ -106,7 +114,7 @@ class _ThirdTabState extends State<ThirdTab> {
         new SizedBox(
           height: 10,
         ),
-        new GestureDetector(
+        new InkWell(
           onTap: () {
             goBookmark();
           },
@@ -115,7 +123,7 @@ class _ThirdTabState extends State<ThirdTab> {
         new SizedBox(
           height: 10,
         ),
-        new GestureDetector(
+        new InkWell(
           onTap: () {
             goFeedback();
             Navigator.push(
@@ -130,10 +138,8 @@ class _ThirdTabState extends State<ThirdTab> {
         new SizedBox(
           height: 10,
         ),
-        new GestureDetector(
+        new InkWell(
           onTap: () {
-//            _jumpToNative();
-
             Navigator.push(context,
                 new MaterialPageRoute(builder: (context) => new Settings()));
           },

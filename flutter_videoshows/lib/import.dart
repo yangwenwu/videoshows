@@ -12,3 +12,4 @@ export 'package:flutter_videoshows/textStyleUtil.dart';
 export 'package:flutter_videoshows/pages/profile.dart';
 export 'package:flutter_videoshows/pages/changeName.dart';
 export 'package:flutter_videoshows/pages/changePassword.dart';
+export 'package:flutter_videoshows/pages/login.dart';

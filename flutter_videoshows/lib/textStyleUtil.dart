@@ -80,3 +80,20 @@ const textStyle11 = const TextStyle(
     fontFamily: "Lato",
     fontStyle: FontStyle.normal,
     fontSize: 15.4);
+
+///login界面 sign in /on 字体
+const textStyle12 = const TextStyle(
+    color: Colors.white,
+    fontWeight: FontWeight.w900,
+    fontFamily: "Lato",
+    fontStyle: FontStyle.normal,
+    fontSize: 12.5);
+
+const textStyle13 = const TextStyle(
+    color: Color(0x99ffffff),
+    fontWeight: FontWeight.w900,
+    fontFamily: "Lato",
+    fontStyle: FontStyle.normal,
+    fontSize: 12.5);
+
+
