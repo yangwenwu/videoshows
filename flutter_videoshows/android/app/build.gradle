@@ -73,6 +73,19 @@ MobSDK {
                 callbackUri "http://www.chinadailyhk.com/"
                 enable true
             }
+
+            Wechat {
+                id 4
+                sortId 4
+                appId "wxb53cc8df037de602"
+                appSecret "7637db23798e83b1aa52d4a8a4b6b470"
+                userName "gh_afb25ac019c9"
+                path "pages/index/index.html?id=1"
+                withShareTicket true
+                miniprogramType 0
+                bypassApproval false
+                enable true
+            }
         }
     }
 }
@@ -87,7 +100,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.lemon.fluttervideoshows"
+        applicationId "com.lemon.video"
         minSdkVersion 19
         targetSdkVersion 27
         versionCode flutterVersionCode.toInteger()
@@ -95,10 +108,29 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        debug {
+            storeFile file("videoshows.keystore")
+            storePassword "123456"
+            keyAlias "videoshows"
+            keyPassword "123456"
+        }
+        release {
+            storeFile file("videoshows.keystore")
+            storePassword "123456"
+            keyAlias "videoshows"
+            keyPassword "123456"
+        }
+    }
+
+
     buildTypes {
         release {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
+            signingConfig signingConfigs.release
+        }
+        debug {
             signingConfig signingConfigs.debug
         }
     }

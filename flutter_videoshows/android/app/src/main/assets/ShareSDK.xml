@@ -16,7 +16,7 @@
 <Tumblr Enable="false" />
 <Email Enable="false" />
 <ShortMessage Enable="false" />
-<Wechat Enable="false" />
+<Wechat Id="4" SortId="4" AppId="wxb53cc8df037de602" AppSecret="7637db23798e83b1aa52d4a8a4b6b470" userName="gh_afb25ac019c9" path="pages/index/index.html?id=1" WithShareTicket="true" MiniprogramType="0" BypassApproval="false" Enable="true" />
 <WechatMoments Enable="false" />
 <QQ Enable="false" />
 <Instapaper Enable="false" />

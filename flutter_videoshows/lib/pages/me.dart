@@ -9,8 +9,15 @@ class Me extends StatefulWidget {
 }
 
 class _MeState extends State<Me> {
+
   //获取到插件与原生的交互通道
   static const jumpPlugin = const MethodChannel('com.lemon.jump/plugin');
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

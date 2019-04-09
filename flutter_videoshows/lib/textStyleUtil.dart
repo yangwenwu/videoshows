@@ -96,4 +96,10 @@ const textStyle13 = const TextStyle(
     fontStyle: FontStyle.normal,
     fontSize: 12.5);
 
-
+///forgot password
+const textStyle14 = const TextStyle(
+    color: const Color(0xff646464),
+    fontWeight: FontWeight.w400,
+    fontFamily: "Lato",
+    fontStyle: FontStyle.normal,
+    fontSize: 11.5);

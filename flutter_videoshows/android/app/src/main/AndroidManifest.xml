@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.lemon.fluttervideoshows">
+    package="com.lemon.video">
 
     <!-- 获取访问网络权限 -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -16,15 +16,15 @@
 <!-- android:name="com.lemon.fluttervideoshows.application.BaseApp"-->
     <!-- android:name="io.flutter.app.FlutterApplication"-->
     <application
-        android:name="com.lemon.fluttervideoshows.application.BaseApp"
+        android:name="com.lemon.video.application.BaseApp"
         android:allowBackup="true"
         android:label="flutter_videoshows"
-        tools:replace="android:label"
+        tools:replace="android:name"
         android:icon="@mipmap/ic_launcher">
         <!-- android:theme="@style/VideoTheme"-->
         <!-- android:theme="@style/LaunchTheme"-->
         <activity
-            android:name=".MainActivity"
+            android:name="com.lemon.video.MainActivity"
             android:launchMode="singleTop"
             android:theme="@style/LaunchTheme"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|layoutDirection|fontScale|screenLayout|density"
@@ -42,11 +42,11 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".OneActivity"></activity>
-        <activity android:name=".FlutterActivity"></activity>
-        <activity android:name=".VideoDetailActivity"
+        <activity android:name="com.lemon.video.OneActivity"></activity>
+        <activity android:name="com.lemon.video.FlutterActivity"></activity>
+        <activity android:name="com.lemon.video.VideoDetailActivity"
             android:theme="@style/VideoTheme"></activity>
-        <activity android:name="com.lemon.fluttervideoshows.video.VideoDetailActivity"
+        <activity android:name="com.lemon.video.video.VideoDetailActivity"
             android:theme="@style/VideoTheme"></activity>
 
 

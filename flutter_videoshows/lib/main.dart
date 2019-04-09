@@ -5,7 +5,6 @@ import 'package:flutter_videoshows/homePage.dart';
 import 'package:flutter_videoshows/import.dart';
 import 'package:flutter_videoshows/pages/first.dart';
 
-
 void main() => runApp(
 
 //    MyApp()
@@ -66,15 +65,14 @@ class Welcome extends StatefulWidget {
 
 class _WelcomeState extends State<Welcome> {
 
-
   @override
   void initState() {
+    super.initState();
     new Future.delayed(Duration(seconds: 2),(){
 //      Navigator.pushAndRemoveUntil(context, newRoute, predicate)
 //      Navigator.pushNamedAndRemoveUntil(context, "/home", (route) => route == null );
       Navigator.pushNamedAndRemoveUntil(context, "/home", (Route<dynamic> route) => false );
     });
-    super.initState();
   }
 
   @override

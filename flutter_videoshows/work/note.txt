@@ -23,4 +23,10 @@ videoshows 搜索框home键和应用切换，软键盘的弹出问题
 20190329 BugList   kotlin版本
 1.搜索列表问题，输入hk查询后，然后再次输入武汉 ，会崩溃
 
+测试账号密码
+124976507@qq.com     gspepjbd
+
+
+
+
 
