@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_videoshows/import.dart';
+import 'package:flutter_videoshows/loginInfo.dart';
 import 'package:flutter_videoshows/pages/test.dart';
+import 'package:provide/provide.dart';
 
 class Me extends StatefulWidget {
   @override
@@ -53,6 +55,14 @@ class _MeState extends State<Me> {
           children: <Widget>[
             SizedBox(
               height: 25,
+            ),
+            Provide<LoginInfo>(
+              builder: (context, child, loginInfo) {
+                return Text(
+                  '${loginInfo.value}',
+                  style: Theme.of(context).textTheme.display1,
+                );
+              },
             ),
             new GestureDetector(
               onTap: () {

@@ -3,7 +3,10 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_videoshows/import.dart';
+import 'package:flutter_videoshows/loginInfo.dart';
 import 'package:flutter_videoshows/model/facebookLogin.dart';
+import 'package:provide/provide.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 class Login extends StatefulWidget {
@@ -22,29 +25,29 @@ class LoginState extends State<Login> with SingleTickerProviderStateMixin {
   Future<Null> _login() async {
     final FacebookLoginResult result = await facebookSignIn.logInWithReadPermissions(['email']);
     final token = result.accessToken.token;
-    Response response = await Dio().get(
-        'https://graph.facebook.com/v2.12/me?fields=name,first_name,last_name,email&access_token=${token}');
-    print(response.data);
-    if(response.data != null){
-      final profile = jsonDecode(response.data);
-      print(profile);
-      var user = new FacebookLoginBean.fromJson(profile);
-      print(user.id);
-      print(user.name);
-    }
-
     switch (result.status) {
       case FacebookLoginStatus.loggedIn:
         final FacebookAccessToken accessToken = result.accessToken;
         _showMessage('''
          Logged in!
-         
          Token: ${accessToken.token}
          User id: ${accessToken.userId}
          Expires: ${accessToken.expires}
          Permissions: ${accessToken.permissions}
          Declined permissions: ${accessToken.declinedPermissions}
          ''');
+        Response response = await Dio().get(
+            'https://graph.facebook.com/v2.12/me?fields=name,first_name,last_name,email&access_token=${token}');
+        print(response.data);
+        if(response.data != null){
+          final profile = jsonDecode(response.data);
+          print(profile);
+          var user = new FacebookLoginBean.fromJson(profile);
+          print(user.id);
+          print(user.name);
+          _thirdLogin(user);
+        }
+
         break;
       case FacebookLoginStatus.cancelledByUser:
         _showMessage('Login cancelled by the user.');
@@ -251,7 +254,8 @@ class LoginState extends State<Login> with SingleTickerProviderStateMixin {
               onTap: () {
                 print("facebook");
 //                authToWechat(context);
-                _login();
+//                _login();
+                Provide.value<LoginInfo>(context).increment();
 
               },
               child: new Image.asset(
@@ -484,5 +488,21 @@ class LoginState extends State<Login> with SingleTickerProviderStateMixin {
             ));
   }
 
+  Future _thirdLogin(FacebookLoginBean bean) async{
+    Response response = await Dio().get(
+        '${Constant.STATICURL}otherLogin?otherAccount=${bean.id}&nickname=${bean.name}&headImage=');
+    print(response.data);
+    if(response.data != null){
+      saveUser(response.data);
+      Navigator.pop(context);
+    }
+  }
+
+  void  saveUser(var userStr) async {
+    SharedPreferences  prefs = await SharedPreferences.getInstance();
+    prefs.setString("user", userStr);
+
+//    Provide.value<LoginInfo>(context).increment();
+  }
 
 }

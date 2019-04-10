@@ -3,15 +3,19 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_videoshows/homePage.dart';
 import 'package:flutter_videoshows/import.dart';
-import 'package:flutter_videoshows/pages/first.dart';
 
-void main() => runApp(
+import 'loginInfo.dart';
+import 'package:provide/provide.dart';
 
-//    MyApp()
-    _widgetForRoute(window.defaultRouteName)
+void main(){
+  var loginInfo = LoginInfo();
+  var providers = Providers();
 
-
-);
+  providers
+    ..provide(Provider<LoginInfo>.value(loginInfo));
+//  runApp(_widgetForRoute(window.defaultRouteName));
+  runApp(ProviderNode(child: _widgetForRoute(window.defaultRouteName), providers: providers));
+}
 
 Widget _widgetForRoute(String route) {
   switch (route) {
@@ -23,8 +27,6 @@ Widget _widgetForRoute(String route) {
 //      return FirstTab();
       return MyApp();
   }
-//  print( route +"*********************");
-//  return MyApp();
 }
 
 
