@@ -6,7 +6,7 @@
 <QZone Enable="false" />
 <Renren Enable="false" />
 <KaiXin Enable="false" />
-<Facebook Id="2" SortId="2" ShareByAppClient="true" Enable="true" ConsumerKey="285583215282832" ConsumerSecret="90aae2b83bbea0281ce414f452d54d12" RedirectUrl="http://www.chinadailyasia.com" />
+<Facebook Enable="false" />
 <Twitter Id="3" SortId="3" Enable="true" ConsumerKey="4gJpDfTN0nQTjIlbFX3iVXC2z" ConsumerSecret="jedy0Ju8iqd3cv4qfDmBealiI15EgKJpc4VhYfnEIopXaLEhdk" CallbackUrl="http://www.chinadailyhk.com/" />
 <Evernote Enable="false" />
 <FourSquare Enable="false" />

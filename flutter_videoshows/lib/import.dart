@@ -14,3 +14,5 @@ export 'package:flutter_videoshows/pages/changeName.dart';
 export 'package:flutter_videoshows/pages/changePassword.dart';
 export 'package:flutter_videoshows/pages/login.dart';
 export 'package:sharesdk/sharesdk.dart';
+export 'package:flutter_facebook_login/flutter_facebook_login.dart';
+export 'package:flutter_twitter_login/flutter_twitter_login.dart';

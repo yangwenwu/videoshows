@@ -1,5 +1,9 @@
+import 'dart:convert';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_videoshows/import.dart';
+import 'package:flutter_videoshows/model/facebookLogin.dart';
 
 
 class Login extends StatefulWidget {
@@ -11,6 +15,99 @@ class Login extends StatefulWidget {
 }
 
 class LoginState extends State<Login> with SingleTickerProviderStateMixin {
+  static final FacebookLogin facebookSignIn = new FacebookLogin();
+
+  String _message = 'Log in/out by pressing the buttons below.';
+
+  Future<Null> _login() async {
+    final FacebookLoginResult result = await facebookSignIn.logInWithReadPermissions(['email']);
+    final token = result.accessToken.token;
+    Response response = await Dio().get(
+        'https://graph.facebook.com/v2.12/me?fields=name,first_name,last_name,email&access_token=${token}');
+    print(response.data);
+    if(response.data != null){
+      final profile = jsonDecode(response.data);
+      print(profile);
+      var user = new FacebookLoginBean.fromJson(profile);
+      print(user.id);
+      print(user.name);
+    }
+
+    switch (result.status) {
+      case FacebookLoginStatus.loggedIn:
+        final FacebookAccessToken accessToken = result.accessToken;
+        _showMessage('''
+         Logged in!
+         
+         Token: ${accessToken.token}
+         User id: ${accessToken.userId}
+         Expires: ${accessToken.expires}
+         Permissions: ${accessToken.permissions}
+         Declined permissions: ${accessToken.declinedPermissions}
+         ''');
+        break;
+      case FacebookLoginStatus.cancelledByUser:
+        _showMessage('Login cancelled by the user.');
+        break;
+      case FacebookLoginStatus.error:
+        _showMessage('Something went wrong with the login process.\n'
+            'Here\'s the error Facebook gave us: ${result.errorMessage}');
+        break;
+    }
+  }
+
+  Future<Null> _logOut() async {
+    await facebookSignIn.logOut();
+    _showMessage('Logged out.');
+  }
+
+  void _showMessage(String message) {
+    setState(() {
+      _message = message;
+      print("*********$_message");
+    });
+  }
+
+
+
+  static final TwitterLogin twitterLogin = new TwitterLogin(
+    consumerKey: '4gJpDfTN0nQTjIlbFX3iVXC2z',
+    consumerSecret: 'jedy0Ju8iqd3cv4qfDmBealiI15EgKJpc4VhYfnEIopXaLEhdk',
+  );
+
+  String _tmessage = 'Logged out.';
+
+  void _twitterlogin() async {
+    final TwitterLoginResult result = await twitterLogin.authorize();
+    String newMessage;
+
+    switch (result.status) {
+      case TwitterLoginStatus.loggedIn:
+        newMessage = 'Logged in! username: ${result.session.username}';
+        break;
+      case TwitterLoginStatus.cancelledByUser:
+        newMessage = 'Login cancelled by user.';
+        break;
+      case TwitterLoginStatus.error:
+        newMessage = 'Login error: ${result.errorMessage}';
+        break;
+    }
+
+    setState(() {
+      _tmessage = newMessage;
+      print("*********$_tmessage");
+    });
+  }
+
+  void _twitterlogout() async {
+    await twitterLogin.logOut();
+
+    setState(() {
+      _tmessage = 'Logged out.';
+    });
+  }
+
+
   bool page1IsVisible = false;
   bool page2IsVisible = true;
 
@@ -153,7 +250,9 @@ class LoginState extends State<Login> with SingleTickerProviderStateMixin {
             new InkWell(
               onTap: () {
                 print("facebook");
-                authToWechat(context);
+//                authToWechat(context);
+                _login();
+
               },
               child: new Image.asset(
                 "image/share_facebook.png", width: 50, height: 50,),
@@ -162,7 +261,8 @@ class LoginState extends State<Login> with SingleTickerProviderStateMixin {
             new InkWell(
               onTap: () {
                 print("twitter");
-                shareToWechat(context);
+//                shareToWechat(context);
+              _twitterlogin();
               },
               child: new Image.asset(
                 "image/share_twitter.png", width: 50, height: 50,),
@@ -348,8 +448,6 @@ class LoginState extends State<Login> with SingleTickerProviderStateMixin {
       ),
     );
   }
-
-
 
   void showAlert(SSDKResponseState state, Map content, BuildContext context) {
     print("--------------------------> state:" + state.toString());

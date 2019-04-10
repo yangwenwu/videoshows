@@ -155,6 +155,7 @@
     <string name="send_verification" translatable="false">Send Verification \n Code to my Email</string>
 
     <string name="facebook_app_id" translatable="false">285583215282832</string>
+    <string name="fb_login_protocol_scheme">fb285583215282832</string>
 
     <string name="load" translatable="false">Download</string>
     <string name="pausing" translatable="false">pausing…</string>
