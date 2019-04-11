@@ -1,9 +1,12 @@
+import 'dart:convert';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_videoshows/import.dart';
 import 'package:flutter_videoshows/loginInfo.dart';
-import 'package:flutter_videoshows/pages/test.dart';
+import 'package:flutter_videoshows/model/userBean.dart';
 import 'package:provide/provide.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Me extends StatefulWidget {
   @override
@@ -11,14 +14,28 @@ class Me extends StatefulWidget {
 }
 
 class _MeState extends State<Me> {
+  bool _isLogin = false;
+  UserBean user;
 
   //获取到插件与原生的交互通道
   static const jumpPlugin = const MethodChannel('com.lemon.jump/plugin');
 
   @override
   void initState() {
-    // TODO: implement initState
+    isLogin();
     super.initState();
+  }
+
+  void isLogin() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var userStr = prefs.getString("user");
+    _isLogin = prefs.getBool("isLogin");
+    if (userStr != null) {
+      print(userStr);
+      var profile = jsonDecode(userStr);
+      print(profile);
+      user = new UserBean.fromJson(profile);
+    }
   }
 
   @override
@@ -36,6 +53,51 @@ class _MeState extends State<Me> {
         ),
       ),
     );
+  }
+
+  Widget avatar() {
+    if (_isLogin) {
+      return new Container(
+        height: 75,
+        width: 75,
+        child: new ClipRRect(
+          child: new CachedNetworkImage(
+            imageUrl: user.resObject.headImage,
+            placeholder: (context, url) =>
+                new Image.asset("image/avatar.png", width: 75, height: 75),
+            errorWidget: (context, url, error) =>
+                new Image.asset("image/avatar.png"),
+          ),
+          borderRadius: BorderRadius.all(Radius.circular(90)),
+        ),
+      );
+    } else {
+      return new Image.asset(
+        "image/avatar.png",
+        width: 75,
+        height: 75,
+        alignment: Alignment.center,
+      );
+    }
+  }
+
+  Widget nickName() {
+    if (_isLogin) {
+      return new Text(user.resObject.nickName);
+    } else {
+      return new OutlineButton(
+        borderSide: new BorderSide(color: Colors.white),
+        child: new Text(
+          'SIGN UP / SIGN IN',
+          style: new TextStyle(color: Colors.white),
+        ),
+        onPressed: () {
+//                  goLogin();
+          Navigator.push(
+              context, new MaterialPageRoute(builder: (_) => new Login()));
+        },
+      );
+    }
   }
 
   Widget topWidget() {
@@ -65,30 +127,34 @@ class _MeState extends State<Me> {
               },
             ),
             new GestureDetector(
-              onTap: () {
-                changeAvatar();
-              },
-              child: new Image.asset(
-                "image/avatar.png",
-                width: 75,
-                height: 75,
-                alignment: Alignment.center,
-              ),
-            ),
+                onTap: () {
+                  changeAvatar();
+                },
+                child: avatar()
+
+//              new Image.asset(
+//                "image/avatar.png",
+//                width: 75,
+//                height: 75,
+//                alignment: Alignment.center,
+//              ),
+                ),
             new Container(
               padding: EdgeInsets.only(top: 10.0),
-              child: new OutlineButton(
-                borderSide: new BorderSide(color: Colors.white),
-                child: new Text(
-                  'SIGN UP / SIGN IN',
-                  style: new TextStyle(color: Colors.white),
-                ),
-                onPressed: () {
-//                  goLogin();
-                  Navigator.push(
-                      context, new MaterialPageRoute(builder: (_) => new Login()));
-                },
-              ),
+              child: nickName(),
+
+//              new OutlineButton(
+//                borderSide: new BorderSide(color: Colors.white),
+//                child: new Text(
+//                  'SIGN UP / SIGN IN',
+//                  style: new TextStyle(color: Colors.white),
+//                ),
+//                onPressed: () {
+////                  goLogin();
+//                  Navigator.push(
+//                      context, new MaterialPageRoute(builder: (_) => new Login()));
+//                },
+//              ),
 
 //              child: new Row(
 //                children: <Widget>[

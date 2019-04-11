@@ -1,4 +1,7 @@
 import 'package:flutter_videoshows/import.dart';
+import 'package:flutter_videoshows/loginInfo.dart';
+import 'package:provide/provide.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Settings extends StatefulWidget {
   @override
@@ -8,6 +11,8 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
+  bool logout = false;
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -102,14 +107,32 @@ class _SettingsState extends State<Settings> {
   }
 
   Widget _buildLogOut() {
-    return new Container(
-      color: Color(0xffffffff),
-      height: 45,
-      alignment: Alignment.center,
-      child: Text(
-        "Log Out",
-        style: textStyle1,
+    return InkWell(
+      onTap: (){
+        print("******* 退出*****");
+        logoutUser();
+        setState(() {
+
+        });
+      },
+      child: new Container(
+        color: Color(0xffffffff),
+        height: 45,
+        alignment: Alignment.center,
+        child: Text(
+          logout ? "" :"Log Out",
+          style: textStyle1,
+        ),
       ),
     );
+  }
+
+
+  void  logoutUser() async {
+    SharedPreferences  prefs = await SharedPreferences.getInstance();
+    prefs.setString("user", null);
+    prefs.setBool("isLogin", false);
+    logout = true;
+    Provide.value<LoginInfo>(context).increment();
   }
 }

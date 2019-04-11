@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_videoshows/import.dart';
 import 'package:flutter_videoshows/loginInfo.dart';
 import 'package:flutter_videoshows/model/facebookLogin.dart';
+import 'package:flutter_videoshows/model/userBean.dart';
 import 'package:provide/provide.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -254,8 +255,9 @@ class LoginState extends State<Login> with SingleTickerProviderStateMixin {
               onTap: () {
                 print("facebook");
 //                authToWechat(context);
-//                _login();
-                Provide.value<LoginInfo>(context).increment();
+                _login();
+
+
 
               },
               child: new Image.asset(
@@ -493,16 +495,25 @@ class LoginState extends State<Login> with SingleTickerProviderStateMixin {
         '${Constant.STATICURL}otherLogin?otherAccount=${bean.id}&nickname=${bean.name}&headImage=');
     print(response.data);
     if(response.data != null){
+      Map map = response.data;
+      var userBean = new UserBean.fromJson(map);
+
+      print("map[resObject]*****************");
+      print(map["resObject"]);
+      print("map[resObject].toString()*****************");
+      print(map["resObject"].toString());
       saveUser(response.data);
-      Navigator.pop(context);
+//      Navigator.pop(context);
     }
   }
 
-  void  saveUser(var userStr) async {
-    SharedPreferences  prefs = await SharedPreferences.getInstance();
-    prefs.setString("user", userStr);
 
-//    Provide.value<LoginInfo>(context).increment();
+  void  saveUser(var userStr) async {
+    print("**************user******$userStr");
+    SharedPreferences  prefs = await SharedPreferences.getInstance();
+    prefs.setString("user", json.encode(userStr));
+    prefs.setBool("isLogin", true);
+    Provide.value<LoginInfo>(context).increment();
   }
 
 }

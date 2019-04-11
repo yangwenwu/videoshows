@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginInfo with ChangeNotifier{
-  int value = 0;
+  String value = "0";
 
-  increment(){
-    value++;
+  increment() async {
+    SharedPreferences  prefs = await SharedPreferences.getInstance();
+//    value =prefs.getString("user");
+    value =prefs.getBool("isLogin").toString();
+    print("********* value *********$value");
     notifyListeners();
   }
 }

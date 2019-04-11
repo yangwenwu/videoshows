@@ -4,6 +4,7 @@ import 'package:flutter_videoshows/pages/tob.dart';
 import 'package:flutter_videoshows/pages/category.dart';
 import 'package:flutter_videoshows/pages/me.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -18,8 +19,18 @@ class _HomePage extends State<HomePage> with SingleTickerProviderStateMixin {
 
   @override
   void initState() {
-    // TODO: implement initState
+    isLogin();
     super.initState();
+  }
+
+  void isLogin() async{
+    SharedPreferences  prefs = await SharedPreferences.getInstance();
+    String userStr = prefs.getString("user");
+    if(userStr != null){
+      prefs.setBool("isLogin", true);
+    }else{
+      prefs.setBool("isLogin", false);
+    }
   }
 
   @override
