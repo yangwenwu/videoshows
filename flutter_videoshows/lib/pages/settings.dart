@@ -15,7 +15,8 @@ class _SettingsState extends State<Settings> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
+    return new WillPopScope(child:
+      new Scaffold(
       appBar: new AppBar(
         backgroundColor: Color(0xff171616),
         centerTitle: true,
@@ -35,7 +36,7 @@ class _SettingsState extends State<Settings> {
               height: 25,
             ),
             onPressed: () {
-              Navigator.pop(context);
+              Navigator.pop(context,"out");
             }),
       ),
       backgroundColor: Color(0xfff5f5f5),
@@ -67,7 +68,10 @@ class _SettingsState extends State<Settings> {
           _buildLogOut()
         ],
       ),
-    );
+    ),
+        onWillPop: (){
+          Navigator.pop(context,"out");
+        });
   }
 
   Widget _buildView(var value, bool isVisible) {

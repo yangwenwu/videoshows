@@ -46,7 +46,7 @@ class LoginState extends State<Login> with SingleTickerProviderStateMixin {
           var user = new FacebookLoginBean.fromJson(profile);
           print(user.id);
           print(user.name);
-          _thirdLogin(user);
+          _thirdLogin(user.id,user.name);
         }
 
         break;
@@ -88,6 +88,7 @@ class LoginState extends State<Login> with SingleTickerProviderStateMixin {
     switch (result.status) {
       case TwitterLoginStatus.loggedIn:
         newMessage = 'Logged in! username: ${result.session.username}';
+        _thirdLogin(result.session.userId,result.session.username);
         break;
       case TwitterLoginStatus.cancelledByUser:
         newMessage = 'Login cancelled by user.';
@@ -490,9 +491,9 @@ class LoginState extends State<Login> with SingleTickerProviderStateMixin {
             ));
   }
 
-  Future _thirdLogin(FacebookLoginBean bean) async{
+  Future _thirdLogin(var id,var name) async{
     Response response = await Dio().get(
-        '${Constant.STATICURL}otherLogin?otherAccount=${bean.id}&nickname=${bean.name}&headImage=');
+        '${Constant.STATICURL}otherLogin?otherAccount=$id&nickname=$name&headImage=');
     print(response.data);
     if(response.data != null){
       Map map = response.data;
@@ -503,7 +504,7 @@ class LoginState extends State<Login> with SingleTickerProviderStateMixin {
       print("map[resObject].toString()*****************");
       print(map["resObject"].toString());
       saveUser(response.data);
-//      Navigator.pop(context);
+      Navigator.pop(context,json.encode(response.data));
     }
   }
 

@@ -94,7 +94,17 @@ class _MeState extends State<Me> {
         onPressed: () {
 //                  goLogin();
           Navigator.push(
-              context, new MaterialPageRoute(builder: (_) => new Login()));
+              context, new MaterialPageRoute(builder: (_) => new Login())
+          ).then((value){
+            print(value);
+            var profile = jsonDecode(value);
+            print(profile);
+            user = new UserBean.fromJson(profile);
+            _isLogin = true;
+            setState(() {
+              print("*****************   data  ******* $value");
+            });
+          });
         },
       );
     }
@@ -117,14 +127,6 @@ class _MeState extends State<Me> {
           children: <Widget>[
             SizedBox(
               height: 25,
-            ),
-            Provide<LoginInfo>(
-              builder: (context, child, loginInfo) {
-                return Text(
-                  '${loginInfo.value}',
-                  style: Theme.of(context).textTheme.display1,
-                );
-              },
             ),
             new GestureDetector(
                 onTap: () {
@@ -224,7 +226,14 @@ class _MeState extends State<Me> {
         new InkWell(
           onTap: () {
             Navigator.push(context,
-                new MaterialPageRoute(builder: (context) => new Settings()));
+                new MaterialPageRoute(builder: (context) => new Settings())
+            ).then((value){
+              print("********** out ***** $value ");
+              _isLogin = false;
+              setState(() {
+                print("********** 打印第二次 out ***** $value ");
+              });
+            });
           },
           child: itemWidget("image/settings.png", "Setting"),
         )
