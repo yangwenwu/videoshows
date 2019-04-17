@@ -1,12 +1,15 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_videoshows/import.dart';
-import 'package:flutter_videoshows/loginInfo.dart';
 import 'package:flutter_videoshows/model/userBean.dart';
-import 'package:provide/provide.dart';
+import 'package:flutter_videoshows/pages/ttest.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:image_cropper/image_cropper.dart';
 
 class Me extends StatefulWidget {
   @override
@@ -16,7 +19,7 @@ class Me extends StatefulWidget {
 class _MeState extends State<Me> {
   bool _isLogin = false;
   UserBean user;
-
+  File _image;
   //获取到插件与原生的交互通道
   static const jumpPlugin = const MethodChannel('com.lemon.jump/plugin');
 
@@ -36,6 +39,36 @@ class _MeState extends State<Me> {
       print(profile);
       user = new UserBean.fromJson(profile);
     }
+  }
+
+  Future getImage() async {
+//    var image = await ImagePicker.pickImage(source: ImageSource.camera);
+    var imageBig = await ImagePicker.pickImage(source: ImageSource.gallery);
+
+    _cropImage(imageBig);
+}
+
+  Future<Null> _cropImage(File imageFile) async {
+    File croppedFile = await ImageCropper.cropImage(
+      sourcePath: imageFile.path,
+      ratioX: 1.0,
+      ratioY: 1.0,
+      maxWidth: 300,
+      maxHeight: 300,
+    );
+    setState(() {
+      _image = croppedFile;
+    });
+  }
+
+  ///上传图片
+  Future uploadImage(String id,String imageName,String imgStr ) async{
+//    response = await dio.post("/test", data: {"id": 12, "name": "wendu"});
+    Response response = await Dio().post(
+        '${Constant.STATICURL}modifyHeadImg',data: {"userId": id, "imageName": imageName,"imgStr": imgStr})
+        .catchError((error){
+
+    });
   }
 
   @override
@@ -60,16 +93,16 @@ class _MeState extends State<Me> {
       return new Container(
         height: 75,
         width: 75,
-        child: new ClipRRect(
+        child: _image == null ?  new ClipRRect(
           child: new CachedNetworkImage(
             imageUrl: user.resObject.headImage,
             placeholder: (context, url) =>
-                new Image.asset("image/avatar.png", width: 75, height: 75),
+            new Image.asset("image/avatar.png", width: 75, height: 75),
             errorWidget: (context, url, error) =>
-                new Image.asset("image/avatar.png"),
+            new Image.asset("image/avatar.png"),
           ),
           borderRadius: BorderRadius.all(Radius.circular(90)),
-        ),
+        ) :new Image.file(_image),
       );
     } else {
       return new Image.asset(
@@ -129,17 +162,8 @@ class _MeState extends State<Me> {
               height: 25,
             ),
             new GestureDetector(
-                onTap: () {
-                  changeAvatar();
-                },
+                onTap: getImage,
                 child: avatar()
-
-//              new Image.asset(
-//                "image/avatar.png",
-//                width: 75,
-//                height: 75,
-//                alignment: Alignment.center,
-//              ),
                 ),
             new Container(
               padding: EdgeInsets.only(top: 10.0),
@@ -202,6 +226,8 @@ class _MeState extends State<Me> {
         new InkWell(
           onTap: () {
             goBookmark();
+            Navigator.push(
+                context, new MaterialPageRoute(builder: (_) => new FutureBuilderPage()));
           },
           child: itemWidget("image/bookmarks.png", "BookeMark"),
         ),
@@ -305,6 +331,8 @@ class _MeState extends State<Me> {
       ],
     );
   }
+
+
 }
 
 void goLogin() {

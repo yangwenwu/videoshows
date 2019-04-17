@@ -8,11 +8,11 @@
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
-
     <!-- 读写存储卡  装载和卸载文件系统 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
 <!-- android:name="com.lemon.fluttervideoshows.application.BaseApp"-->
     <!-- android:name="io.flutter.app.FlutterApplication"-->
     <application
@@ -68,6 +68,12 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
+
+
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
 
     </application>
 </manifest>

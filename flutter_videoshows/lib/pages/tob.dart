@@ -1,11 +1,20 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_videoshows/http/api.dart';
+import 'package:flutter_videoshows/http/dataResult.dart';
+import 'package:flutter_videoshows/http/httpRequest.dart';
+import 'package:flutter_videoshows/http/resultData.dart';
+import 'package:flutter_videoshows/http/spUtils.dart';
 import 'package:flutter_videoshows/model/homenewsbean.dart';
 import 'package:flutter_videoshows/import.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:path/path.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class TobTab extends StatefulWidget {
   @override
@@ -13,6 +22,8 @@ class TobTab extends StatefulWidget {
 }
 
 class _TobTabState extends State<TobTab> {
+  String topStr = "";
+  bool loadFail = false;
   static const jumpVideoPlugin =
       const MethodChannel('com.lemon.jump.video/plugin');
 
@@ -36,9 +47,39 @@ class _TobTabState extends State<TobTab> {
 
   @override
   void initState() {
-    _scrollController.addListener(_scrollListener);
-    getData();
     super.initState();
+    getYY();
+
+    _scrollController.addListener(_scrollListener);
+//    getData();
+  }
+
+  getYY() async {
+    ResultData resultData = await HttpRequest.get("selectVideoHome", null);
+
+    if (resultData != null && resultData.result) {
+      HomeNewsBean bean = HomeNewsBean.fromJson(resultData.data);
+//      SpUtils.save("top", bean.toJson().toString());
+      SpUtils.save("top", json.encode(resultData.data));
+      print(bean.toJson().toString());
+      resList.clear();
+      resList = bean.resObject;
+    } else {
+//      SharedPreferences prefs = await SharedPreferences.getInstance();
+//      var topStr = prefs.getString("top");
+      String topStr = await SpUtils.get("top") as String;
+      print("************************* topStr == $topStr");
+      if (topStr != null && topStr.isNotEmpty) {
+        var profile = jsonDecode(topStr);
+        HomeNewsBean bean = HomeNewsBean.fromJson(profile);
+        print("************************* profile == $profile");
+        resList.clear();
+        resList = bean.resObject;
+      } else {
+        loadFail = true;
+      }
+    }
+    setState(() {});
   }
 
   _scrollListener() async {
@@ -76,7 +117,9 @@ class _TobTabState extends State<TobTab> {
                           placeholder: (context, url) => new Image.asset(
                               "image/news_big_default.png",
                               width: MediaQuery.of(context).size.width - 30,
-                              height: (MediaQuery.of(context).size.width - 30) *9 /16),
+                              height: (MediaQuery.of(context).size.width - 30) *
+                                  9 /
+                                  16),
                           errorWidget: (context, url, error) =>
                               new Image.asset("image/news_big_default.png"),
                         ),
@@ -140,6 +183,59 @@ class _TobTabState extends State<TobTab> {
           ));
     }
 
+    var content;
+
+    if (resList.isEmpty) {
+//      content = new Center(child: new CircularProgressIndicator());
+      if (loadFail) {
+        //加载失败
+        content = new Center(
+          child: new RaisedButton(
+            onPressed: () {
+              loadFail = false;
+              getYY();
+              setState(() {});
+            },
+            child: new Text("点击重新加载"),
+          ),
+        );
+      } else {
+        content = new Stack(
+          children: <Widget>[
+            new Padding(
+              padding: new EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 35.0),
+              child: new Center(
+                child: SpinKitFadingCircle(
+                  color: Colors.blueAccent,
+                  size: 30.0,
+                ),
+              ),
+            ),
+            new Padding(
+              padding: new EdgeInsets.fromLTRB(0.0, 35.0, 0.0, 0.0),
+              child: new Center(
+                child: new Text('正在加载中，莫着急哦~'),
+              ),
+            ),
+          ],
+        );
+      }
+    } else {
+      content = new ListView.builder(
+        //设置physics属性总是可滚动
+        physics: AlwaysScrollableScrollPhysics(),
+        controller: _scrollController,
+        itemCount: resList.length,
+        itemBuilder: _itemBuilder,
+      );
+    }
+
+    var _refreshIndicator = new RefreshIndicator(
+//      key: _refreshIndicatorKey,
+      onRefresh: refresh,
+      child: content,
+    );
+
     return new Scaffold(
       appBar: new AppBar(
         centerTitle: true,
@@ -157,53 +253,8 @@ class _TobTabState extends State<TobTab> {
         elevation: 0.0,
         backgroundColor: Colors.black,
       ),
-      body: new RefreshIndicator(
-          child: new ListView.builder(
-            physics: AlwaysScrollableScrollPhysics(),
-            itemBuilder: _itemBuilder,
-            itemCount: resList.length,
-            controller: _scrollController,
-          ),
-          onRefresh: refresh),
+      body: _refreshIndicator,
     );
-  }
-
-  Widget _buildStackView() {
-    return new Row(children: <Widget>[
-      Padding(
-        padding: const EdgeInsets.only(left: 20),
-        child: Material(
-          color: Colors.black,
-          borderRadius: BorderRadius.circular(5.0),
-//                shadowColor: Colors.blue.shade200,
-          elevation: 5.0,
-          child: new Container(
-              padding: const EdgeInsets.all(8.0),
-              child: new Row(
-                children: <Widget>[
-                  new Text(
-                    "chinadaily",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 10,
-                    ),
-                  ),
-                ],
-              )),
-        ),
-      ),
-      Expanded(child: new Text("")),
-      new Positioned(
-          right: 30,
-          child: Padding(
-            padding: const EdgeInsets.only(top: 30),
-            child: new Image.asset(
-              "image/video_item_play.png",
-              width: 50,
-              height: 50,
-            ),
-          )),
-    ]);
   }
 
   Future refresh() async {

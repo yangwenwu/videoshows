@@ -22,12 +22,17 @@ dependencies:
   english_words: ^3.1.0
   shared_preferences: ^0.4.3
   http: '>=0.11.3+12'
-  dio: ^2.1.0
+  dio: ^2.1.2
   cached_network_image: ^0.7.0
   sharesdk: ^1.0.9
   flutter_facebook_login: ^1.2.0
   flutter_twitter_login: ^1.1.0
   provide: ^1.0.2
+  image_picker: ^0.4.12+1
+  image_cropper: ^0.0.9
+  connectivity: ^0.3.2
+  event_bus:  ^1.0.1
+  flutter_spinkit: "^2.1.0"
 
 
 

@@ -6,6 +6,8 @@ import 'package:flutter_videoshows/pages/me.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'import.dart';
+
 class HomePage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -41,7 +43,8 @@ class _HomePage extends State<HomePage> with SingleTickerProviderStateMixin {
       index: _selectedIndex,
     );
 
-    return new Scaffold(
+    return  new WillPopScope(child:
+      new Scaffold(
 //        backgroundColor: Colors.black,
         body: _body,
         bottomNavigationBar: new CupertinoTabBar(
@@ -86,7 +89,8 @@ class _HomePage extends State<HomePage> with SingleTickerProviderStateMixin {
           ],
           currentIndex: _selectedIndex,
           onTap: _onItemTapped,
-        ));
+        )),
+        onWillPop: _requestPop);
   }
 
   void _onItemTapped(int index) {
@@ -99,5 +103,26 @@ class _HomePage extends State<HomePage> with SingleTickerProviderStateMixin {
   void dispose() {
     //释放内存，节省开销
     super.dispose();
+  }
+
+
+  _showDialog() {
+    showDialog<Null>(
+      context: context,
+      child: new AlertDialog(content: new Text('退出app'), actions: <Widget>[
+        new FlatButton(
+            onPressed: () {
+              Navigator.pop(context);
+              SystemNavigator.pop();
+            },
+            child: new Text('确定'))
+      ]),
+    );
+  }
+
+
+  Future<bool> _requestPop() {
+    _showDialog();
+    return new Future.value(false);
   }
 }

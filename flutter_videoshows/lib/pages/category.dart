@@ -210,7 +210,7 @@ class _CategoryState extends State<Category> {
 //  _scrollController..addListener((){
 //
 //  });
-    requestData(true);
+//    requestData(true);
     super.initState();
   }
 
