@@ -22,7 +22,6 @@ class TobTab extends StatefulWidget {
 }
 
 class _TobTabState extends State<TobTab> {
-  String topStr = "";
   bool loadFail = false;
   static const jumpVideoPlugin =
       const MethodChannel('com.lemon.jump.video/plugin');
@@ -38,7 +37,6 @@ class _TobTabState extends State<TobTab> {
     map.putIfAbsent("description", () => dateList.description);
     String result = await jumpVideoPlugin.invokeMethod('VideoDetail', map);
 //    String result = await jumpVideoPlugin.invokeMethod('VideoDetail',dateList);
-
     print(result);
   }
 
@@ -48,25 +46,45 @@ class _TobTabState extends State<TobTab> {
   @override
   void initState() {
     super.initState();
-    getYY();
-
+//    getYY();
+    getTop();
     _scrollController.addListener(_scrollListener);
 //    getData();
   }
 
+  getTop() async{
+    DataResult dataResult = await Api.topListData();
+    print("************* dataResult **** ${dataResult.result}");
+    HomeNewsBean bean = dataResult.data;
+    print("***************  bean....${bean.resObject}");
+    print("***************  bean to json....${bean.toJson()}");//将bean转化成一个map
+
+    HomeNewsBean bean2 = HomeNewsBean.fromJson(bean.toJson()) ; //从一个map里面构造一个实例bean
+    print("************** bean2 resMsg  *****${bean2.resMsg}");
+    String json = jsonEncode(bean2);
+    await SpUtils.save("toptop", json);
+    String toptop =  await SpUtils.get("toptop") as String;
+    print("*********    toptop ********   $toptop");
+//    String profile = jsonEncode(toptop);
+//    print("************** profile ****  $profile");
+    Map mm = jsonDecode(toptop);
+    print("************** mm ****  $mm");
+
+    resList.clear();
+    resList = bean.resObject;
+    setState(() {});
+  }
+
   getYY() async {
     ResultData resultData = await HttpRequest.get("selectVideoHome", null);
-
     if (resultData != null && resultData.result) {
       HomeNewsBean bean = HomeNewsBean.fromJson(resultData.data);
-//      SpUtils.save("top", bean.toJson().toString());
+//      SpUtils.save("top", bean.toJson().toString());   //这样子保存数据，后面获取数据的时候会报错
       SpUtils.save("top", json.encode(resultData.data));
       print(bean.toJson().toString());
       resList.clear();
       resList = bean.resObject;
     } else {
-//      SharedPreferences prefs = await SharedPreferences.getInstance();
-//      var topStr = prefs.getString("top");
       String topStr = await SpUtils.get("top") as String;
       print("************************* topStr == $topStr");
       if (topStr != null && topStr.isNotEmpty) {

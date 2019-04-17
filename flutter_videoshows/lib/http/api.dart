@@ -9,7 +9,7 @@ import 'httpRequest.dart';
 
 class Api {
 
-  static topListData() async {
+  static Future<DataResult> topListData() async {
     ResultData resultData = await  HttpRequest.get("selectVideoHome", null);
     if(resultData != null && resultData.result){
       print(resultData.data);
