@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_videoshows/import.dart';
@@ -39,7 +38,6 @@ class _CategoryListPageState extends State<CategoryListPage> {
   bool loadFail = false;
   var page = 1;
   var totalPage;
-
   List<DateList> resList = [];
   ScrollController _scrollController = new ScrollController();
 
@@ -47,19 +45,14 @@ class _CategoryListPageState extends State<CategoryListPage> {
   void initState() {
     code = widget.modelbean.code;
     _scrollController.addListener(_scrollListener);
-//    getData();
     getCategoryListData();
     super.initState();
   }
 
   _scrollListener() async {
-    if (_scrollController.position.pixels ==_scrollController.position.maxScrollExtent) {
-//      if (resList.length > 0) {
-//        resList.clear();
-//      }
-//      page++;
+    if (_scrollController.position.pixels ==
+        _scrollController.position.maxScrollExtent) {
       if (totalPage >= page) {
-//        getData();
         getCategoryListData();
       }
       setState(() {});
@@ -68,7 +61,6 @@ class _CategoryListPageState extends State<CategoryListPage> {
 
   Future refresh() async {
     page = 1;
-//    getData();
     getCategoryListData();
   }
 
@@ -77,18 +69,17 @@ class _CategoryListPageState extends State<CategoryListPage> {
     if (dataResult.result) {
       PublicListViewBean bean = dataResult.data;
       String json = jsonEncode(bean);
-      if(page == 1){
+      if (page == 1) {
         await SpUtils.save(SPKey.TOP + code, json);
         resList.clear();
         totalPage = bean.resObject.totalPage;
         resList = bean.resObject.dateList;
-      }else {
+      } else {
         if (bean.resObject.dateList.length != 0) {
           resList.addAll(bean.resObject.dateList);
         }
       }
       page++;
-
     } else {
       String top = await SpUtils.get(SPKey.TOP + code);
       if (top != null && top.isNotEmpty) {
@@ -104,33 +95,6 @@ class _CategoryListPageState extends State<CategoryListPage> {
     setState(() {});
   }
 
-//  https://api.cdeclips.com/hknews-api/selectNewsList?subjectCode=movie_corner&currentPage=1&dataType=3
-  Future getData() async {
-    try {
-      Response response = await Dio().get(
-          "${Constant.STATICURL}selectNewsList?subjectCode=$code&currentPage=$page&dataType=3");
-      print(response);
-      print(response.data);
-      if (response.data != null) {
-        Map map = response.data;
-        PublicListViewBean bean = new PublicListViewBean.fromJson(map);
-        if (page == 1) {
-          resList.clear();
-          resList = bean.resObject.dateList;
-          totalPage = bean.resObject.totalPage;
-        } else {
-          if (bean.resObject.dateList.length > 0) {
-            resList.addAll(bean.resObject.dateList);
-          }
-        }
-        page++;
-        setState(() {});
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
-
   @override
   void dispose() {
     _scrollController.dispose();
@@ -139,7 +103,6 @@ class _CategoryListPageState extends State<CategoryListPage> {
 
   @override
   Widget build(BuildContext context) {
-
     _itemBuilder(BuildContext context, int index) {
       return new GestureDetector(
           onTap: () {
@@ -184,7 +147,6 @@ class _CategoryListPageState extends State<CategoryListPage> {
                     ],
                   ),
                 ),
-
                 new Align(
                   alignment: Alignment.centerLeft,
                   child: new Padding(
@@ -200,7 +162,7 @@ class _CategoryListPageState extends State<CategoryListPage> {
           ));
     }
 
-    var content ;
+    var content;
     if (resList.isEmpty) {
 //      content = new Center(child: new CircularProgressIndicator());
       if (loadFail) {
@@ -228,10 +190,8 @@ class _CategoryListPageState extends State<CategoryListPage> {
       );
     }
 
-
-    var _refreshIndicator = new RefreshIndicator(
-        child: content,
-        onRefresh: refresh);
+    var _refreshIndicator =
+        new RefreshIndicator(child: content, onRefresh: refresh);
 
     return new Scaffold(
       appBar: new AppBar(
