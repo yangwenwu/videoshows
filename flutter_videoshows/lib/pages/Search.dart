@@ -314,7 +314,7 @@ class _SearchState extends State<Search> {
       print(response.data);
       if (response.data != null) {
         Map map = response.data;
-        PubliclistviewBean bean = new PubliclistviewBean.fromJson(map);
+        PublicListViewBean bean = new PublicListViewBean.fromJson(map);
         if (page == 1) {
           resList.clear();
           resList = bean.resObject.dateList;

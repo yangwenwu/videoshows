@@ -1,20 +1,13 @@
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_videoshows/http/api.dart';
 import 'package:flutter_videoshows/http/dataResult.dart';
-import 'package:flutter_videoshows/http/httpRequest.dart';
-import 'package:flutter_videoshows/http/resultData.dart';
 import 'package:flutter_videoshows/http/spUtils.dart';
 import 'package:flutter_videoshows/model/homenewsbean.dart';
 import 'package:flutter_videoshows/import.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:path/path.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class TobTab extends StatefulWidget {
   @override
@@ -23,8 +16,7 @@ class TobTab extends StatefulWidget {
 
 class _TobTabState extends State<TobTab> {
   bool loadFail = false;
-  static const jumpVideoPlugin =
-      const MethodChannel('com.lemon.jump.video/plugin');
+  static const jumpVideoPlugin = const MethodChannel('com.lemon.jump.video/plugin');
 
   Future<Null> _jumpToNativeVideo(ResObject dateList) async {
     Map<String, String> map = {};
@@ -46,54 +38,26 @@ class _TobTabState extends State<TobTab> {
   @override
   void initState() {
     super.initState();
-//    getYY();
-    getTop();
+    getTopDate();
     _scrollController.addListener(_scrollListener);
-//    getData();
   }
 
-  getTop() async{
+  getTopDate() async{
     DataResult dataResult = await Api.topListData();
-    print("************* dataResult **** ${dataResult.result}");
-    HomeNewsBean bean = dataResult.data;
-    print("***************  bean....${bean.resObject}");
-    print("***************  bean to json....${bean.toJson()}");//将bean转化成一个map
-
-    HomeNewsBean bean2 = HomeNewsBean.fromJson(bean.toJson()) ; //从一个map里面构造一个实例bean
-    print("************** bean2 resMsg  *****${bean2.resMsg}");
-    String json = jsonEncode(bean2);
-    await SpUtils.save("toptop", json);
-    String toptop =  await SpUtils.get("toptop") as String;
-    print("*********    toptop ********   $toptop");
-//    String profile = jsonEncode(toptop);
-//    print("************** profile ****  $profile");
-    Map mm = jsonDecode(toptop);
-    print("************** mm ****  $mm");
-
-    resList.clear();
-    resList = bean.resObject;
-    setState(() {});
-  }
-
-  getYY() async {
-    ResultData resultData = await HttpRequest.get("selectVideoHome", null);
-    if (resultData != null && resultData.result) {
-      HomeNewsBean bean = HomeNewsBean.fromJson(resultData.data);
-//      SpUtils.save("top", bean.toJson().toString());   //这样子保存数据，后面获取数据的时候会报错
-      SpUtils.save("top", json.encode(resultData.data));
-      print(bean.toJson().toString());
+    if(dataResult.result){
+      HomeNewsBean bean = dataResult.data;
+      String json = jsonEncode(bean);
+      await SpUtils.save(SPKey.TOP, json);
       resList.clear();
       resList = bean.resObject;
-    } else {
-      String topStr = await SpUtils.get("top") as String;
-      print("************************* topStr == $topStr");
-      if (topStr != null && topStr.isNotEmpty) {
-        var profile = jsonDecode(topStr);
-        HomeNewsBean bean = HomeNewsBean.fromJson(profile);
-        print("************************* profile == $profile");
+    }else{
+      String top =  await SpUtils.get(SPKey.TOP);
+      if(top != null && top.isNotEmpty){
+        Map map = jsonDecode(top);
+        HomeNewsBean bean = HomeNewsBean.fromJson(map);
         resList.clear();
         resList = bean.resObject;
-      } else {
+      }else{
         loadFail = true;
       }
     }
@@ -135,9 +99,7 @@ class _TobTabState extends State<TobTab> {
                           placeholder: (context, url) => new Image.asset(
                               "image/news_big_default.png",
                               width: MediaQuery.of(context).size.width - 30,
-                              height: (MediaQuery.of(context).size.width - 30) *
-                                  9 /
-                                  16),
+                              height: (MediaQuery.of(context).size.width - 30)*9/16),
                           errorWidget: (context, url, error) =>
                               new Image.asset("image/news_big_default.png"),
                         ),
@@ -211,32 +173,14 @@ class _TobTabState extends State<TobTab> {
           child: new RaisedButton(
             onPressed: () {
               loadFail = false;
-              getYY();
+              getTopDate();
               setState(() {});
             },
             child: new Text("点击重新加载"),
           ),
         );
       } else {
-        content = new Stack(
-          children: <Widget>[
-            new Padding(
-              padding: new EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 35.0),
-              child: new Center(
-                child: SpinKitFadingCircle(
-                  color: Colors.blueAccent,
-                  size: 30.0,
-                ),
-              ),
-            ),
-            new Padding(
-              padding: new EdgeInsets.fromLTRB(0.0, 35.0, 0.0, 0.0),
-              child: new Center(
-                child: new Text('正在加载中，莫着急哦~'),
-              ),
-            ),
-          ],
-        );
+        content = loading;
       }
     } else {
       content = new ListView.builder(
@@ -276,25 +220,7 @@ class _TobTabState extends State<TobTab> {
   }
 
   Future refresh() async {
-    getData();
-  }
-
-  Future getData() async {
-    try {
-      Response response = await Dio()
-          .get("https://api.cdeclips.com/hknews-api/selectVideoHome");
-      print(response);
-      print(response.data);
-      if (response.data != null) {
-        Map map = response.data;
-        HomeNewsBean bean = new HomeNewsBean.fromJson(map);
-        resList.clear();
-        resList = bean.resObject;
-        setState(() {});
-      }
-    } catch (e) {
-      print(e);
-    }
+    getTopDate();
   }
 
   @override

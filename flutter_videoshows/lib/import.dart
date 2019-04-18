@@ -1,7 +1,7 @@
 export 'package:flutter_videoshows/http/HttpController.dart';
 export 'package:flutter_videoshows/http/Constant.dart';
 export 'package:flutter_videoshows/pages/category.dart';
-export 'package:flutter_videoshows/publicList.dart';
+export 'package:flutter_videoshows/categoryList.dart';
 export 'package:flutter/material.dart';
 export 'package:flutter_videoshows/pages/Search.dart';
 //export 'package:dio/dio.dart';
@@ -16,3 +16,11 @@ export 'package:flutter_videoshows/pages/login.dart';
 export 'package:sharesdk/sharesdk.dart';
 export 'package:flutter_facebook_login/flutter_facebook_login.dart';
 export 'package:flutter_twitter_login/flutter_twitter_login.dart';
+export 'package:flutter_spinkit/flutter_spinkit.dart';
+export 'package:flutter_videoshows/view/pubView.dart';
+export 'package:flutter_videoshows/http/dataResult.dart';
+export 'package:flutter_videoshows/http/api.dart';
+export 'package:flutter_videoshows/model/categorybean.dart';
+export 'package:flutter_videoshows/http/spUtils.dart';
+export 'dart:convert';
+

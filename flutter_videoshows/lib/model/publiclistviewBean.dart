@@ -1,11 +1,11 @@
-class PubliclistviewBean {
+class PublicListViewBean {
   String resCode;
   String resMsg;
   ResObject resObject;
 
-  PubliclistviewBean({this.resCode, this.resMsg, this.resObject});
+  PublicListViewBean({this.resCode, this.resMsg, this.resObject});
 
-  PubliclistviewBean.fromJson(Map<String, dynamic> json) {
+  PublicListViewBean.fromJson(Map<String, dynamic> json) {
     resCode = json['resCode'];
     resMsg = json['resMsg'];
     resObject = json['resObject'] != null

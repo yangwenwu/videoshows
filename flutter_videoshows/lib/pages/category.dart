@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'dart:core';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_videoshows/import.dart';
@@ -12,35 +12,18 @@ class Category extends StatefulWidget {
 }
 
 class _CategoryState extends State<Category> {
+  bool loadFail = false;
   String dataStr = "";
-  var _items = [];
+  var resList = [];
   ScrollController _scrollController = ScrollController();
 
   @override
-  Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        centerTitle: true,
-        title: new Text("SHOWS"),
-        actions: <Widget>[
-          new IconButton(
-              icon: ImageIcon(AssetImage("image/search.png")),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  new MaterialPageRoute(builder: (context) => new Search()),
-                );
-//                Navigator.pushReplacementNamed(context,"/search");
-//                Navigator.pushNamedAndRemoveUntil(context,"/search",(_)=>false);
-//              Navigator.pushAndRemoveUntil(context, new MaterialPageRoute(builder: (context) => new Search()), (_)=>false);
-
-              })
-        ],
-        backgroundColor: Colors.black,
-      ),
-      body: new RefreshIndicator(child: contentWidget(), onRefresh: _pullRefresh),
-    );
+  void initState() {
+    _scrollController.addListener(_handleScroll);
+    getCategoryData();
+    super.initState();
   }
+
 
   var centerView = new Column(
     mainAxisAlignment: MainAxisAlignment.center,
@@ -53,74 +36,109 @@ class _CategoryState extends State<Category> {
     height: 20,
   );
 
-//创建 内容页的GridView
-  Widget contentWidget() {
-    return new GridView.count(
+  @override
+  Widget build(BuildContext context) {
+
+    var _gridView = new GridView.count(
       physics: AlwaysScrollableScrollPhysics(),
       controller: _scrollController,
       crossAxisCount: 2,
       childAspectRatio: 1.27,
-      children: buildWidget(_items.length),
+      children: buildWidget(),
     );
+
+    var content;
+
+    if (resList.isEmpty) {
+//      content = new Center(child: new CircularProgressIndicator());
+      if (loadFail) {
+        //加载失败
+        content = new Center(
+          child: new RaisedButton(
+            onPressed: () {
+              loadFail = false;
+              getCategoryData();
+              setState(() {});
+            },
+            child: new Text("点击重新加载"),
+          ),
+        );
+      } else {
+        content = loading;
+      }
+    } else {
+      content = _gridView;
+    }
+
+    var _refreshIndicator = new RefreshIndicator(
+      child: content,
+      onRefresh: _pullRefresh,
+    );
+
+    return new Scaffold(
+        appBar: new AppBar(
+          centerTitle: true,
+          title: new Text("SHOWS"),
+          actions: <Widget>[
+            new IconButton(
+                icon: ImageIcon(AssetImage("image/search.png")),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    new MaterialPageRoute(builder: (context) => new Search()),
+                  );
+//                Navigator.pushReplacementNamed(context,"/search");
+//                Navigator.pushNamedAndRemoveUntil(context,"/search",(_)=>false);
+//              Navigator.pushAndRemoveUntil(context, new MaterialPageRoute(builder: (context) => new Search()), (_)=>false);
+                })
+          ],
+          backgroundColor: Colors.black,
+        ),
+        body: _refreshIndicator
+        );
   }
 
   Future _pullRefresh() async {
-    requestData(true);
+    getCategoryData();
   }
 
-  Future requestData(bool isRefresh) async {
-    HttpController.get(
-        Constant.http_category,
-        (data) {
-          if (data != null) {
-            final body = jsonDecode(data.toString());
-            final feeds = body["resObject"];
-            var items = [];
-            feeds.forEach((item) {
-              items.add(Model(
-                  item["id"],
-                  item["code"],
-                  item["name"],
-                  item["imageUrl"],
-                  item["des"],
-                  item["parentCode"],
-                  item["focusUrl"],
-                  item["jsonUrl"]));
-            });
-
-            if (isRefresh) {
-              _items.clear();
-              _items = items;
-            } else {
-              _items.addAll(items);
-            }
-
-            setState(() {});
-          }
-        },
-        params: null,
-        errorCallback: () {
-          try {} catch (exception) {
-            print("请求失败$exception");
-          }
-        });
+  getCategoryData() async {
+    DataResult dataResult = await Api.categoryListData();
+    if (dataResult.result) {
+      CategoryBean bean = dataResult.data;
+      String json = jsonEncode(bean);
+      await SpUtils.save(SPKey.CATEGORY, json);
+      resList.clear();
+      resList = bean.resObject;
+    } else {
+      String top = await SpUtils.get(SPKey.CATEGORY);
+      if (top != null && top.isNotEmpty) {
+        Map map = jsonDecode(top);
+        CategoryBean bean = CategoryBean.fromJson(map);
+        resList.clear();
+        resList = bean.resObject;
+      } else {
+        loadFail = true;
+      }
+    }
+    setState(() {});
   }
 
-  List<Widget> buildWidget(int number) {
+  List<Widget> buildWidget() {
     List<Widget> widgetList = new List();
-    for (int i = 0; i < number; i++) {
+    for (int i = 0; i < resList.length; i++) {
       widgetList.add(getItemWidget(context, i));
     }
     return widgetList;
   }
 
   Widget getItemWidget(BuildContext context, int index) {
-    Model model = _items[index];
+    CateResObject model = resList[index];
     //BoxFit 可设置展示图片时 的填充方式
     return new GestureDetector(
       onTap: () {
         Navigator.of(context).push(new MaterialPageRoute(builder: (_) {
-          return new PublicList(
+          return new CategoryListPage(
             modelbean: model,
           );
         })).then((value) {});
@@ -128,20 +146,16 @@ class _CategoryState extends State<Category> {
       child: Stack(
         alignment: Alignment.center,
         children: <Widget>[
-//          Image.network(
-//            model.imageUrl,
-//            fit: BoxFit.cover,
-//          ),
           CachedNetworkImage(
-            imageUrl:model.imageUrl,
+            imageUrl: model.imageUrl,
             placeholder: (context, url) => new Image.asset(
-                "image/news_big_default.png",
+                  "image/news_big_default.png",
 //                width: MediaQuery.of(context).size.width - 30,
 //                height: (MediaQuery.of(context).size.width - 30) *9 /16
-            fit: BoxFit.cover,
-            ),
+                  fit: BoxFit.cover,
+                ),
             errorWidget: (context, url, error) =>
-            new Image.asset("image/news_big_default.png"),
+                new Image.asset("image/news_big_default.png"),
           ),
           Text(
             model.name,
@@ -150,73 +164,6 @@ class _CategoryState extends State<Category> {
         ],
       ),
     );
-  }
-
-  void getData() {
-    HttpController.get(Constant.http_category, (data) {
-      if (data != null) {
-//        final body = JSON.decode(data.toString());
-        final body = jsonDecode(data.toString());
-        final feeds = body["resObject"];
-        var items = [];
-        feeds.forEach((item) {
-          items.add(Model(
-              item["id"],
-              item["code"],
-              item["name"],
-              item["imageUrl"],
-              item["des"],
-              item["parentCode"],
-              item["focusUrl"],
-              item["jsonUrl"]));
-        });
-        setState(() {
-          dataStr = data.toString();
-          _items = items;
-        });
-      }
-    }, params: null);
-  }
-
-  void showCustomDialog(BuildContext context) {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return new AlertDialog(
-            title: new Text("点击提示"),
-            content: new SingleChildScrollView(
-                child: new ListBody(children: <Widget>[new Text("你点击了Item")])),
-            actions: <Widget>[
-              new FlatButton(
-                child: new Text("取消"),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-              new FlatButton(
-                child: new Text("确认"),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          );
-        });
-  }
-
-  @override
-  void initState() {
-    _scrollController.addListener(_handleScroll);
-//  _scrollController..addListener((){
-//
-//  });
-//    requestData(true);
-    super.initState();
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
   }
 
   @override
@@ -229,29 +176,6 @@ class _CategoryState extends State<Category> {
     if (_scrollController.position.pixels ==
         _scrollController.position.maxScrollExtent) {
       // 滑动到最底部了
-//      requestData(false);
     }
   }
-}
-
-//id	"0838b4ec-d16c-4449-9e72-45f1cb0992da"
-//code	"seeing_sight"
-//name	"Seeing Sights"
-//focusUrl	""
-//jsonUrl	"/subjects/seeing_sight/list_Vindex/2890/index.json"
-//parentCode	"video"
-//imageUrl	"https://api.cdeclips.com/ui/videoshow/seeing_sight.jpg"
-
-class Model {
-  String id;
-  String code;
-  String name;
-  String focusUrl;
-  String jsonUrl;
-  String imageUrl;
-  String parentCode;
-  String des;
-
-  Model(this.id, this.code, this.name, this.imageUrl, this.parentCode,
-      this.focusUrl, this.jsonUrl, this.des);
 }

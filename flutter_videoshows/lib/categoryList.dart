@@ -4,20 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_videoshows/import.dart';
 import 'package:flutter_videoshows/model/publiclistviewBean.dart';
-import 'package:flutter_videoshows/pages/category.dart';
 
-class PublicList extends StatefulWidget {
-  Model modelbean;
+class CategoryListPage extends StatefulWidget {
+  CateResObject modelbean;
 
-  PublicList({Key key, this.modelbean}) : super(key: key);
+  CategoryListPage({Key key, this.modelbean}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    return _publicListState();
+    return _CategoryListPageState();
   }
 }
 
-class _publicListState extends State<PublicList> {
+class _CategoryListPageState extends State<CategoryListPage> {
   //获取到插件与原生的交互通道
   static const jumpVideoPlugin =
       const MethodChannel('com.lemon.jump.video/plugin');
@@ -33,12 +32,11 @@ class _publicListState extends State<PublicList> {
     map.putIfAbsent("description", () => dateList.description);
     String result = await jumpVideoPlugin.invokeMethod('VideoDetail', map);
 //    String result = await jumpVideoPlugin.invokeMethod('VideoDetail',dateList);
-
     print(result);
   }
 
   var code;
-
+  bool loadFail = false;
   var page = 1;
   var totalPage;
 
@@ -49,19 +47,20 @@ class _publicListState extends State<PublicList> {
   void initState() {
     code = widget.modelbean.code;
     _scrollController.addListener(_scrollListener);
-    getData();
+//    getData();
+    getCategoryListData();
     super.initState();
   }
 
   _scrollListener() async {
-    if (_scrollController.position.pixels ==
-        _scrollController.position.maxScrollExtent) {
+    if (_scrollController.position.pixels ==_scrollController.position.maxScrollExtent) {
 //      if (resList.length > 0) {
 //        resList.clear();
 //      }
 //      page++;
       if (totalPage >= page) {
-        getData();
+//        getData();
+        getCategoryListData();
       }
       setState(() {});
     }
@@ -69,7 +68,40 @@ class _publicListState extends State<PublicList> {
 
   Future refresh() async {
     page = 1;
-    getData();
+//    getData();
+    getCategoryListData();
+  }
+
+  getCategoryListData() async {
+    DataResult dataResult = await Api.categoryItemListData(code, page);
+    if (dataResult.result) {
+      PublicListViewBean bean = dataResult.data;
+      String json = jsonEncode(bean);
+      if(page == 1){
+        await SpUtils.save(SPKey.TOP + code, json);
+        resList.clear();
+        totalPage = bean.resObject.totalPage;
+        resList = bean.resObject.dateList;
+      }else {
+        if (bean.resObject.dateList.length != 0) {
+          resList.addAll(bean.resObject.dateList);
+        }
+      }
+      page++;
+
+    } else {
+      String top = await SpUtils.get(SPKey.TOP + code);
+      if (top != null && top.isNotEmpty) {
+        Map map = jsonDecode(top);
+        PublicListViewBean bean = PublicListViewBean.fromJson(map);
+        resList.clear();
+        resList = bean.resObject.dateList;
+        totalPage = bean.resObject.totalPage;
+      } else {
+        loadFail = true;
+      }
+    }
+    setState(() {});
   }
 
 //  https://api.cdeclips.com/hknews-api/selectNewsList?subjectCode=movie_corner&currentPage=1&dataType=3
@@ -81,7 +113,7 @@ class _publicListState extends State<PublicList> {
       print(response.data);
       if (response.data != null) {
         Map map = response.data;
-        PubliclistviewBean bean = new PubliclistviewBean.fromJson(map);
+        PublicListViewBean bean = new PublicListViewBean.fromJson(map);
         if (page == 1) {
           resList.clear();
           resList = bean.resObject.dateList;
@@ -107,6 +139,7 @@ class _publicListState extends State<PublicList> {
 
   @override
   Widget build(BuildContext context) {
+
     _itemBuilder(BuildContext context, int index) {
       return new GestureDetector(
           onTap: () {
@@ -120,43 +153,37 @@ class _publicListState extends State<PublicList> {
             elevation: 4.0,
             child: Column(
               children: <Widget>[
-
-                    new Container(
-
-                      child:  new Stack(
-                        alignment: Alignment.center,
-                        children: <Widget>[
-                          new ClipRRect(
-                            child: new CachedNetworkImage(
-                              imageUrl:
+                new Container(
+                  child: new Stack(
+                    alignment: Alignment.center,
+                    children: <Widget>[
+                      new ClipRRect(
+                        child: new CachedNetworkImage(
+                          imageUrl:
                               "https://www.chinadailyhk.com/${resList[index].bigTitleImage}",
-                              placeholder: (context, url) => new Image.asset(
-                                  "image/news_big_default.png",
-                                  width: MediaQuery.of(context).size.width - 30,
-                                  height: (MediaQuery.of(context).size.width - 30) *
-                                      9 /
-                                      16),
-                              errorWidget: (context, url, error) =>
+                          placeholder: (context, url) => new Image.asset(
+                              "image/news_big_default.png",
+                              width: MediaQuery.of(context).size.width - 30,
+                              height: (MediaQuery.of(context).size.width - 30) *
+                                  9 /
+                                  16),
+                          errorWidget: (context, url, error) =>
                               new Image.asset("image/news_big_default.png"),
-                            ),
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(7.0),
-                                topRight: Radius.circular(7.0)),
-                          ),
-
-                          new Center(
-                            child: Image.asset("image/videoplay_icon.png",width: 67,height: 67,),
-                          )
-
-                        ],
+                        ),
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(7.0),
+                            topRight: Radius.circular(7.0)),
                       ),
-
-                    ),
-//                    new Center(
-//                      heightFactor: 2.0,
-//                      child:Image.asset("image/videoplay_icon.png",width: 50,height: 50,) ,
-//                    )
-
+                      new Center(
+                        child: Image.asset(
+                          "image/videoplay_icon.png",
+                          width: 67,
+                          height: 67,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
 
                 new Align(
                   alignment: Alignment.centerLeft,
@@ -173,6 +200,39 @@ class _publicListState extends State<PublicList> {
           ));
     }
 
+    var content ;
+    if (resList.isEmpty) {
+//      content = new Center(child: new CircularProgressIndicator());
+      if (loadFail) {
+        //加载失败
+        content = new Center(
+          child: new RaisedButton(
+            onPressed: () {
+              loadFail = false;
+              getCategoryListData();
+              setState(() {});
+            },
+            child: new Text("点击重新加载"),
+          ),
+        );
+      } else {
+        content = loading;
+      }
+    } else {
+      content = new ListView.builder(
+        //设置physics属性总是可滚动
+        physics: AlwaysScrollableScrollPhysics(),
+        controller: _scrollController,
+        itemCount: resList.length,
+        itemBuilder: _itemBuilder,
+      );
+    }
+
+
+    var _refreshIndicator = new RefreshIndicator(
+        child: content,
+        onRefresh: refresh);
+
     return new Scaffold(
       appBar: new AppBar(
           backgroundColor: Colors.black,
@@ -187,15 +247,7 @@ class _publicListState extends State<PublicList> {
               onPressed: () {
                 Navigator.pop(context);
               })),
-      body: new RefreshIndicator(
-          child: new ListView.builder(
-            physics: AlwaysScrollableScrollPhysics(),
-            itemBuilder: _itemBuilder,
-            itemCount: resList.length,
-            controller: _scrollController,
-          ),
-          onRefresh: refresh),
+      body: _refreshIndicator,
     );
   }
-
 }
