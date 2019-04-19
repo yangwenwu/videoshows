@@ -9,6 +9,8 @@ import 'package:flutter_videoshows/model/homenewsbean.dart';
 import 'package:flutter_videoshows/import.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
+import 'videoDetail.dart';
+
 class TobTab extends StatefulWidget {
   @override
   _TobTabState createState() => _TobTabState();
@@ -79,7 +81,10 @@ class _TobTabState extends State<TobTab> {
     _itemBuilder(BuildContext context, int index) {
       return new GestureDetector(
           onTap: () {
-            _jumpToNativeVideo(resList[index]);
+//            _jumpToNativeVideo(resList[index]);
+            Navigator.push(context, new MaterialPageRoute(builder: (_){
+              return new VideoDetail(resObject: resList[index],);
+            }));
           },
           child: Card(
             margin: const EdgeInsets.only(
@@ -166,7 +171,6 @@ class _TobTabState extends State<TobTab> {
     var content;
 
     if (resList.isEmpty) {
-//      content = new Center(child: new CircularProgressIndicator());
       if (loadFail) {
         //加载失败
         content = new Center(
