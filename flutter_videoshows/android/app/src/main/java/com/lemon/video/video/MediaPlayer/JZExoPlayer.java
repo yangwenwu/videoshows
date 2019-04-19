@@ -72,7 +72,7 @@ public class JZExoPlayer extends JZMediaInterface implements Player.EventListene
                 .setTargetBufferBytes(100 * 1024 * 1024)
                 .createDefaultLoadControl();
         RenderersFactory renderersFactory = new DefaultRenderersFactory(context);
-        simpleExoPlayer = ExoPlayerFactory.newSimpleInstance(renderersFactory, trackSelector, loadControl);
+        simpleExoPlayer = ExoPlayerFactory.newSimpleInstance(context,renderersFactory, trackSelector, loadControl);
         DataSource.Factory dataSourceFactory = new CacheDataSourceFactory(cache, new OkHttpDataSourceFactory(OkGo.getInstance().getOkHttpClient(), "USER_AGENT", null, new CacheControl.Builder().minFresh(7, TimeUnit.DAYS).build()));
         String currUrl = currentDataSource.toString();
         MediaSource videoSource = new ExtractorMediaSource.Factory(dataSourceFactory).createMediaSource(Uri.parse(currUrl));

@@ -32,7 +32,8 @@ dependencies:
   image_cropper: ^0.0.9
   connectivity: ^0.3.2
   event_bus:  ^1.0.1
-  flutter_spinkit: "^2.1.0"
+  flutter_spinkit: ^2.1.0
+  chewie: ^0.9.7
 
 
 
