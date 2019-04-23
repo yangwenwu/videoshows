@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_videoshows/import.dart';
 import 'package:flutter_videoshows/model/publiclistviewBean.dart';
 
+import 'pages/videoDetail.dart';
+
 class CategoryListPage extends StatefulWidget {
   CateResObject modelbean;
 
@@ -107,6 +109,9 @@ class _CategoryListPageState extends State<CategoryListPage> {
       return new GestureDetector(
           onTap: () {
             _jumpToNativeVideo(resList[index]);
+//            Navigator.push(context, new MaterialPageRoute(builder: (_){
+//              return new VideoDetail(resObject: resList[index],);
+//            }));
           },
           child: Card(
             margin: const EdgeInsets.only(

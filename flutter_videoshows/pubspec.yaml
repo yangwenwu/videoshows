@@ -81,6 +81,12 @@ flutter:
      - image/share_facebook.png
      - image/share_twitter.png
      - image/share_wechat.png
+     - image/detail_bookmark.png
+     - image/detail_bookmark_selected.png
+     - image/detail_comments.png
+     - image/detail_heart.png
+     - image/detail_heart_selected.png
+     - image/detail_share.png
 
 
   # To add assets to your application, add an assets section, like this:

@@ -4,7 +4,7 @@
 class HomeNewsBean {
   String resCode;
   String resMsg;
-  List<ResObject> resObject;
+  List<Res> resObject;
 
   HomeNewsBean({this.resCode, this.resMsg, this.resObject});
 
@@ -12,9 +12,9 @@ class HomeNewsBean {
     resCode = json['resCode'];
     resMsg = json['resMsg'];
     if (json['resObject'] != null) {
-      resObject = new List<ResObject>();
+      resObject = new List<Res>();
       json['resObject'].forEach((v) {
-        resObject.add(new ResObject.fromJson(v));
+        resObject.add(new Res.fromJson(v));
       });
     }
   }
@@ -30,7 +30,7 @@ class HomeNewsBean {
   }
 }
 
-class ResObject {
+class Res {
   int pageSize;
   int totalPage;
   int pagecode;
@@ -57,7 +57,7 @@ class ResObject {
   String filterStr;
   int firstIndex;
 
-  ResObject(
+  Res(
       {
         this.pageSize,
         this.totalPage,
@@ -85,7 +85,7 @@ class ResObject {
         this.filterStr,
         this.firstIndex});
 
-  ResObject.fromJson(Map<String, dynamic> json) {
+  Res.fromJson(Map<String, dynamic> json) {
     pageSize = json['pageSize'];
     totalPage = json['totalPage'];
     pagecode = json['pagecode'];

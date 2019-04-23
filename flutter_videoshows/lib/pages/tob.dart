@@ -20,7 +20,7 @@ class _TobTabState extends State<TobTab> {
   bool loadFail = false;
   static const jumpVideoPlugin = const MethodChannel('com.lemon.jump.video/plugin');
 
-  Future<Null> _jumpToNativeVideo(ResObject dateList) async {
+  Future<Null> _jumpToNativeVideo(Res dateList) async {
     Map<String, String> map = {};
     map.putIfAbsent("title", () => dateList.title);
     map.putIfAbsent("bigTitleImage", () => dateList.bigTitleImage);
@@ -34,7 +34,7 @@ class _TobTabState extends State<TobTab> {
     print(result);
   }
 
-  List<ResObject> resList = [];
+  List<Res> resList = [];
   ScrollController _scrollController = new ScrollController();
 
   @override

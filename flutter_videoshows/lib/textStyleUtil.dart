@@ -103,3 +103,59 @@ const textStyle14 = const TextStyle(
     fontFamily: "Lato",
     fontStyle: FontStyle.normal,
     fontSize: 11.5);
+
+///视频详情 标题
+const textStyle15 = const TextStyle(
+    color: const Color(0xff161616),
+    fontWeight: FontWeight.w300,
+    fontFamily: "Lato",
+    fontStyle: FontStyle.normal,
+    fontSize: 29.8);
+
+///视频详情，描述des
+const textStyle16 = const TextStyle(
+    color: const Color(0xff777777),
+    fontWeight: FontWeight.w400,
+    fontFamily: "Lato",
+    fontStyle: FontStyle.normal,
+    fontSize: 17.3);
+
+///视频详情 subjectName
+const textStyle17 = const TextStyle(
+    color: const Color(0xff161616),
+    fontWeight: FontWeight.w700,
+    fontFamily: "Lato",
+    fontStyle: FontStyle.normal,
+    fontSize: 9.6);
+
+///视频详情，时间
+const textStyle18 = const TextStyle(
+    color: const Color(0xff777777),
+    fontWeight: FontWeight.w400,
+    fontFamily: "Lato",
+    fontStyle: FontStyle.normal,
+    fontSize: 9.6);
+
+///视频详情，recommendTitle
+const textStyle19 = const TextStyle(
+    color: const Color(0xffb2b2b2),
+    fontWeight: FontWeight.w400,
+    fontFamily: "Lato",
+    fontStyle: FontStyle.normal,
+    fontSize: 10.6);
+
+///视频详情，底部tab文字
+const textStyle20 = TextStyle(
+    color: const Color(0xff777777),
+    fontWeight: FontWeight.w400,
+    fontFamily: "Lato",
+    fontStyle: FontStyle.normal,
+    fontSize: 10.6);
+
+///视频详情里面推荐列表，视频title
+const textStyle21 = const TextStyle(
+    color: Colors.white,
+    fontWeight: FontWeight.w700,
+    fontFamily: "Lato",
+    fontStyle: FontStyle.normal,
+    fontSize: 17.3);

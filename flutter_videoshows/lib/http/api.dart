@@ -45,4 +45,17 @@ class Api {
     }
   }
 
+
+  ///视频详情推荐列表 https://api.cdeclips.com/hknews-api/selectNewsList?subjectCode=movie_corner&currentPage=1&dataType=3
+  static Future<DataResult> recommendListData(var code) async{
+    ResultData resultData = await  HttpRequest.get("selectNewsList?subjectCode=$code&currentPage=1&dataType=3", null);
+    if(resultData != null && resultData.result){
+      print(resultData.data);
+      PublicListViewBean newsBean = PublicListViewBean.fromJson(resultData.data);
+      return new DataResult(newsBean, true);
+    }else{
+      return new DataResult(null, false);
+    }
+  }
+
 }

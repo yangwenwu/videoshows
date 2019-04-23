@@ -18,7 +18,7 @@
     <application
         android:name="com.lemon.video.application.BaseApp"
         android:allowBackup="true"
-        android:label="flutter_videoshows"
+        android:label="fl_VideoShows"
         tools:replace="android:name"
         android:icon="@mipmap/ic_launcher">
         <!-- android:theme="@style/VideoTheme"-->
