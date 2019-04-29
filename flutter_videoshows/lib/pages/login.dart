@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_videoshows/http/resultData.dart';
 import 'package:flutter_videoshows/import.dart';
 import 'package:flutter_videoshows/loginInfo.dart';
 import 'package:flutter_videoshows/model/facebookLogin.dart';
@@ -222,6 +223,8 @@ class LoginState extends State<Login> with SingleTickerProviderStateMixin {
               style: textStyle5,
             ),
             onPressed: () {
+//              _goLogin("124976507@qq.com", "gspepjbd");
+              login("124976507@qq.com", "gspepjbd");
 //                  goLogin();
 //              Navigator.push(
 //                  context, new MaterialPageRoute(builder: (_) => new Login()));
@@ -507,6 +510,33 @@ class LoginState extends State<Login> with SingleTickerProviderStateMixin {
       Navigator.pop(context,json.encode(response.data));
     }
   }
+
+  Future _goLogin(var account,var password) async{
+    FormData formData = new FormData.from({
+      "account": account,
+      "password": password,
+    });
+    Response response = await Dio().post(
+        '${Constant.STATICURL}login',data: formData);
+    print(response.data);
+    if(response.data != null){
+      Map map = response.data;
+      var userBean = new UserBean.fromJson(map);
+      print("map[resObject]*****************");
+      print(map["resObject"]);
+      print("map[resObject].toString()*****************");
+      print(map["resObject"].toString());
+//      saveUser(response.data);
+//      Navigator.pop(context,json.encode(response.data));
+    }
+  }
+
+  login(String account,String psw ) async {
+    ResultData resultData = await Api.login(account, psw);
+    print(resultData);
+  }
+
+
 
 
   void  saveUser(var userStr) async {

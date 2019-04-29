@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_videoshows/import.dart';
 import 'package:flutter_videoshows/model/userBean.dart';
 import 'package:flutter_videoshows/pages/ttest.dart';
+import 'package:flutter_videoshows/utils/FileUtils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image_cropper/image_cropper.dart';
@@ -58,17 +59,20 @@ class _MeState extends State<Me> {
     );
     setState(() {
       _image = croppedFile;
+
+      uploadImage(user.resObject.id, "${DateTime.now().millisecond}.png", _image);
     });
   }
 
   ///上传图片
-  Future uploadImage(String id,String imageName,String imgStr ) async{
+  Future uploadImage(String id,String imageName,File imgStr ) async{
 //    response = await dio.post("/test", data: {"id": 12, "name": "wendu"});
     Response response = await Dio().post(
-        '${Constant.STATICURL}modifyHeadImg',data: {"userId": id, "imageName": imageName,"imgStr": imgStr})
+        '${Constant.STATICURL}modifyHeadImg',data: {"userId": id, "imageName": imageName,"imgStr": await FileUtils.compressWithFileToBase64(imgStr)})
         .catchError((error){
-
+          print(error);
     });
+    print(response);
   }
 
   @override

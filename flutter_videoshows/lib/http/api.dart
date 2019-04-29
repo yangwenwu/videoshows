@@ -1,7 +1,12 @@
+import 'dart:async';
+import 'dart:io';
+
+import 'package:dio/dio.dart';
 import 'package:flutter_videoshows/http/resultData.dart';
 import 'package:flutter_videoshows/model/categorybean.dart';
 import 'package:flutter_videoshows/model/homenewsbean.dart';
 import 'package:flutter_videoshows/model/publiclistviewBean.dart';
+import 'package:flutter_videoshows/utils/FileUtils.dart';
 
 import 'dataResult.dart';
 import 'httpRequest.dart';
@@ -57,5 +62,29 @@ class Api {
       return new DataResult(null, false);
     }
   }
+
+  ///更新图像
+  static Future<ResultData> updateImage(var userId, File imgStr,var imageName) async{
+    ResultData resultData = await  HttpRequest.post("modifyHeadImg", {"userId": userId, "imgStr": await FileUtils.compressWithFileToBase64(imgStr),"imageName":imageName});
+//    if(resultData != null && resultData.result){
+//      print(resultData.data);
+//      PublicListViewBean newsBean = PublicListViewBean.fromJson(resultData.data);
+//      return new DataResult(newsBean, true);
+//    }else{
+//      return new DataResult(null, false);
+//    }
+        return resultData;
+  }
+  
+  static Future login(String account, String psw )async{
+    FormData formData = new FormData.from({
+      "account": account,
+      "password": psw,
+    });
+//    ResultData resultData = await HttpRequest.post("login", {"account": account,"password":psw});
+    ResultData resultData = await HttpRequest.post("login", formData);
+    return resultData;
+  }
+
 
 }
