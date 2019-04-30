@@ -42,6 +42,12 @@ videoshows 搜索框home键和应用切换，软键盘的弹出问题
 
 4.设计模式封装
 
+5.shareSDK已经更新，对接微信登录
+{country: 中国, unionid: osBvAuEonNKhg7P7kSuZszfbFRSk, province: 广东, city: 深圳, openid: oan5q0YlH1-FQbs_Qs2PFYQ6kCjo,
+sex: 1, nickname: 杨文武, headimgurl: http://thirdwx.qlogo.cn/mmopen/vi_32/iaaBSkYTCibNvh2NKmuTO4T4ZdL3rjB6rH1ib4p2vVyl94iabxEUDdra2GtXoJ7x2Z8hS0v7dZmKnpzVbcic6m0NgvA/132,
+userTags: , language: zh_CN, privilege: []}
+
+
 
 
 

@@ -140,11 +140,13 @@ class LoginState extends State<Login> with SingleTickerProviderStateMixin {
 
   void getWechatInfo(BuildContext context) {
     ShareSDK.getUserInfo(
-        ShareSDKPlatforms.wechatTimeline.id, (SSDKResponseState state,
+        ShareSDKPlatforms.wechatSession, (SSDKResponseState state,
         Map user, SSDKError error) {
           print("*******************$user");
-//      showAlert(state, user != null ? user : error.rawData, context);
+      showAlert(state, user != null ? user : error.rawData, context);
     });
+
+
   }
 
 
@@ -465,6 +467,8 @@ class LoginState extends State<Login> with SingleTickerProviderStateMixin {
     switch (state) {
       case SSDKResponseState.Success:
         title = "成功";
+        print("wechat ******* unionid = ${content["unionid"]} **nickname = ${content["nickname"]} *** headimgurl = ${content["headimgurl"]}");
+          wechatLogin(content["unionid"], content["nickname"], content["headimgurl"]);
         break;
       case SSDKResponseState.Fail:
         title = "失败";
@@ -477,21 +481,38 @@ class LoginState extends State<Login> with SingleTickerProviderStateMixin {
         break;
     }
 
-    showDialog(
-        context: context,
-        builder: (BuildContext context) =>
-            CupertinoAlertDialog(
-                title: new Text(title),
-                content: new Text(content != null ? content.toString() : ""),
-                actions: <Widget>[
-                  new FlatButton(
-                    child: new Text("OK"),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                  )
-                ]
-            ));
+//    showDialog(
+//        context: context,
+//        builder: (BuildContext context) =>
+//            CupertinoAlertDialog(
+//                title: new Text(title),
+//                content: new Text(content != null ? content.toString() : ""),
+//                actions: <Widget>[
+//                  new FlatButton(
+//                    child: new Text("OK"),
+//                    onPressed: () {
+//                      Navigator.of(context).pop();
+//                    },
+//                  )
+//                ]
+//            ));
+  }
+
+  Future wechatLogin(var id ,var name,var headImage) async {
+    Response response = await Dio().get(
+        '${Constant.STATICURL}otherLogin?otherAccount=$id&nickname=$name&headImage=headImage');
+    print(response.data);
+    if(response.data != null){
+      Map map = response.data;
+      var userBean = new UserBean.fromJson(map);
+
+      print("map[resObject]*****************");
+      print(map["resObject"]);
+      print("map[resObject].toString()*****************");
+      print(map["resObject"].toString());
+      saveUser(response.data);
+      Navigator.pop(context,json.encode(response.data));
+    }
   }
 
   Future _thirdLogin(var id,var name) async{
