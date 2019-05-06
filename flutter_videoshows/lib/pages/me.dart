@@ -21,6 +21,7 @@ class _MeState extends State<Me> {
   bool _isLogin = false;
   UserBean user;
   File _image;
+
   //获取到插件与原生的交互通道
   static const jumpPlugin = const MethodChannel('com.lemon.jump/plugin');
 
@@ -47,7 +48,7 @@ class _MeState extends State<Me> {
     var imageBig = await ImagePicker.pickImage(source: ImageSource.gallery);
 
     _cropImage(imageBig);
-}
+  }
 
   Future<Null> _cropImage(File imageFile) async {
     File croppedFile = await ImageCropper.cropImage(
@@ -60,19 +61,33 @@ class _MeState extends State<Me> {
     setState(() {
       _image = croppedFile;
 
-      uploadImage(user.resObject.id, "${DateTime.now().millisecond}.png", _image);
+      uploadImage(
+          user.resObject.id, "${DateTime.now().millisecond}.png", _image);
     });
   }
 
   ///上传图片
-  Future uploadImage(String id,String imageName,File imgStr ) async{
+  Future uploadImage(String id, String imageName, File imgStr) async {
 //    response = await dio.post("/test", data: {"id": 12, "name": "wendu"});
-    Response response = await Dio().post(
-        '${Constant.STATICURL}modifyHeadImg',data: {"userId": id, "imageName": imageName,"imgStr": await FileUtils.compressWithFileToBase64(imgStr)})
-        .catchError((error){
-          print(error);
+
+    FormData formData = new FormData.from({
+      "userId": id,
+      "imageName": imageName,
+      "imgStr": await FileUtils.compressWithFileToBase64(imgStr)
     });
+    Response response = await Dio()
+        .post('${Constant.STATICURL}modifyHeadImg', data: formData)
+        .catchError((error) {
+      print(error);
+    });
+    print("上传图片");
     print(response);
+    //需要更新一下用户信息
+    Map map = response.data;
+    print(response.data);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString("user", json.encode(response.data));
+    prefs.setBool("isLogin", true);
   }
 
   @override
@@ -97,16 +112,26 @@ class _MeState extends State<Me> {
       return new Container(
         height: 75,
         width: 75,
-        child: _image == null ?  new ClipRRect(
-          child: new CachedNetworkImage(
-            imageUrl: user.resObject.headImage,
-            placeholder: (context, url) =>
-            new Image.asset("image/avatar.png", width: 75, height: 75),
-            errorWidget: (context, url, error) =>
-            new Image.asset("image/avatar.png"),
-          ),
+        child: _image == null
+            ? new ClipRRect(
+                child: new CachedNetworkImage(
+                  imageUrl: user.resObject.headImage.startsWith("http")
+                      ? user.resObject.headImage
+                      : Constant.STATICURL_IMAGE + user.resObject.headImage,
+                  placeholder: (context, url) => new Image.asset(
+                      "image/avatar.png",
+                      width: 75,
+                      height: 75),
+                  errorWidget: (context, url, error) =>
+                      new Image.asset("image/avatar.png"),
+                ),
+                borderRadius: BorderRadius.all(Radius.circular(90)),
+              )
+            : new ClipRRect(
+          child: Image.file(_image,height: 75,width: 75,),
           borderRadius: BorderRadius.all(Radius.circular(90)),
-        ) :new Image.file(_image),
+        )
+        ,
       );
     } else {
       return new Image.asset(
@@ -131,8 +156,8 @@ class _MeState extends State<Me> {
         onPressed: () {
 //                  goLogin();
           Navigator.push(
-              context, new MaterialPageRoute(builder: (_) => new Login())
-          ).then((value){
+                  context, new MaterialPageRoute(builder: (_) => new Login()))
+              .then((value) {
             print(value);
             var profile = jsonDecode(value);
             print(profile);
@@ -165,10 +190,7 @@ class _MeState extends State<Me> {
             SizedBox(
               height: 25,
             ),
-            new GestureDetector(
-                onTap: getImage,
-                child: avatar()
-                ),
+            new GestureDetector(onTap: getImage, child: avatar()),
             new Container(
               padding: EdgeInsets.only(top: 10.0),
               child: nickName(),
@@ -230,8 +252,8 @@ class _MeState extends State<Me> {
         new InkWell(
           onTap: () {
             goBookmark();
-            Navigator.push(
-                context, new MaterialPageRoute(builder: (_) => new FutureBuilderPage()));
+            Navigator.push(context,
+                new MaterialPageRoute(builder: (_) => new FutureBuilderPage()));
           },
           child: itemWidget("image/bookmarks.png", "BookeMark"),
         ),
@@ -256,8 +278,8 @@ class _MeState extends State<Me> {
         new InkWell(
           onTap: () {
             Navigator.push(context,
-                new MaterialPageRoute(builder: (context) => new Settings())
-            ).then((value){
+                    new MaterialPageRoute(builder: (context) => new Settings()))
+                .then((value) {
               print("********** out ***** $value ");
               _isLogin = false;
               setState(() {
@@ -335,8 +357,6 @@ class _MeState extends State<Me> {
       ],
     );
   }
-
-
 }
 
 void goLogin() {

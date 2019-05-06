@@ -283,10 +283,8 @@ class LoginState extends State<Login> with SingleTickerProviderStateMixin {
             new InkWell(
               onTap: () {
                 print("wechat");
-
 //                authToWechat(context);
                 getWechatInfo(context);
-
               },
               child: new Image.asset(
                 "image/share_wechat.png", width: 50, height: 50,),
@@ -297,7 +295,6 @@ class LoginState extends State<Login> with SingleTickerProviderStateMixin {
       ],
     );
 
-    // TODO: implement build
     return Scaffold(
         body: new Column(
           children: <Widget>[
