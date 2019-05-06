@@ -159,3 +159,11 @@ const textStyle21 = const TextStyle(
     fontFamily: "Lato",
     fontStyle: FontStyle.normal,
     fontSize: 17.3);
+
+///个人中心，登录后的昵称
+const textStyle22 = const TextStyle(
+    color: Colors.white,
+    fontWeight: FontWeight.w300,
+    fontFamily: "Lato",
+    fontStyle: FontStyle.normal,
+    fontSize: 29.8);

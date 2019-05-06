@@ -81,7 +81,6 @@ class Api {
       "account": account,
       "password": psw,
     });
-//    ResultData resultData = await HttpRequest.post("login", {"account": account,"password":psw});
     ResultData resultData = await HttpRequest.post("login", formData);
     return resultData;
   }

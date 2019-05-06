@@ -36,7 +36,7 @@ class _SettingsState extends State<Settings> {
               height: 25,
             ),
             onPressed: () {
-              Navigator.pop(context,"out");
+              Navigator.pop(context,logout);
             }),
       ),
       backgroundColor: Color(0xfff5f5f5),
@@ -70,7 +70,7 @@ class _SettingsState extends State<Settings> {
       ),
     ),
         onWillPop: (){
-          Navigator.pop(context,"out");
+          Navigator.pop(context,logout);
         });
   }
 
@@ -119,15 +119,17 @@ class _SettingsState extends State<Settings> {
 
         });
       },
-      child: new Container(
+    child: Offstage(
+      offstage: logout ,
+            child: new Container(
         color: Color(0xffffffff),
         height: 45,
         alignment: Alignment.center,
-        child: Text(
-          logout ? "" :"Log Out",
+        child: Text("Log Out",
           style: textStyle1,
         ),
       ),
+    ),
     );
   }
 

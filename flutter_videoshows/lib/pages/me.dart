@@ -46,7 +46,6 @@ class _MeState extends State<Me> {
   Future getImage() async {
 //    var image = await ImagePicker.pickImage(source: ImageSource.camera);
     var imageBig = await ImagePicker.pickImage(source: ImageSource.gallery);
-
     _cropImage(imageBig);
   }
 
@@ -60,7 +59,6 @@ class _MeState extends State<Me> {
     );
     setState(() {
       _image = croppedFile;
-
       uploadImage(
           user.resObject.id, "${DateTime.now().millisecond}.png", _image);
     });
@@ -145,7 +143,7 @@ class _MeState extends State<Me> {
 
   Widget nickName() {
     if (_isLogin) {
-      return new Text(user.resObject.nickName);
+      return new Text(user.resObject.nickName,style: textStyle22,);
     } else {
       return new OutlineButton(
         borderSide: new BorderSide(color: Colors.white),
@@ -194,36 +192,6 @@ class _MeState extends State<Me> {
             new Container(
               padding: EdgeInsets.only(top: 10.0),
               child: nickName(),
-
-//              new OutlineButton(
-//                borderSide: new BorderSide(color: Colors.white),
-//                child: new Text(
-//                  'SIGN UP / SIGN IN',
-//                  style: new TextStyle(color: Colors.white),
-//                ),
-//                onPressed: () {
-////                  goLogin();
-//                  Navigator.push(
-//                      context, new MaterialPageRoute(builder: (_) => new Login()));
-//                },
-//              ),
-
-//              child: new Row(
-//                children: <Widget>[
-//                  new Expanded(
-//                      child: new OutlineButton(
-//                    borderSide: new BorderSide(color: Colors.white),
-//                    child: new Text(
-//                      'SIGN UP / SIGN IN',
-//                      style: new TextStyle(color: Colors.white),
-//                    ),
-//                    onPressed: () {
-//                      goLogin();
-//                    },
-//                  )
-//                  ),
-//                ],
-//              ),
             ),
           ],
         ),
@@ -278,14 +246,17 @@ class _MeState extends State<Me> {
         new InkWell(
           onTap: () {
             Navigator.push(context,
-                    new MaterialPageRoute(builder: (context) => new Settings()))
+                    new MaterialPageRoute(builder: (context) => new Settings())
+            )
                 .then((value) {
-              print("********** out ***** $value ");
-              _isLogin = false;
-              setState(() {
-                print("********** 打印第二次 out ***** $value ");
-              });
-            });
+                  if(value){
+                    _isLogin = false;
+                    setState(() {});
+                  }
+              print("********** logout is ***** $value ");
+            }
+            )
+            ;
           },
           child: itemWidget("image/settings.png", "Setting"),
         )
