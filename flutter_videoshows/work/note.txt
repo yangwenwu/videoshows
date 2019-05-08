@@ -55,6 +55,15 @@ userTags: , language: zh_CN, privilege: []}
 
 
 
+20190508
+1.手表三星市场发布账号申请
+2.VDO GoogleCast 集成处理
+3.手表申请
+
+
+
+
+
 
 
 
