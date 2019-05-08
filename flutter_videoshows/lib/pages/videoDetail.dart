@@ -118,7 +118,7 @@ class _VideoDetail extends State<VideoDetail> {
     var recommendList2 = ListView.builder(
         itemCount: 10,
         physics: AlwaysScrollableScrollPhysics(),
-        scrollDirection: Axis.horizontal,
+//        scrollDirection: Axis.horizontal,
         itemBuilder: (BuildContext context, int i) {
           return Text("dajdjflasjfldjfl");
         });
@@ -195,8 +195,10 @@ class _VideoDetail extends State<VideoDetail> {
       return listW;
     }
 
-    return new Material(
-        child: new Column(
+    return
+      new Material(
+        child:
+        new Column(
       children: <Widget>[
         playerWidget,
         Expanded(
@@ -276,7 +278,43 @@ class _VideoDetail extends State<VideoDetail> {
                   BottomComponent(
                     imageStr: "image/detail_comments.png",
                     btnName: 'comments',
-                    onTap: () {},
+                    onTap: () {
+                      showModalBottomSheet(context: context, builder: (BuildContext context){
+                       return
+
+                         new Container(
+                           height: 500,
+//                       child:new Column(
+//                         children: <Widget>[
+//                           Text("jack jack jack"),
+//                           Text("back back back"),
+//                         ],
+//                       )
+                           child: new CustomScrollView(
+                             physics: ScrollPhysics(),
+                             shrinkWrap: true,
+                             slivers: <Widget>[
+                               SliverPadding(padding: const EdgeInsets.all(10.0)),
+                               new SliverPadding(
+                                 padding: EdgeInsets.all(1.0),
+                                 sliver: SliverToBoxAdapter(
+                                   child: Container(
+                                     alignment: AlignmentDirectional.centerStart,
+                                     height: 150.0,
+                                     color: Color(0xfff5f5f5),
+                                     padding: const EdgeInsets.all(10.0),
+                                     child: recommendList2,
+                                   ),
+                                 ),
+                               ),
+                             ],
+                           ),
+
+                        );
+
+                     });
+
+                    },
                   ),
                   BottomComponent(
                     imageStr: "image/detail_bookmark.png",
@@ -294,13 +332,15 @@ class _VideoDetail extends State<VideoDetail> {
           ],
         )
       ],
-    ));
+    )
+      );
   }
 
   @override
   void dispose() {
-    videoPlayerController.dispose();
     chewieController.dispose();
+    videoPlayerController.dispose();
+
     super.dispose();
   }
 }
